@@ -5,8 +5,8 @@ Starter Next.js app for React Storefront 7+
 # Development
 
 ```
-yarn
-yarn dev
+npm i
+npm run dev
 ```
 
 # Production
@@ -14,5 +14,5 @@ yarn dev
 You can get a better sense of the speed of React Storefront by running a production build:
 
 ```
-yarn build && yarn prod
+npm run build && npm run prod
 ```
