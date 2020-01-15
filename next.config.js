@@ -1,4 +1,3 @@
-const path = require('path')
 const webpack = require('webpack')
 const API_VERSION = new Date().getTime()
 const CopyPlugin = require('copy-webpack-plugin')
@@ -8,16 +7,18 @@ const withServiceWorker = require('react-storefront/webpack/withServiceWorker')
 const copyBootstrap = require('react-storefront/service-worker/copyBootstrap')
 const ClearRequireCachePlugin = require('webpack-clear-require-cache-plugin')
 
-module.exports = (phase, { defaultConfig }) => {
+module.exports = phase => {
   const bootstrapOptions = {
     prefetchRampUpTime: -5000,
     allowPrefetchThrottling: false,
     serveSSRFromCache: false,
   }
+
   // if debugging service workers, options can be change in Dev phase:
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     bootstrapOptions.allowPrefetchThrottling = true
   }
+
   const { bootstrapPath, makeCopyOptions } = copyBootstrap(bootstrapOptions)
 
   return withServiceWorker(
@@ -27,8 +28,6 @@ module.exports = (phase, { defaultConfig }) => {
         config.resolve.symlinks = false
         config.resolve.alias = {
           ...config.resolve.alias,
-          'moov-xdn-next': path.resolve('./lib/moov-xdn-next/src'),
-          'moov-xdn': path.resolve('./lib/moov-xdn/src'),
           // preact
           react: 'preact/compat',
           react$: 'preact/compat',
@@ -44,6 +43,7 @@ module.exports = (phase, { defaultConfig }) => {
         )
 
         config.plugins.push(new CopyPlugin([makeCopyOptions(config.output.path)]))
+
         if (process.env.NODE_ENV === 'development') {
           // required to recompile server build when linked dependency changes
           config.plugins.push(

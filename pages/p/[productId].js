@@ -13,8 +13,6 @@ import Row from 'react-storefront/Row'
 import { Hbox } from 'react-storefront/Box'
 import Label from 'react-storefront/Label'
 import Rating from 'react-storefront/Rating'
-import withCaching from 'moov-xdn-next/withCaching'
-import createCustomCacheKey from 'moov-xdn/createCustomCacheKey'
 import get from 'lodash/get'
 import HiddenInput from 'react-storefront-amp/HiddenInput'
 import fetch from 'isomorphic-unfetch'
@@ -274,13 +272,5 @@ const Product = React.memo(lazyProps => {
 
 Product.getInitialProps = fetchProps(({ query }) => `/api/p/${query.productId}`)
 
-export default withCaching(Product, {
-  edge: {
-    maxAgeSeconds: 1000,
-    key: createCustomCacheKey()
-      .addCookie('currency')
-      .excludeAllQueryParametersExcept('q', 'color', 'style'),
-  },
-})
-
+export default Product
 export const config = { amp: 'hybrid' }

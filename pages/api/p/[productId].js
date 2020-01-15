@@ -1,6 +1,4 @@
 import createProduct from '../../../components/mocks/createProduct'
-import createCustomCacheKey from 'moov-xdn/createCustomCacheKey'
-import withCaching from 'moov-xdn-next/withCaching'
 import fulfillAPIRequest from 'react-storefront/props/fulfillAPIRequest'
 import createAppData from '../../../components/mocks/createAppData'
 
@@ -11,7 +9,7 @@ async function getPageData(productId) {
   })
 }
 
-async function fetchProduct(req, res) {
+export default async function fetchProduct(req, res) {
   const {
     query: { productId, color },
   } = req
@@ -31,10 +29,3 @@ async function fetchProduct(req, res) {
     }),
   )
 }
-
-export default withCaching(fetchProduct, {
-  edge: {
-    maxAgeSeconds: 1000,
-    key: createCustomCacheKey().addCookie('currency'),
-  },
-})
