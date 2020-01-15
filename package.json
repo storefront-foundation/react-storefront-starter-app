@@ -9,7 +9,8 @@
     "start": "next start",
     "prod": "NODE_ENV=production node server.js",
     "storybook": "start-storybook -c ./lib/react-storefront/.storybook",
-    "xdn:deploy": "node ~/Code/le-deployer/cli/index.js deploy moovweb-dev"
+    "xdn:deploy": "node ~/Code/le-deployer/cli/index.js deploy moovweb-dev",
+    "rsf:link": "yalc add react-storefront"
   },
   "dependencies": {
     "@material-ui/core": "latest",
@@ -30,7 +31,9 @@
     "preact-render-to-string": "^5.1.2",
     "preact-ssr-prepass": "^1.0.0",
     "qs": "^6.9.0",
-    "react-storefront": "^7.0.0-alpha.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-storefront": "file:.yalc/react-storefront",
     "react-storefront-amp": "^1.0.0",
     "react-storefront-analytics": "^1.0.0",
     "react-visibility-sensor": "^5.1.1"
@@ -49,6 +52,7 @@
     "prettier": "^1.19.1",
     "rewire": "^4.0.1",
     "webpack-bundle-analyzer": "^3.6.0",
-    "webpack-clear-require-cache-plugin": "^0.0.3"
+    "webpack-clear-require-cache-plugin": "^0.0.3",
+    "yalc": "^1.0.0-pre.34"
   }
 }

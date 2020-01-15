@@ -1,7 +1,10 @@
-const moduleAlias = require('module-alias')
-moduleAlias.addAlias('react', 'preact/compat')
-moduleAlias.addAlias('react-dom', 'preact/compat')
-moduleAlias.addAlias('react-ssr-prepass', 'preact-ssr-prepass')
+if (process.env.preact !== 'false') {
+  const moduleAlias = require('module-alias')
+  moduleAlias.addAlias('react', 'preact/compat')
+  moduleAlias.addAlias('react-dom', 'preact/compat')
+  moduleAlias.addAlias('react-ssr-prepass', 'preact-ssr-prepass')
+}
+
 const port = parseInt(process.env.port, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const path = require('path')
