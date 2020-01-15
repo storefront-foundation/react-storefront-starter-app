@@ -1699,7 +1699,14 @@
     prop-types "^15.7.2"
     react-transition-group "^4.3.0"
 
-"@material-ui/icons@4.5.2", "@material-ui/icons@latest":
+"@material-ui/icons@4.5.1":
+  version "4.5.1"
+  resolved "https://registry.npmjs.org/@material-ui/icons/-/icons-4.5.1.tgz#6963bad139e938702ece85ca43067688018f04f8"
+  integrity sha512-YZ/BgJbXX4a0gOuKWb30mBaHaoXRqPanlePam83JQPZ/y4kl+3aW0Wv9tlR70hB5EGAkEJGW5m4ktJwMgxQAeA==
+  dependencies:
+    "@babel/runtime" "^7.4.4"
+
+"@material-ui/icons@latest":
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.5.1.tgz#6963bad139e938702ece85ca43067688018f04f8"
   integrity sha512-YZ/BgJbXX4a0gOuKWb30mBaHaoXRqPanlePam83JQPZ/y4kl+3aW0Wv9tlR70hB5EGAkEJGW5m4ktJwMgxQAeA==
@@ -8569,16 +8576,22 @@ react-required-if@1.0.1:
   resolved "https://registry.yarnpkg.com/react-required-if/-/react-required-if-1.0.1.tgz#f41d06bebb75346c206cd1de8dc0ef5b7c8f9abd"
   integrity sha1-9B0Gvrt1NGwgbNHejcDvW3yPmr0=
 
-"react-storefront-amp@file:.yalc/react-storefront-amp":
-  version "1.0.0-4e94a87f"
+react-storefront-amp@^1.0.0:
+  version "1.0.0"
+  resolved "https://npm-proxy.fury.io/moovweb/~/up/ver_1j6tZ8/react-storefront-amp-1.0.0.tgz#96812ae3667fcf5d22425f99ff3de6b670ab7b3b"
+  integrity sha1-loEq42Z/z10iQl+Z/z3mtnCrezs=
 
-"react-storefront-analytics@file:.yalc/react-storefront-analytics":
-  version "1.0.0-4fd435c4"
+react-storefront-analytics@^1.0.0:
+  version "1.0.0"
+  resolved "https://npm-proxy.fury.io/moovweb/~/up/ver_1U3Ap9/react-storefront-analytics-1.0.0.tgz#3ad3eacb0941d460475d47b7b42d316888c3d3e3"
+  integrity sha1-OtPqywlB1GBHXUe3tC0xaIjD0+M=
   dependencies:
     tti-polyfill "^0.2.2"
 
-"react-storefront@file:.yalc/react-storefront":
-  version "7.0.0-95c0f565"
+react-storefront@^7.0.0-alpha.0:
+  version "7.0.0-alpha.1"
+  resolved "https://registry.npmjs.org/react-storefront/-/react-storefront-7.0.0-alpha.1.tgz#ce8b8d1f9acb656809cd7d96b7a860991cb101ab"
+  integrity sha512-rrXQtr78fqy5BEaZ4n80do70gxdXn5BjherSL41McyVYVrKZvgSgCPHbpKQ376s6kLBmV+YVE9MGwdeXXPXQBQ==
   dependencies:
     "@material-ui/core" latest
     "@material-ui/icons" latest
