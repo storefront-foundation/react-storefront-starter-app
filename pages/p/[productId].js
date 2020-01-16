@@ -270,7 +270,10 @@ const Product = React.memo(lazyProps => {
   )
 })
 
-Product.getInitialProps = fetchProps(({ query }) => `/api/p/${query.productId}`)
+Product.getInitialProps = fetchProps(({ query }) => {
+  res.setHeader('Cache-Control', 'max-age=99999')
+  return `/api/p/${query.productId}`
+})
 
 export default Product
 export const config = { amp: 'hybrid' }

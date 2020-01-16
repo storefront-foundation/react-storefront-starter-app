@@ -9,7 +9,7 @@
     "start": "next start",
     "prod": "NODE_ENV=production node server.js",
     "storybook": "start-storybook -c ./lib/react-storefront/.storybook",
-    "xdn": "xdn",
+    "deploy": "npm run build && xdn deploy",
     "rsf:link": "yalc add react-storefront; yalc add react-storefront-analytics; yalc add react-storefront-amp",
     "prepush": "yalc remove --all"
   },
