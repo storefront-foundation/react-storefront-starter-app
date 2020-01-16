@@ -2,28 +2,13 @@ export default function createMenu() {
   const items = []
 
   for (let i = 1; i <= 5; i++) {
-    items.push(createGroup(i))
+    items.push(createCategoryItem(i))
   }
 
   return {
     items,
-    header: 'Root header',
-    footer: 'Root footer',
-  }
-}
-
-function createGroup(i) {
-  const items = []
-
-  for (let j = 1; j <= 5; j++) {
-    items.push(createCategoryItem(j))
-  }
-
-  return {
-    text: `Group ${i}`,
     header: 'header',
     footer: 'footer',
-    items,
   }
 }
 
