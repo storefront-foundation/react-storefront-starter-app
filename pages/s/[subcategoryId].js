@@ -147,8 +147,8 @@ const Subcategory = lazyProps => {
   )
 }
 
-Subcategory.getInitialProps = fetchProps(({ query: { subcategoryId = '1', ...search } }) => {
-  res.setHeader('Cache-Control', 'max-age=99999')
+Subcategory.getInitialProps = fetchProps(({ res, query: { subcategoryId = '1', ...search } }) => {
+  if (res) res.setHeader('Cache-Control', 'max-age=99999')
 
   return `/api/s/${subcategoryId}${qs.stringify(search, {
     addQueryPrefix: true,

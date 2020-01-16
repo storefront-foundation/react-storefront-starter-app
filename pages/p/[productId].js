@@ -270,8 +270,8 @@ const Product = React.memo(lazyProps => {
   )
 })
 
-Product.getInitialProps = fetchProps(({ query }) => {
-  res.setHeader('Cache-Control', 'max-age=99999')
+Product.getInitialProps = fetchProps(({ res, query }) => {
+  if (res) res.setHeader('Cache-Control', 'max-age=99999')
   return `/api/p/${query.productId}`
 })
 
