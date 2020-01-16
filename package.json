@@ -9,7 +9,7 @@
     "start": "next start",
     "prod": "NODE_ENV=production node server.js",
     "storybook": "start-storybook -c ./lib/react-storefront/.storybook",
-    "xdn:deploy": "node ~/Code/le-deployer/cli/index.js deploy moovweb-dev",
+    "xdn": "xdn",
     "rsf:link": "yalc add react-storefront; yalc add react-storefront-analytics; yalc add react-storefront-amp",
     "prepush": "yalc remove --all"
   },
@@ -53,6 +53,7 @@
     "prettier": "^1.19.1",
     "rewire": "^4.0.1",
     "webpack-bundle-analyzer": "^3.6.0",
-    "webpack-clear-require-cache-plugin": "^0.0.3"
+    "webpack-clear-require-cache-plugin": "^0.0.3",
+    "xdn": "0.0.3"
   }
 }
