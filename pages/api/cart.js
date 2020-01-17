@@ -1,5 +1,4 @@
 import createProduct from '../../components/mocks/createProduct'
-import withAmpFormParser from 'react-storefront/middlewares/withAmpFormParser'
 
 const cart = (req, res) => {
   if (req.method === 'POST') {
@@ -8,10 +7,6 @@ const cart = (req, res) => {
     console.log('color id: ', color || 'Not provided')
     console.log('size id: ', size || 'Not provided')
     console.log('quantity ', quantity)
-
-    if (req.query['__amp_source_origin']) {
-      res.setHeader('AMP-Redirect-To', `${req.query['__amp_source_origin']}/cart`)
-    }
 
     setTimeout(() => {
       res.end(JSON.stringify({ response: 'success', cartCount: 4 }))
@@ -33,4 +28,4 @@ export const config = {
   },
 }
 
-export default withAmpFormParser(cart)
+export default cart
