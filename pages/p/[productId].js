@@ -22,7 +22,6 @@ import Lazy from 'react-storefront/Lazy'
 import TabPanel from 'react-storefront/TabPanel'
 import QuantitySelector from 'react-storefront/QuantitySelector'
 import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector'
-import { TrackPageView } from 'react-storefront-analytics'
 
 const styles = theme => ({
   carousel: {
@@ -123,7 +122,6 @@ const Product = React.memo(lazyProps => {
 
   return (
     <>
-      {!loading && <TrackPageView />}
       <Breadcrumbs items={!loading && store.pageData.breadcrumbs} />
       <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
         <form onSubmit={handleSubmit} method="post" action-xhr="/api/cart">

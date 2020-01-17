@@ -19,7 +19,6 @@ import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector
 import FilterButton from 'react-storefront/plp/FilterButton'
 import SortButton from 'react-storefront/plp/SortButton'
 import Fill from 'react-storefront/Fill'
-import { TrackPageView } from 'react-storefront-analytics'
 
 const useStyles = makeStyles(theme => ({
   sideBar: {
@@ -44,7 +43,6 @@ const Subcategory = lazyProps => {
 
   return (
     <>
-      {!loading && <TrackPageView id={pageData.id} />}
       <Breadcrumbs items={!loading && pageData.breadcrumbs} />
       <SearchResultsProvider store={store} updateStore={updateStore}>
         <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>

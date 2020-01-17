@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import Rating from 'react-storefront/Rating'
 import ForwardThumbnail from 'react-storefront/ForwardThumbnail'
 import Image from 'react-storefront/Image'
-import { Track } from 'react-storefront-analytics'
 import clsx from 'clsx'
 import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector'
 
@@ -43,32 +42,30 @@ function ProductItem({ product, index, classes, className, colorSelector }) {
     <div id={`item-${index}`} className={clsx(className, classes.root)}>
       <Vbox alignItems="stretch">
         <ForwardThumbnail>
-          <Track event={{ onClick: 'productClicked' }} product={product}>
-            <Link
-              as={product.url}
-              href="/p/[productId]"
-              className={classes.link}
-              prefetch="visible"
-              pageData={{ product, color: store.color }}
-            >
-              <a>
-                <Image
-                  className={classes.thumbnail}
-                  src={
-                    (store.color && store.color.media.thumbnail.src) ||
-                    (store.thumbnail && store.thumbnail.src)
-                  }
-                  alt={
-                    (store.color && store.color.media.thumbnail.alt) ||
-                    (store.thumbnail && store.thumbnail.alt)
-                  }
-                  optimize={{ maxWidth: 200 }}
-                  lazy={index >= 4 && index < 20 ? 'ssr' : false}
-                  aspectRatio={1}
-                />
-              </a>
-            </Link>
-          </Track>
+          <Link
+            as={product.url}
+            href="/p/[productId]"
+            className={classes.link}
+            prefetch="visible"
+            pageData={{ product, color: store.color }}
+          >
+            <a>
+              <Image
+                className={classes.thumbnail}
+                src={
+                  (store.color && store.color.media.thumbnail.src) ||
+                  (store.thumbnail && store.thumbnail.src)
+                }
+                alt={
+                  (store.color && store.color.media.thumbnail.alt) ||
+                  (store.thumbnail && store.thumbnail.alt)
+                }
+                optimize={{ maxWidth: 200 }}
+                lazy={index >= 4 && index < 20 ? 'ssr' : false}
+                aspectRatio={1}
+              />
+            </a>
+          </Link>
         </ForwardThumbnail>
         <div className={classes.info}>
           <Typography variant="subtitle1" className={classes.name}>

@@ -7,7 +7,6 @@ import PWA from 'react-storefront/PWA'
 import NavBar from '../components/NavBar'
 import reportError from '../components/reportError'
 import useJssStyles from 'react-storefront/hooks/useJssStyles'
-import Analytics from '../components/Analytics'
 import SessionProvider from 'react-storefront/session/SessionProvider'
 import useAppStore from 'react-storefront/hooks/useAppStore'
 
@@ -28,14 +27,12 @@ export default function MyApp({ Component, pageProps }) {
     <PWA onError={reportError}>
       <SessionProvider url="/api/session">
         <MuiThemeProvider theme={theme}>
-          <Analytics>
-            <CssBaseline />
-            <Header menu={appData.menu} />
-            <NavBar />
-            <main className={classes.main}>
-              <Component {...pageProps} />
-            </main>
-          </Analytics>
+          <CssBaseline />
+          <Header menu={appData.menu} />
+          <NavBar />
+          <main className={classes.main}>
+            <Component {...pageProps} />
+          </main>
         </MuiThemeProvider>
       </SessionProvider>
     </PWA>
