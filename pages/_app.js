@@ -17,7 +17,7 @@ installAmpOverrides()
 
 const styles = theme => ({
   main: {
-    paddingTop: 16,
+    paddingTop: 3,
   },
 })
 

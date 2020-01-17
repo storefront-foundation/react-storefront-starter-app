@@ -7,8 +7,9 @@ import ShowMore from 'react-storefront-amp/plp/AmpShowMore'
 import Head from 'next/head'
 import BackToTop from 'react-storefront/BackToTop'
 import { Skeleton } from '@material-ui/lab'
-import { Hbox, Vbox } from 'react-storefront/Box'
+import { Hbox } from 'react-storefront/Box'
 import fetchProps from 'react-storefront/props/fetchProps'
+import Breadcrumbs from 'react-storefront/Breadcrumbs'
 import qs from 'qs'
 import LoadMask from 'react-storefront/LoadMask'
 import useSearchResultsStore from 'react-storefront/plp/useSearchResultsStore'
@@ -45,8 +46,9 @@ const Subcategory = lazyProps => {
   return (
     <DataBindingProvider store={store} updateStore={updateStore}>
       {!loading && <TrackPageView id={pageData.id} />}
+      <Breadcrumbs items={!loading && pageData.breadcrumbs} />
       <SearchResultsProvider store={store} updateStore={updateStore}>
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
           <Head>{loading ? null : <title>{pageData.title}</title>}</Head>
           <BackToTop />
           <Hbox align="flex-start">
