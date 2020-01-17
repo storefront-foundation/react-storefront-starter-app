@@ -34,6 +34,15 @@ export default async function getSubcategory(req, res) {
           sortOptions: createSortOptions(),
           facets: createFacets(),
           products: filterProducts(page, filters, more),
+          breadcrumbs: [
+            {
+              text: `Home`,
+              href: '/',
+            },
+            {
+              text: `Subcategory ${subcategoryId}`,
+            },
+          ],
         }),
     }),
   )

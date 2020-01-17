@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import Head from 'next/head'
 import useLazyStore from 'react-storefront/hooks/useLazyStore'
 import fetchProps from 'react-storefront/props/fetchProps'
+import Breadcrumbs from 'react-storefront/Breadcrumbs'
 import CmsSlot from 'react-storefront/CmsSlot'
 import MediaCarousel from 'react-storefront-amp/carousel/AmpMediaCarousel'
 import PWAContext from 'react-storefront/PWAContext'
@@ -146,7 +147,8 @@ const Product = React.memo(lazyProps => {
         />
       </Head>
       {!loading && <TrackPageView />}
-      <Container maxWidth="lg">
+      <Breadcrumbs items={!loading && store.pageData.breadcrumbs} />
+      <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
         <form onSubmit={handleSubmit} method="post" action-xhr="/api/cart">
           <Grid container spacing={4}>
             <HiddenInput name="id" bind="product.id" />

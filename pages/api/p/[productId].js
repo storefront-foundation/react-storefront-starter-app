@@ -6,6 +6,20 @@ async function getPageData(productId) {
   return Promise.resolve({
     title: `Product ${productId}`,
     product: createProduct(productId),
+    breadcrumbs: [
+      {
+        text: `Home`,
+        href: '/',
+      },
+      {
+        text: `Subcategory ${productId}`,
+        as: `/s/${productId}`,
+        href: '/s/[subcategoryId]',
+      },
+      {
+        text: `Product ${productId}`,
+      },
+    ],
   })
 }
 
