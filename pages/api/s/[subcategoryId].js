@@ -39,9 +39,6 @@ export default async function getSubcategory(req, res) {
               text: `Home`,
               href: '/',
             },
-            {
-              text: `Subcategory ${subcategoryId}`,
-            },
           ],
         }),
     }),

@@ -16,9 +16,6 @@ async function getPageData(productId) {
         as: `/s/${productId}`,
         href: '/s/[subcategoryId]',
       },
-      {
-        text: `Product ${productId}`,
-      },
     ],
   })
 }
