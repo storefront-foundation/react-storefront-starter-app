@@ -2,16 +2,25 @@
   "name": "react-storefront-starter-app",
   "version": "1.0.0",
   "private": true,
+  "description": "",
+  "homepage": "",
+  "author": "",
+  "license": "UNLICENSED",
   "scripts": {
-    "test": "jest",
+    "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development node server.js",
     "build": "next build",
-    "start": "next start",
     "prod": "NODE_ENV=production node server.js",
-    "storybook": "start-storybook -c ./lib/react-storefront/.storybook",
+    "test": "jest",
     "deploy": "npm run build && xdn deploy",
     "rsf:link": "yalc add react-storefront",
-    "prepush": "yalc remove --all"
+    "precommit": "lint-staged",
+    "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\""
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
   },
   "dependencies": {
     "@material-ui/core": "4.5.2",
@@ -53,5 +62,12 @@
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-clear-require-cache-plugin": "^0.0.3",
     "xdn": "0.0.4"
+  },
+  "lint-staged": {
+    "*.js": [
+      "yalc remove --all",
+      "npm run prettier",
+      "git add"
+    ]
   }
 }

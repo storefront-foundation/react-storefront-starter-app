@@ -116,7 +116,7 @@ export default function Cart(props) {
                   <Typography variant="subtitle2" className={classes.total}>
                     {price(
                       items.reduce((a, b) => a + b.quantity * parseFloat(b.price), 0),
-                      { currency: get(session, 'currency') },
+                      { currency: get(session, 'currency') }
                     )}
                   </Typography>
                 </Hbox>

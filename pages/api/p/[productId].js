@@ -37,6 +37,6 @@ export default async function fetchProduct(req, res) {
     await fulfillAPIRequest(req, {
       appData: createAppData,
       pageData: () => getPageData(productId),
-    }),
+    })
   )
 }

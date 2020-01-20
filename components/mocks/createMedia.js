@@ -17,7 +17,7 @@ export default function createMedia(id, color) {
     })),
     thumbnails: [color].map(key => ({
       src: `https://via.placeholder.com/400x400/${colors[key].background}?text=${encodeURIComponent(
-        `Product ${id}`,
+        `Product ${id}`
       )}`,
       alt: key,
     })),

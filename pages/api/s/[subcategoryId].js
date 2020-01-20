@@ -41,7 +41,7 @@ export default async function getSubcategory(req, res) {
             },
           ],
         }),
-    }),
+    })
   )
 }
 
@@ -61,8 +61,8 @@ function filterProducts(page, filters, more) {
 
         products.push(
           ...Array.from({ length: count }, (v, i) => colorGap(i)).map(i =>
-            createProduct('' + (i * Object.keys(colors).length + index)),
-          ),
+            createProduct('' + (i * Object.keys(colors).length + index))
+          )
         )
       }
     } else {
