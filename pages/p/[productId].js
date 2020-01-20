@@ -147,7 +147,7 @@ const Product = React.memo(lazyProps => {
                     <>
                       <Hbox style={{ marginBottom: 10 }}>
                         <Label>COLOR: </Label>
-                        <Typography>{color.text}</Typography>
+                        <Typography>{color && color.text}</Typography>
                       </Hbox>
                       <ProductOptionSelector
                         optionProps={{
