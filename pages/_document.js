@@ -2,7 +2,6 @@ import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import theme from '../components/theme'
-import renderAmp from 'react-storefront-amp/renderAmp'
 
 class MyDocument extends Document {
   render() {
@@ -33,8 +32,6 @@ class MyDocument extends Document {
 }
 
 MyDocument.getInitialProps = async ctx => {
-  const isAmp = ctx.req.url.includes('amp=1')
-
   // Resolution order
   //
   // On the server:
@@ -68,7 +65,7 @@ MyDocument.getInitialProps = async ctx => {
       enhanceApp: App => props => sheets.collect(<App {...props} />),
     })
 
-    return isAmp ? await renderAmp(document, sheets) : document
+    return document
   }
 
   const initialProps = await Document.getInitialProps(ctx)
@@ -79,15 +76,7 @@ MyDocument.getInitialProps = async ctx => {
     styles: (
       <>
         {initialProps.styles}
-        {isAmp ? (
-          <style
-            dangerouslySetInnerHTML={{
-              __html: initialProps.head.find(item => item.key === 'amp-custom').props['amp-custom'],
-            }}
-          />
-        ) : (
-          sheets.getStyleElement()
-        )}
+        {sheets.getStyleElement()}
       </>
     ),
   }
