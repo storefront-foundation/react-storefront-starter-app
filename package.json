@@ -68,7 +68,8 @@
   "lint-staged": {
     "*.js": [
       "yalc remove --all",
-      "npm run prettier"
+      "npm run prettier",
+      "git add ."
     ]
   }
 }
