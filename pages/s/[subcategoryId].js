@@ -130,7 +130,7 @@ const Subcategory = lazyProps => {
                             />
                             <Skeleton height={18} />
                             <Skeleton height={24} style={{ marginTop: '5px' }} />
-                          </div>,
+                          </div>
                         )
                       }
                       return tiles

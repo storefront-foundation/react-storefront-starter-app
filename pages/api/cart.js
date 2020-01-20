@@ -22,7 +22,7 @@ const cart = (req, res) => {
     res.end(
       JSON.stringify({
         pageData: { items: products.map((item, i) => ({ ...item, quantity: i + 1 })) },
-      }),
+      })
     )
   }
 }

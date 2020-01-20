@@ -13,7 +13,7 @@ export default function media(req, res) {
     res.end(
       JSON.stringify({
         media,
-      }),
+      })
     )
   }, 1000)
 }
