@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  AnalyticsProvider,
-  GoogleAnalytics,
-  GoogleTagManager,
-} from 'react-storefront-analytics'
+import { AnalyticsProvider, GoogleAnalytics, GoogleTagManager } from 'react-storefront-analytics'
 
 const Analytics = ({ children }) => (
   <AnalyticsProvider>
