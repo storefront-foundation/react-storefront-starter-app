@@ -10,7 +10,7 @@
     "prod": "NODE_ENV=production node server.js",
     "storybook": "start-storybook -c ./lib/react-storefront/.storybook",
     "deploy": "npm run build && xdn deploy",
-    "rsf:link": "yalc add react-storefront",
+    "rsf:link": "yalc add react-storefront; yalc add react-storefront-analytics; yalc add react-storefront-amp",
     "prepush": "yalc remove --all"
   },
   "dependencies": {
@@ -35,6 +35,8 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-storefront": "^7.0.0",
+    "react-storefront-amp": "^1.0.0",
+    "react-storefront-analytics": "^1.0.0",
     "react-visibility-sensor": "^5.1.1"
   },
   "devDependencies": {

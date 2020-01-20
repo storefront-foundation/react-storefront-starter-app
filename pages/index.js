@@ -48,3 +48,5 @@ Index.getInitialProps = fetchProps(({ res }) => {
   if (res) res.setHeader('Cache-Control', 'max-age=99999')
   return `/api`
 })
+
+export const config = { amp: 'hybrid' }

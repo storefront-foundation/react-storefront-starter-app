@@ -3,7 +3,7 @@ import { Typography, Grid, Container, Hidden } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import ResponsiveTiles from 'react-storefront/ResponsiveTiles'
 import ProductItem from '../../components/product/ProductItem'
-import ShowMore from 'react-storefront/plp/ShowMore'
+import ShowMore from 'react-storefront-amp/plp/AmpShowMore'
 import Head from 'next/head'
 import BackToTop from 'react-storefront/BackToTop'
 import { Skeleton } from '@material-ui/lab'
@@ -15,10 +15,12 @@ import LoadMask from 'react-storefront/LoadMask'
 import useSearchResultsStore from 'react-storefront/plp/useSearchResultsStore'
 import Filter from 'react-storefront/plp/Filter'
 import SearchResultsProvider from 'react-storefront/plp/SearchResultsProvider'
-import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector'
-import FilterButton from 'react-storefront/plp/FilterButton'
-import SortButton from 'react-storefront/plp/SortButton'
+import ProductOptionSelector from 'react-storefront-amp/option/AmpProductOptionSelector'
+import FilterButton from 'react-storefront-amp/plp/AmpFilterButton'
+import SortButton from 'react-storefront-amp/plp/AmpSortButton'
+import DataBindingProvider from 'react-storefront-amp/bind/DataBindingProvider'
 import Fill from 'react-storefront/Fill'
+import { TrackPageView } from 'react-storefront-analytics'
 
 const useStyles = makeStyles(theme => ({
   sideBar: {
@@ -42,7 +44,8 @@ const Subcategory = lazyProps => {
   let { pageData, loading } = store
 
   return (
-    <>
+    <DataBindingProvider store={store} updateStore={updateStore}>
+      {!loading && <TrackPageView id={pageData.id} />}
       <Breadcrumbs items={!loading && pageData.breadcrumbs} />
       <SearchResultsProvider store={store} updateStore={updateStore}>
         <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
@@ -142,7 +145,7 @@ const Subcategory = lazyProps => {
           </Hbox>
         </Container>
       </SearchResultsProvider>
-    </>
+    </DataBindingProvider>
   )
 }
 
@@ -154,4 +157,5 @@ Subcategory.getInitialProps = fetchProps(({ res, query: { subcategoryId = '1', .
   })}`
 })
 
+export const config = { amp: 'hybrid' }
 export default Subcategory

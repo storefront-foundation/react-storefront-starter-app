@@ -2,10 +2,10 @@ import React, { useState, memo } from 'react'
 import SearchHeader from 'react-storefront/search/SearchHeader'
 import SearchForm from 'react-storefront/search/SearchForm'
 
-import SearchField from 'react-storefront/search/SearchField'
-import SearchDrawer from 'react-storefront/search/SearchDrawer'
-import SearchButton from 'react-storefront/search/SearchButton'
-import SearchSuggestions from 'react-storefront/search/SearchSuggestions'
+import SearchField from 'react-storefront-amp/search/AmpSearchField'
+import SearchDrawer from 'react-storefront-amp/search/AmpSearchDrawer'
+import SearchButton from 'react-storefront-amp/search/AmpSearchButton'
+import SearchSuggestions from 'react-storefront-amp/search/AmpSearchSuggestions'
 
 function Search() {
   const [searchOpen, setSearchOpen] = useState(false)
