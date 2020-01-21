@@ -8,9 +8,9 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "npm run dev",
-    "build": "next build",
     "dev": "cross-env NODE_ENV=development node server.js",
     "prod": "cross-env NODE_ENV=production node server.js",
+    "build": "next build",
     "test": "jest",
     "deploy": "npm run build && xdn deploy",
     "rsf:link": "yalc add react-storefront; yalc add react-storefront-analytics; yalc add react-storefront-amp",
