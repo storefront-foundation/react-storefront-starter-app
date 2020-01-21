@@ -69,7 +69,7 @@
     "*.js": [
       "yalc remove --all",
       "npm run prettier",
-      "git add ."
+      "git add"
     ]
   }
 }
