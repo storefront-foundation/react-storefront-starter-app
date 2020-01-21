@@ -14,12 +14,11 @@
     "test": "jest",
     "deploy": "npm run build && xdn deploy",
     "rsf:link": "yalc add react-storefront; yalc add react-storefront-analytics; yalc add react-storefront-amp",
-    "precommit": "lint-staged",
     "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\""
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run precommit"
+      "pre-commit": "lint-staged"
     }
   },
   "dependencies": {
