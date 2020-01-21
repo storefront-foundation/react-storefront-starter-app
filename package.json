@@ -9,8 +9,8 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development node server.js",
+    "prod": "cross-env NODE_ENV=production node server.js",
     "build": "next build",
-    "prod": "NODE_ENV=production node server.js",
     "test": "jest",
     "deploy": "npm run build && xdn deploy",
     "rsf:link": "yalc add react-storefront",
@@ -67,7 +67,7 @@
     "*.js": [
       "yalc remove --all",
       "npm run prettier",
-      "git add ."
+      "git add"
     ]
   }
 }
