@@ -48,4 +48,4 @@ NavBar.defaultProps = {
   tabs: [],
 }
 
-export default memo(Navbar)
+export default memo(NavBar)
