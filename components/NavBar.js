@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import NavTab from 'react-storefront/nav/NavTab'
 import NavTabs from 'react-storefront/nav/NavTabs'
 import Link from 'react-storefront/link/Link'
@@ -20,34 +20,24 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function NavBar({ tabs }) {
+function NavBar({ tabs }) {
   const classes = useStyles()
 
   return (
     <Paper square elevation={2}>
       <Container maxWidth="lg" className={classes.container}>
         <NavTabs>
-          {React.useMemo(
-            () =>
-              tabs.map(tab => (
-                <NavTab
-                  key={tab.as}
-                  href={tab.href}
-                  as={tab.as}
-                  label={tab.text}
-                  prefetch="visible"
-                >
-                  <div style={{ padding: 20 }}>
-                    {tab.subcategories.map(subcategory => (
-                      <Link href={subcategory.href} as={subcategory.as} className={classes.link}>
-                        {subcategory.text}
-                      </Link>
-                    ))}
-                  </div>
-                </NavTab>
-              )),
-            [tabs]
-          )}
+          {tabs.map(tab => (
+            <NavTab key={tab.as} href={tab.href} as={tab.as} label={tab.text} prefetch="visible">
+              <div style={{ padding: 20 }}>
+                {tab.subcategories.map(subcategory => (
+                  <Link href={subcategory.href} as={subcategory.as} className={classes.link}>
+                    {subcategory.text}
+                  </Link>
+                ))}
+              </div>
+            </NavTab>
+          ))}
         </NavTabs>
       </Container>
     </Paper>
@@ -57,3 +47,5 @@ export default function NavBar({ tabs }) {
 NavBar.defaultProps = {
   tabs: [],
 }
+
+export default memo(Navbar)
