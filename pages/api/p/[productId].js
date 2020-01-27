@@ -30,6 +30,12 @@ export default async function fetchProduct(req, res) {
   if (color) {
     const data = await getPageData(productId)
     data.carousel = { index: 0 }
+    // A price for the fetched product variant would be included in
+    // the response, but for demo purposes only, we are setting the
+    // price based on the color name.
+    const mockPrice = color.split``.reduce((s, e) => s + e.charCodeAt(), 0) / 100
+    data.product.price = mockPrice
+    data.product.priceText = `$${mockPrice.toFixed(2)}`
     return res.json(data)
   }
 
