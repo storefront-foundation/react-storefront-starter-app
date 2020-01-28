@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import clsx from 'clsx'
 import useLazyStore from 'react-storefront/hooks/useLazyStore'
 import fetchProps from 'react-storefront/props/fetchProps'
@@ -71,7 +71,7 @@ const Product = React.memo(lazyProps => {
   const classes = useStyles()
   const product = get(store, 'pageData.product') || {}
   const color = get(store, 'pageData.color', {})
-  const size = get(store, 'pageData.size')
+  const size = get(store, 'pageData.size', {})
   const quantity = get(store, 'pageData.quantity')
   const { actions } = useContext(SessionContext)
   const { loading } = store
@@ -119,6 +119,22 @@ const Product = React.memo(lazyProps => {
       </Hbox>
     </Row>
   )
+
+  function fetchVariant() {
+    fetch(`/api/p/${product.id}?color=${color.id}&size=${size.id}`)
+      .then(res => res.json())
+      .then(data => {
+        updateStore({
+          ...store,
+          pageData: { ...store.pageData, ...data },
+        })
+      })
+  }
+
+  // Fetch variant data upon changing color or size options
+  useEffect(() => {
+    fetchVariant()
+  }, [color.id, size.id])
 
   return (
     <>
