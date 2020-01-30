@@ -28,7 +28,7 @@ export default function MyApp({ Component, pageProps }) {
       <SessionProvider url="/api/session">
         <MuiThemeProvider theme={theme}>
           <CssBaseline />
-          <Header menu={appData.menu} />
+          {appData && <Header menu={appData.menu} />}
           <NavBar />
           <main className={classes.main}>
             <Component {...pageProps} />

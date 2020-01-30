@@ -1,4 +1,6 @@
 import { useContext, useState } from 'react'
+import { request } from 'graphql-request'
+
 import clsx from 'clsx'
 import useLazyStore from 'react-storefront/hooks/useLazyStore'
 import fetchProps from 'react-storefront/props/fetchProps'
@@ -253,9 +255,68 @@ const Product = React.memo(lazyProps => {
   )
 })
 
-Product.getInitialProps = fetchProps(({ res, query }) => {
-  if (res) res.setHeader('Cache-Control', 'max-age=99999')
-  return `/api/p/${query.productId}`
-})
+// Product.getInitialProps = fetchProps(({ res, query }) => {
+//   if (res) res.setHeader('Cache-Control', 'max-age=99999')
+//   return `/api/p/${query.productId}`
+// })
+
+Product.getInitialProps = async ({ query }) => {
+  const q = `
+    {
+      product(id: 1) {
+        id
+        name
+        url
+        rating
+        reviews
+        price
+        priceText
+        description
+        specs
+        colors {
+          id
+          text
+          media {
+            ... MediaInfo
+          }
+        }
+        sizes {
+          id
+          text
+        }
+        media {
+          ... MediaInfo
+        }
+      }
+    }
+
+    fragment MediaLinkInfo on MediaLink {
+      src
+      alt
+      magnify {
+        height
+        width
+        src
+      }
+    }
+
+    fragment MediaInfo on Media {
+      full {
+        ... MediaLinkInfo
+      }
+      thumbnails {
+        ... MediaLinkInfo
+      }
+    }
+  `
+
+  const data = await request('http://localhost:4000/graphql', q)
+
+  return {
+    pageData: {
+      product: data.product,
+    },
+  }
+}
 
 export default Product
