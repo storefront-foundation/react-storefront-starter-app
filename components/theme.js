@@ -1,4 +1,4 @@
-import createTheme from 'react-storefront/utils/createTheme'
+import createTheme from 'react-storefront/theme/createTheme'
 import { red } from '@material-ui/core/colors'
 
 // Create a theme instance.
