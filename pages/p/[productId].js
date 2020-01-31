@@ -154,7 +154,7 @@ const Product = React.memo(lazyProps => {
                         options={product.colors}
                         value={color}
                         onChange={value =>
-                          updateStore({ ...store, pageData: { ...store.pageData, color: value } })
+                          updateState({ ...state, pageData: { ...state.pageData, color: value } })
                         }
                         optionProps={{
                           showLabel: false,
