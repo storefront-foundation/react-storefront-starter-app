@@ -32,8 +32,6 @@
     "clsx": "^1.0.4",
     "copy-webpack-plugin": "^5.1.1",
     "cross-env": "^5.2.0",
-    "graphql": "^14.6.0",
-    "graphql-request": "^1.8.2",
     "isomorphic-unfetch": "^3.0.0",
     "lorem-ipsum": "^2.0.3",
     "module-alias": "^2.2.1",
