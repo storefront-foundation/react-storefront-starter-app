@@ -183,7 +183,7 @@ const Product = React.memo(lazyProps => {
                         options={product.sizes}
                         value={size}
                         onChange={value =>
-                          updateStore({ ...store, pageData: { ...store.pageData, size: value } })
+                          updateState({ ...state, pageData: { ...state.pageData, size: value } })
                         }
                       />
                     </>
