@@ -140,13 +140,15 @@ const Product = React.memo(lazyProps => {
       updateStore={updateState}
       root="pageData"
     >
-      <Head>
-        <script
-          async
-          custom-element="amp-form"
-          src="https://cdn.ampproject.org/v0/amp-form-0.1.js"
-        />
-      </Head>
+      {useAmp() && (
+        <Head>
+          <script
+            async
+            custom-element="amp-form"
+            src="https://cdn.ampproject.org/v0/amp-form-0.1.js"
+          />
+        </Head>
+      )}
       {!loading && <TrackPageView />}
       <Breadcrumbs items={!loading && state.pageData.breadcrumbs} />
       <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
