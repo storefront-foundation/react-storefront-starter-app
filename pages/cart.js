@@ -3,14 +3,14 @@ import Typography from '@material-ui/core/Typography'
 import Row from 'react-storefront/Row'
 import clsx from 'clsx'
 import CartItem from '../components/cart/CartItem'
-import fetchProps from 'react-storefront/props/fetchProps'
+import { createLazyProps, fetchFromAPI } from 'react-storefront/props'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Hidden, Divider, Container, Button } from '@material-ui/core'
 import { price } from 'react-storefront/utils/format'
 import Spacer from 'react-storefront/Spacer'
 import Link from 'react-storefront/link/Link'
 import { Hbox } from 'react-storefront/Box'
-import useLazyStore from 'react-storefront/hooks/useLazyStore'
+import useLazyState from 'react-storefront/hooks/useLazyState'
 import SessionContext from 'react-storefront/session/SessionContext'
 import get from 'lodash/get'
 
@@ -47,16 +47,16 @@ const styles = theme => ({
 const useStyles = makeStyles(styles)
 
 export default function Cart(props) {
-  const [store, updateStore] = useLazyStore(props)
-  const { items } = store.pageData
+  const [state, updateState] = useLazyState(props)
+  const { items } = state.pageData
   const classes = useStyles()
   const { session } = useContext(SessionContext)
 
   const updateProduct = product => {
-    updateStore({
-      ...store,
+    updateState({
+      ...state,
       pageData: {
-        ...store.pageData,
+        ...state.pageData,
         items: items.map(item => {
           if (item.id === product.id) return product
 
@@ -68,16 +68,16 @@ export default function Cart(props) {
 
   const removeProduct = product => {
     const newItems = items.filter(item => item.id !== product.id)
-    updateStore({
-      ...store,
+    updateState({
+      ...state,
       pageData: {
-        ...store.pageData,
+        ...state.pageData,
         items: newItems,
       },
     })
   }
 
-  if (store.loading) return null
+  if (state.loading) return null
 
   return (
     <Container className={classes.root}>
@@ -145,6 +145,4 @@ export default function Cart(props) {
   )
 }
 
-Cart.getInitialProps = fetchProps(() => {
-  return `/api/cart`
-})
+Cart.getInitialProps = createLazyProps(fetchFromAPI)

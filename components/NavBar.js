@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import NavTab from 'react-storefront/nav/NavTab'
 import NavTabs from 'react-storefront/nav/NavTabs'
 import Link from 'react-storefront/link/Link'
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function NavBar({ tabs }) {
+function NavBar({ tabs }) {
   const classes = useStyles()
 
   return (
@@ -28,23 +28,19 @@ export default function NavBar({ tabs }) {
       <Container maxWidth="lg" className={classes.container}>
         <NavTabs>
           {tabs.map(tab => (
-            <NavTab key={tab.as} href={tab.href} as={tab.as} label={tab.text}>
-              {React.useMemo(
-                () => (
-                  <div style={{ padding: 20 }}>
-                    <Link href="/s/[subcategoryId]" as="/s/1" className={classes.link}>
-                      Subcategory 1
-                    </Link>
-                    <Link href="/s/[subcategoryId]" as="/s/2" className={classes.link}>
-                      Subcategory 2
-                    </Link>
-                    <Link href="/s/[subcategoryId]" as="/s/3" className={classes.link}>
-                      Subcategory 3
-                    </Link>
-                  </div>
-                ),
-                []
-              )}
+            <NavTab key={tab.as} href={tab.href} as={tab.as} label={tab.text} prefetch="visible">
+              <div style={{ padding: 20 }}>
+                {tab.subcategories.map(subcategory => (
+                  <Link
+                    href={subcategory.href}
+                    key={subcategory.as}
+                    as={subcategory.as}
+                    className={classes.link}
+                  >
+                    {subcategory.text}
+                  </Link>
+                ))}
+              </div>
             </NavTab>
           ))}
         </NavTabs>
@@ -53,12 +49,8 @@ export default function NavBar({ tabs }) {
   )
 }
 
-const tabs = []
-
-for (let i = 1; i <= 10; i++) {
-  tabs.push({ as: `/s/${i}`, href: '/s/[subcategoryId]', text: `Category ${i}` })
-}
-
 NavBar.defaultProps = {
-  tabs,
+  tabs: [],
 }
+
+export default memo(NavBar)
