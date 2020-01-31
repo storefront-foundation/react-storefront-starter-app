@@ -24,12 +24,12 @@ export default function MyApp({ Component, pageProps }) {
   const [appData] = useAppStore(pageProps || {})
 
   return (
-    <PWA onError={reportError}>
+    <PWA errorReporter={reportError}>
       <SessionProvider url="/api/session">
         <MuiThemeProvider theme={theme}>
           <CssBaseline />
-          {appData && <Header menu={appData.menu} />}
-          <NavBar />
+          <Header menu={appData && appData.menu} />
+          <NavBar tabs={appData && appData.tabs} />
           <main className={classes.main}>
             <Component {...pageProps} />
           </main>
