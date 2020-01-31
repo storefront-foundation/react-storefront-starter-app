@@ -3,7 +3,8 @@ import Typography from '@material-ui/core/Typography'
 import Row from 'react-storefront/Row'
 import clsx from 'clsx'
 import CartItem from '../components/cart/CartItem'
-import fetchProps from 'react-storefront/props/fetchProps'
+import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
+import createLazyProps from 'react-storefront/props/createLazyProps'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Hidden, Divider, Container, Button } from '@material-ui/core'
 import { price } from 'react-storefront/utils/format'
@@ -145,6 +146,6 @@ export default function Cart(props) {
   )
 }
 
-Cart.getInitialProps = fetchProps(() => {
-  return `/api/cart`
+Cart.getInitialProps = createLazyProps(options => {
+  return fetchFromAPI(options)
 })
