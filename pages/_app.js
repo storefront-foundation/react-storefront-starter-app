@@ -21,7 +21,7 @@ const useStyles = makeStyles(styles)
 export default function MyApp({ Component, pageProps }) {
   useJssStyles()
   const classes = useStyles()
-  const [appData] = useAppStore(pageProps)
+  const [appData] = useAppStore(pageProps || {})
 
   return (
     <PWA errorReporter={reportError}>
