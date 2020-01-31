@@ -151,14 +151,14 @@ const Product = React.memo(lazyProps => {
                         <Typography>{color && color.text}</Typography>
                       </Hbox>
                       <ProductOptionSelector
+                        options={product.colors}
+                        value={color}
+                        onChange={value =>
+                          updateState({ ...state, pageData: { ...state.pageData, color: value } })
+                        }
                         optionProps={{
                           showLabel: false,
-                          onSelectedOptionChange: value => {
-                            updateState({ ...state, pageData: { ...state.pageData, color: value } })
-                          },
-                          selectedOption: color,
                         }}
-                        options={product.colors}
                       />
                     </>
                   ) : (
@@ -181,12 +181,10 @@ const Product = React.memo(lazyProps => {
                       </Hbox>
                       <ProductOptionSelector
                         options={product.sizes}
-                        optionProps={{
-                          onSelectedOptionChange: value => {
-                            updateState({ ...state, pageData: { ...state.pageData, size: value } })
-                          },
-                          selectedOption: size,
-                        }}
+                        value={size}
+                        onChange={value =>
+                          updateState({ ...state, pageData: { ...state.pageData, size: value } })
+                        }
                       />
                     </>
                   ) : (
