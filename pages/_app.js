@@ -21,14 +21,14 @@ const useStyles = makeStyles(styles)
 export default function MyApp({ Component, pageProps }) {
   useJssStyles()
   const classes = useStyles()
-  const [appData] = useAppStore(pageProps)
+  const [appData] = useAppStore(pageProps || {})
 
   return (
     <PWA onError={reportError}>
       <SessionProvider url="/api/session">
         <MuiThemeProvider theme={theme}>
           <CssBaseline />
-          <Header menu={appData.menu} />
+          {appData && <Header menu={appData.menu} />}
           <NavBar />
           <main className={classes.main}>
             <Component {...pageProps} />
