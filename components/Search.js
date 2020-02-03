@@ -9,28 +9,20 @@ import SearchSuggestions from 'react-storefront-amp/search/AmpSearchSuggestions'
 
 function Search() {
   const [searchOpen, setSearchOpen] = useState(false)
-  const [mounted, setMounted] = useState(false)
-
-  const toggleSearch = () => {
-    setSearchOpen(!searchOpen)
-    if (!mounted) {
-      setMounted(true)
-    }
-  }
+  const toggleSearch = () => setSearchOpen(!searchOpen)
+  const closeSearch = () => setSearchOpen(false)
 
   return (
     <>
       <SearchButton onClick={toggleSearch} />
-      {mounted && (
-        <SearchDrawer open={searchOpen} onClose={toggleSearch}>
-          <SearchForm>
-            <SearchHeader>
-              <SearchField />
-            </SearchHeader>
-            <SearchSuggestions />
-          </SearchForm>
-        </SearchDrawer>
-      )}
+      <SearchDrawer open={searchOpen} onClose={closeSearch}>
+        <SearchForm>
+          <SearchHeader>
+            <SearchField />
+          </SearchHeader>
+          <SearchSuggestions />
+        </SearchForm>
+      </SearchDrawer>
     </>
   )
 }

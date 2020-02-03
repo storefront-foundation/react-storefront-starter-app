@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import AppBar from 'react-storefront/AppBar'
+import AppBar from 'react-storefront-amp/AmpAppBar'
 import Spacer from 'react-storefront/Spacer'
 import CartButton from 'react-storefront/CartButton'
 import Logo from '../components/assets/react-storefront-logo.svg'
