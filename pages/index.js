@@ -5,7 +5,7 @@ import useLazyState from 'react-storefront/hooks/useLazyState'
 import CmsSlot from 'react-storefront/CmsSlot'
 import LoadMask from 'react-storefront/LoadMask'
 import Head from 'next/head'
-import createLazyProps from '../../react-storefront/src/props/createLazyProps'
+import createLazyProps from 'react-storefront/src/props/createLazyProps'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 
 const useStyles = makeStyles(theme => ({
