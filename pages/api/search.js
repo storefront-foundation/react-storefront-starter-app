@@ -1,5 +1,3 @@
-import getSubcategory from './s/[subcategoryId]'
+import Subcategory from './s/[subcategoryId]'
 
-export default async function search(req, res) {
-  return getSubcategory(req, res)
-}
+export default Subcategory
