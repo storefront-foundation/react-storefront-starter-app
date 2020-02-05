@@ -10,7 +10,8 @@
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development node server.js",
     "prod": "cross-env NODE_ENV=production node server.js",
-    "build": "next build",
+    "build": "next build && yarn xdn",
+    "xdn": "node node_modules/xdn-next/build.js",
     "test": "jest",
     "deploy": "npm run build && xdn deploy",
     "rsf:link": "yalc add react-storefront",
@@ -43,7 +44,9 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-storefront": "^7.2.0",
-    "react-visibility-sensor": "^5.1.1"
+    "react-visibility-sensor": "^5.1.1",
+    "xdn-next": "file:.yalc/xdn-next",
+    "xdn-router": "file:.yalc/xdn-router"
   },
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",
@@ -60,7 +63,7 @@
     "rewire": "^4.0.1",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-clear-require-cache-plugin": "^0.0.3",
-    "xdn": "0.0.4"
+    "xdn": "^0.0.6"
   },
   "lint-staged": {
     "*.js": [
