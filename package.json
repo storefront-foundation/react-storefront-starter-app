@@ -13,7 +13,7 @@
     "build": "next build",
     "test": "jest",
     "deploy": "npm run build && xdn deploy",
-    "rsf:link": "yalc add react-storefront",
+    "rsf:link": "yalc add react-storefront; yalc add react-storefront-analytics; yalc add react-storefront-amp",
     "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\""
   },
   "husky": {
@@ -45,7 +45,9 @@
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-storefront": "file:.yalc/react-storefront",
+    "react-storefront": "^7.2.2",
+    "react-storefront-amp": "^1.1.0",
+    "react-storefront-analytics": "^1.0.0",
     "react-visibility-sensor": "^5.1.1"
   },
   "devDependencies": {
