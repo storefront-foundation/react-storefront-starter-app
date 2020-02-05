@@ -1,6 +1,4 @@
 import { useContext, useState } from 'react'
-import { request } from 'graphql-request'
-
 import clsx from 'clsx'
 import Head from 'next/head'
 import useLazyState from 'react-storefront/hooks/useLazyState'

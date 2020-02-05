@@ -1,6 +1,16 @@
 import createProduct from '../../../components/mocks/createProduct'
 import fulfillAPIRequest from 'react-storefront/props/fulfillAPIRequest'
 import createAppData from '../../../components/mocks/createAppData'
+import { request } from 'graphql-request'
+
+const GET_PRODUCT_QUERY = `
+query {
+  product(id: 73) {
+    id
+    name
+  }
+}
+`
 
 async function getPageData(productId) {
   return Promise.resolve({
@@ -25,6 +35,9 @@ export default async function fetchProduct(req, res) {
     query: { productId, color },
   } = req
 
+  const data = await request('https://demo.storefrontapi.com/graphql/', GET_PRODUCT_QUERY)
+
+  console.log('test', data)
   // When a query parameter exists, we can fetch custom product data
   // pertaining to specific filters.
   if (color) {
