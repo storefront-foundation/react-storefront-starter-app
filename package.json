@@ -42,6 +42,7 @@
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-lazy-hydration": "0.0.8",
     "react-storefront": "^7.2.0",
     "react-visibility-sensor": "^5.1.1"
   },

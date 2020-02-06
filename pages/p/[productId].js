@@ -17,12 +17,12 @@ import fetch from 'isomorphic-unfetch'
 import SessionContext from 'react-storefront/session/SessionContext'
 import AddToCartConfirmation from '../../components/product/AddToCartConfirmation'
 import SuggestedProducts from '../../components/product/SuggestedProducts'
-import Lazy from 'react-storefront/Lazy'
 import TabPanel from 'react-storefront/TabPanel'
 import QuantitySelector from 'react-storefront/QuantitySelector'
 import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
+import LazyHydrate from 'react-lazy-hydration'
 
 const styles = theme => ({
   carousel: {
@@ -235,17 +235,19 @@ const Product = React.memo(lazyProps => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <TabPanel>
-              <CmsSlot label="Description">{product.description}</CmsSlot>
-              <CmsSlot label="Specs">{product.specs}</CmsSlot>
-            </TabPanel>
-          </Grid>
-          <Grid item xs={12}>
-            <Lazy style={{ minHeight: 285 }}>
+          <LazyHydrate whenVisible>
+            <Grid item xs={12}>
+              <TabPanel>
+                <CmsSlot label="Description">{product.description}</CmsSlot>
+                <CmsSlot label="Specs">{product.specs}</CmsSlot>
+              </TabPanel>
+            </Grid>
+          </LazyHydrate>
+          <LazyHydrate whenVisible>
+            <Grid item xs={12}>
               <SuggestedProducts product={product} />
-            </Lazy>
-          </Grid>
+            </Grid>
+          </LazyHydrate>
         </form>
       </Container>
     </>
