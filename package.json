@@ -10,10 +10,11 @@
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development node server.js",
     "prod": "cross-env NODE_ENV=production node server.js",
-    "build": "next build",
+    "build": "rm -rf .next && next build && npm run xdn",
+    "xdn": "node node_modules/xdn-next/build.js",
     "test": "jest",
     "deploy": "npm run build && xdn deploy",
-    "rsf:link": "yalc add react-storefront",
+    "rsf:link": "yalc add react-storefront react-storefront-analytics react-storefront-amp xdn-router xdn-next && npm i",
     "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\""
   },
   "husky": {
@@ -36,15 +37,19 @@
     "module-alias": "^2.2.1",
     "next": "^9.2.0",
     "path-to-regexp": "^3.1.0",
-    "preact": "^10.1.0",
+    "preact": "10.1.0",
     "preact-render-to-string": "^5.1.2",
     "preact-ssr-prepass": "^1.0.0",
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-lazy-hydration": "0.0.8",
-    "react-storefront": "^7.2.0",
-    "react-visibility-sensor": "^5.1.1"
+    "react-storefront": "^7.2.1",
+    "react-storefront-amp": "^1.1.0",
+    "react-storefront-analytics": "^1.0.0",
+    "react-visibility-sensor": "^5.1.1",
+    "xdn-next": "^0.3.0-alpha.0",
+    "xdn-router": "^0.3.0-alpha.0"
   },
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",
@@ -61,7 +66,7 @@
     "rewire": "^4.0.1",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-clear-require-cache-plugin": "^0.0.3",
-    "xdn": "0.0.4"
+    "xdn": "^0.0.6"
   },
   "lint-staged": {
     "*.js": [
