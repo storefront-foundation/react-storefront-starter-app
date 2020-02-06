@@ -10,7 +10,7 @@
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development node server.js",
     "prod": "cross-env NODE_ENV=production node server.js",
-    "build": "next build && npm run xdn",
+    "build": "rm -rf .next && next build && npm run xdn",
     "xdn": "node node_modules/xdn-next/build.js",
     "test": "jest",
     "deploy": "npm run build && xdn deploy",
