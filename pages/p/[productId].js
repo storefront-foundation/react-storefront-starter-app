@@ -183,12 +183,14 @@ const Product = React.memo(lazyProps => {
                           <Text bind="color.text" />
                         </Typography>
                       </Hbox>
-                      <ProductOptionSelector
-                        optionProps={{
-                          showLabel: false,
-                        }}
-                        bind={{ value: 'color', options: 'product.colors' }}
-                      />
+                      <LazyHydrate whenVisible>
+                        <ProductOptionSelector
+                          optionProps={{
+                            showLabel: false,
+                          }}
+                          bind={{ value: 'color', options: 'product.colors' }}
+                        />
+                      </LazyHydrate>
                     </>
                   ) : (
                     <div>
@@ -203,7 +205,7 @@ const Product = React.memo(lazyProps => {
                 </Grid>
                 <Grid item xs={12}>
                   {product ? (
-                    <>
+                    <LazyHydrate whenVisible>
                       <Hbox style={{ marginBottom: 10 }}>
                         <Label>SIZE: </Label>
                         <Typography>
@@ -212,7 +214,7 @@ const Product = React.memo(lazyProps => {
                         </Typography>
                       </Hbox>
                       <ProductOptionSelector bind={{ value: 'size', options: 'product.sizes' }} />
-                    </>
+                    </LazyHydrate>
                   ) : (
                     <div>
                       <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
@@ -224,12 +226,14 @@ const Product = React.memo(lazyProps => {
                     </div>
                   )}
                 </Grid>
-                <Grid item xs={12}>
-                  <Hbox>
-                    <Label>QTY:</Label>
-                    <QuantitySelector bind="quantity" />
-                  </Hbox>
-                </Grid>
+                <LazyHydrate whenVisible>
+                  <Grid item xs={12}>
+                    <Hbox>
+                      <Label>QTY:</Label>
+                      <QuantitySelector bind="quantity" />
+                    </Hbox>
+                  </Grid>
+                </LazyHydrate>
                 <Grid item xs={12}>
                   <Button
                     key="button"
