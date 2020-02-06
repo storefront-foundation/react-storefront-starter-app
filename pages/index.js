@@ -50,3 +50,5 @@ Index.getInitialProps = createLazyProps(options => {
   if (res) res.setHeader('Cache-Control', 'max-age=99999')
   return fetchFromAPI(options)
 })
+
+export const config = { amp: 'hybrid' }
