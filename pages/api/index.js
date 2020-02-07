@@ -1,8 +1,9 @@
 // returns data for the homepage
 import fulfillAPIRequest from 'react-storefront/props/fulfillAPIRequest'
 import createAppData from '../../components/mocks/createAppData'
+import withCaching from 'react-storefront/utils/withCaching'
 
-export default async function index(req, res) {
+async function index(req, res) {
   res.json(
     await fulfillAPIRequest(req, {
       appData: createAppData,
@@ -23,3 +24,10 @@ export default async function index(req, res) {
     })
   )
 }
+
+export default withCaching(index, {
+  edge: {},
+  browser: {
+    maxAgeSeconds: 1000, // this should make the service worker cache requests to this route
+  },
+})
