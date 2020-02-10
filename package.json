@@ -47,8 +47,8 @@
     "react-storefront-amp": "^1.1.0",
     "react-storefront-analytics": "^1.0.0",
     "react-visibility-sensor": "^5.1.1",
-    "xdn-next": "^0.3.2",
-    "xdn-router": "^0.3.2"
+    "xdn-next": "^0.4.0",
+    "xdn-router": "^0.4.0"
   },
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",
