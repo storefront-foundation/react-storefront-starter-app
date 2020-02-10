@@ -275,11 +275,7 @@ const Product = React.memo(lazyProps => {
   )
 })
 
-Product.getInitialProps = createLazyProps(opts => {
-  const { res } = opts
-  if (res) res.setHeader('Cache-Control', 'max-age=99999')
-  return fetchFromAPI(opts)
-})
+Product.getInitialProps = createLazyProps(fetchFromAPI)
 
 export default Product
 export const config = { amp: 'hybrid' }

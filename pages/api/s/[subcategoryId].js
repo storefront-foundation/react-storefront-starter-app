@@ -10,8 +10,6 @@ export default async function getSubcategory(req, res) {
     query: { q, subcategoryId = '1', page = 0, filters, sort, more = false },
   } = req
 
-  res.setHeader('cache-control', 'no-cache, no-store, max-age: 0')
-
   if (filters) {
     filters = JSON.parse(filters)
   } else {

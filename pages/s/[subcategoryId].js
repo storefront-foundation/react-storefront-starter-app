@@ -149,11 +149,7 @@ const Subcategory = lazyProps => {
   )
 }
 
-Subcategory.getInitialProps = createLazyProps(opts => {
-  const { res } = opts
-  if (res) res.setHeader('Cache-Control', 'max-age=99999')
-  return fetchFromAPI(opts)
-})
+Subcategory.getInitialProps = createLazyProps(fetchFromAPI)
 
 export const config = { amp: 'hybrid' }
 export default Subcategory
