@@ -44,12 +44,13 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-lazy-hydration": "0.0.8",
-    "react-storefront": "^7.2.1",
+    "react-storefront": "^7.3.0",
     "react-storefront-amp": "^1.1.0",
     "react-storefront-analytics": "^1.0.0",
     "react-visibility-sensor": "^5.1.1",
-    "xdn-next": "^0.3.0-alpha.0",
-    "xdn-router": "^0.3.0-alpha.0"
+    "typeface-roboto": "0.0.75",
+    "xdn-next": "^0.3.2",
+    "xdn-router": "^0.3.2"
   },
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",

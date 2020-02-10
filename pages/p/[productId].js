@@ -15,7 +15,7 @@ import Label from 'react-storefront/Label'
 import Rating from 'react-storefront/Rating'
 import get from 'lodash/get'
 import HiddenInput from 'react-storefront-amp/HiddenInput'
-import fetch from 'isomorphic-unfetch'
+import fetch from 'react-storefront/fetch'
 import SessionContext from 'react-storefront/session/SessionContext'
 import AddToCartConfirmation from '../../components/product/AddToCartConfirmation'
 import SuggestedProducts from '../../components/product/SuggestedProducts'
@@ -281,11 +281,7 @@ const Product = React.memo(lazyProps => {
   )
 })
 
-Product.getInitialProps = createLazyProps(opts => {
-  const { res } = opts
-  if (res) res.setHeader('Cache-Control', 'max-age=99999')
-  return fetchFromAPI(opts)
-})
+Product.getInitialProps = createLazyProps(fetchFromAPI)
 
 export default Product
 export const config = { amp: 'hybrid' }
