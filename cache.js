@@ -28,10 +28,10 @@ module.exports = {
    */
   SSR_CACHE_CONFIG: {
     browser: {
-      httpCacheSeconds: 0,
+      httpCacheSeconds: 31536000,
     },
     edge: {
-      maxAgeSeconds: PAGE_TTL,
+      maxAgeSeconds: 31536000,
       staleWhileRevalidateSeconds: PAGE_TTL,
       key,
     },
