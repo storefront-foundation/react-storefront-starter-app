@@ -24,7 +24,7 @@
   "nodemonConfig": {
     "verbose": true,
     "watch": [
-      ".yalc/react-storefront/service-worker/bootstrap.js"
+      ".yalc/react-storefront/service-worker/[b]ootstrap.js"
     ]
   },
   "dependencies": {
