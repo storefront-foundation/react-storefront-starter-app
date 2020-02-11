@@ -28,7 +28,7 @@ module.exports = {
    */
   SSR_CACHE_CONFIG: {
     browser: {
-      fileSystemSeconds: 0,
+      httpCacheSeconds: 0,
     },
     edge: {
       maxAgeSeconds: PAGE_TTL,
@@ -42,7 +42,7 @@ module.exports = {
    */
   API_CACHE_CONFIG: {
     browser: {
-      fileSystemSeconds: 0,
+      httpCacheSeconds: 0,
       serviceWorkerSeconds: PAGE_TTL,
     },
     edge: {
@@ -58,7 +58,7 @@ module.exports = {
    */
   FAR_FUTURE_CACHE_CONFIG: {
     browser: {
-      fileSystemSeconds: FAR_FUTURE_TTL,
+      httpCacheSeconds: FAR_FUTURE_TTL,
     },
     edge: {
       maxAgeSeconds: FAR_FUTURE_TTL,
