@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from 'react'
+import React, { Suspense, lazy, useState, useCallback, useContext, useRef } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from 'react-storefront-amp/AmpAppBar'
 import Spacer from 'react-storefront/Spacer'
@@ -6,11 +6,12 @@ import CartButton from 'react-storefront/CartButton'
 import Logo from '../components/assets/react-storefront-logo.svg'
 import Search from './Search'
 import { Hidden, Container } from '@material-ui/core'
-import Menu from 'react-storefront-amp/menu/AmpMenu'
 import MenuButton from 'react-storefront/menu/MenuButton'
 import Link from 'react-storefront/link/Link'
 import SessionContext from 'react-storefront/session/SessionContext'
 import get from 'lodash/get'
+
+const Menu = lazy(() => import('react-storefront-amp/menu/AmpMenu'))
 
 const useStyles = makeStyles(theme => ({
   title: {},
@@ -43,9 +44,10 @@ export default function Header({ menu }) {
   const classes = useStyles()
   const [menuOpen, setMenuOpen] = useState(false)
   const handleMenuClose = useCallback(() => setMenuOpen(false), [])
-  const handleMenuButtonClick = useCallback(() => setMenuOpen(menuOpen => !menuOpen), [])
+  const handleMenuButtonClick = useCallback(() => {
+    setMenuOpen(menuOpen => !menuOpen)
+  }, [])
   const { session } = useContext(SessionContext)
-
   return (
     <>
       <AppBar>
@@ -63,16 +65,20 @@ export default function Header({ menu }) {
           <MenuButton open={menuOpen} onClick={handleMenuButtonClick} />
         </Container>
       </AppBar>
-      <Menu
-        anchor="right"
-        root={menu}
-        open={menuOpen}
-        onClose={handleMenuClose}
-        // renderItem={item => <div>{item.text} (custom)</div>}
-        // renderItemContent={item => <div>{item.text} (custom content)</div>}
-        // renderHeader={item => <div>{item.text} header</div>}
-        // renderFooter={item => <div>{item.text} footer</div>}
-      />
+      {menuOpen ? (
+        <Suspense fallback={<div>Loading menu...</div>}>
+          <Menu
+            anchor="right"
+            root={menu}
+            open={menuOpen}
+            onClose={handleMenuClose}
+            // renderItem={item => <div>{item.text} (custom)</div>}
+            // renderItemContent={item => <div>{item.text} (custom content)</div>}
+            // renderHeader={item => <div>{item.text} header</div>}
+            // renderFooter={item => <div>{item.text} footer</div>}
+          />
+        </Suspense>
+      ) : null}
     </>
   )
 }
