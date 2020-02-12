@@ -66,7 +66,7 @@ export default function Header({ menu }) {
         </Container>
       </AppBar>
       {menuOpen ? (
-        <Suspense fallback={<div>Loading menu...</div>}>
+        <Suspense fallback={<div />}>
           <Menu
             anchor="right"
             root={menu}
