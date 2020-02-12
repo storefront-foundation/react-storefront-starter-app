@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { Suspense, lazy, useContext, useState } from 'react'
 import clsx from 'clsx'
 import Head from 'next/head'
 import useLazyState from 'react-storefront/hooks/useLazyState'
@@ -18,17 +18,30 @@ import HiddenInput from 'react-storefront-amp/HiddenInput'
 import fetch from 'react-storefront/fetch'
 import SessionContext from 'react-storefront/session/SessionContext'
 import AddToCartConfirmation from '../../components/product/AddToCartConfirmation'
-import SuggestedProducts from '../../components/product/SuggestedProducts'
 import TabPanel from 'react-storefront-amp/AmpTabPanel'
 import Text from 'react-storefront-amp/Text'
 import DataBindingProvider from 'react-storefront-amp/bind/DataBindingProvider'
-import QuantitySelector from 'react-storefront-amp/AmpQuantitySelector'
-import ProductOptionSelector from 'react-storefront-amp/option/AmpProductOptionSelector'
 import { TrackPageView } from 'react-storefront-analytics'
 import { useAmp } from 'next/amp'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
-import LazyHydrate from 'react-lazy-hydration'
+import VisibilitySensor from 'react-visibility-sensor'
+
+const QuantitySelector = lazy(() => import('react-storefront-amp/AmpQuantitySelector'))
+const ProductOptionSelector = lazy(() =>
+  import('react-storefront-amp/option/AmpProductOptionSelector')
+)
+const SuggestedProducts = lazy(() => import('../../components/product/SuggestedProducts'))
+
+const LoadWhenVisible = ({ children }) => {
+  return (
+    <VisibilitySensor partialVisibility>
+      {({ isVisible }) => {
+        return isVisible ? <Suspense fallback={<div />}>{children}</Suspense> : <div>&nbsp;</div>
+      }}
+    </VisibilitySensor>
+  )
+}
 
 const styles = theme => ({
   carousel: {
@@ -175,7 +188,7 @@ const Product = React.memo(lazyProps => {
                     <div style={{ paddingBottom: theme.spacing(1) }}>{header}</div>
                   </Hidden>
                   {product ? (
-                    <>
+                    <LoadWhenVisible>
                       <Hbox style={{ marginBottom: 10 }}>
                         <Label>COLOR: </Label>
                         <Typography>
@@ -183,15 +196,13 @@ const Product = React.memo(lazyProps => {
                           <Text bind="color.text" />
                         </Typography>
                       </Hbox>
-                      <LazyHydrate whenVisible>
-                        <ProductOptionSelector
-                          optionProps={{
-                            showLabel: false,
-                          }}
-                          bind={{ value: 'color', options: 'product.colors' }}
-                        />
-                      </LazyHydrate>
-                    </>
+                      <ProductOptionSelector
+                        optionProps={{
+                          showLabel: false,
+                        }}
+                        bind={{ value: 'color', options: 'product.colors' }}
+                      />
+                    </LoadWhenVisible>
                   ) : (
                     <div>
                       <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
@@ -205,7 +216,7 @@ const Product = React.memo(lazyProps => {
                 </Grid>
                 <Grid item xs={12}>
                   {product ? (
-                    <LazyHydrate whenVisible>
+                    <LoadWhenVisible>
                       <Hbox style={{ marginBottom: 10 }}>
                         <Label>SIZE: </Label>
                         <Typography>
@@ -214,7 +225,7 @@ const Product = React.memo(lazyProps => {
                         </Typography>
                       </Hbox>
                       <ProductOptionSelector bind={{ value: 'size', options: 'product.sizes' }} />
-                    </LazyHydrate>
+                    </LoadWhenVisible>
                   ) : (
                     <div>
                       <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
@@ -226,14 +237,14 @@ const Product = React.memo(lazyProps => {
                     </div>
                   )}
                 </Grid>
-                <LazyHydrate whenVisible>
+                <LoadWhenVisible>
                   <Grid item xs={12}>
                     <Hbox>
                       <Label>QTY:</Label>
                       <QuantitySelector bind="quantity" />
                     </Hbox>
                   </Grid>
-                </LazyHydrate>
+                </LoadWhenVisible>
                 <Grid item xs={12}>
                   <Button
                     key="button"
@@ -260,20 +271,20 @@ const Product = React.memo(lazyProps => {
               </Grid>
             </Grid>
           </Grid>
-          <LazyHydrate whenVisible>
+          <LoadWhenVisible>
             <Grid item xs={12}>
               <TabPanel>
                 <CmsSlot label="Description">{product.description}</CmsSlot>
                 <CmsSlot label="Specs">{product.specs}</CmsSlot>
               </TabPanel>
             </Grid>
-          </LazyHydrate>
+          </LoadWhenVisible>
           {!useAmp() && (
-            <LazyHydrate whenVisible>
+            <LoadWhenVisible>
               <Grid item xs={12}>
                 <SuggestedProducts product={product} />
               </Grid>
-            </LazyHydrate>
+            </LoadWhenVisible>
           )}
         </form>
       </Container>
