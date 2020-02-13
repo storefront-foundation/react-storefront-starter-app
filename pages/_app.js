@@ -12,7 +12,6 @@ import Analytics from '../components/Analytics'
 import SessionProvider from 'react-storefront/session/SessionProvider'
 import AmpProvider from 'react-storefront-amp/AmpProvider'
 import useAppStore from 'react-storefront/hooks/useAppStore'
-import LazyHydrate from 'react-lazy-hydration'
 import 'typeface-roboto'
 
 installAmpOverrides()
@@ -31,25 +30,23 @@ export default function MyApp({ Component, pageProps }) {
   const [appData] = useAppStore(pageProps || {})
 
   return (
-    <LazyHydrate ssrOnly>
-      <PWA errorReporter={reportError}>
-        <AmpProvider>
-          <SessionProvider url="/api/session">
-            <MuiThemeProvider theme={theme}>
-              <Analytics>
-                <CssBaseline />
-                ENTIRE APP SSR ONLY
-                <Header menu={appData && appData.menu} />
-                <NavBar tabs={appData && appData.tabs} />
-                <main className={classes.main}>
-                  <Component {...pageProps} />
-                </main>
-              </Analytics>
-            </MuiThemeProvider>
-          </SessionProvider>
-        </AmpProvider>
-      </PWA>
-    </LazyHydrate>
+    <PWA errorReporter={reportError}>
+      <AmpProvider>
+        <SessionProvider url="/api/session">
+          <MuiThemeProvider theme={theme}>
+            <Analytics>
+              <CssBaseline />
+              <Header menu={appData && appData.menu} />
+              <NavBar tabs={appData && appData.tabs} />
+              <main className={classes.main}>
+                <h1>HEADER WITH SUSPENSE</h1>
+                <Component {...pageProps} />
+              </main>
+            </Analytics>
+          </MuiThemeProvider>
+        </SessionProvider>
+      </AmpProvider>
+    </PWA>
   )
 }
 
