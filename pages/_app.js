@@ -38,6 +38,7 @@ export default function MyApp({ Component, pageProps }) {
             <MuiThemeProvider theme={theme}>
               <Analytics>
                 <CssBaseline />
+                ENTIRE APP SSR ONLY
                 <Header menu={appData && appData.menu} />
                 <NavBar tabs={appData && appData.tabs} />
                 <main className={classes.main}>

@@ -28,7 +28,6 @@ import { TrackPageView } from 'react-storefront-analytics'
 import { useAmp } from 'next/amp'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
-import LazyHydrate from 'react-lazy-hydration'
 
 const styles = theme => ({
   carousel: {
@@ -128,155 +127,153 @@ const Product = React.memo(lazyProps => {
   )
 
   return (
-    <LazyHydrate ssrOnly>
-      <DataBindingProvider
-        // If data is not already available in the model during SSR,
-        // you can instruct the DataBindingProvider to fetch new state
-        // when the `remote` URL changes.
-        //
-        // If no data will need to be fetched and is available in the page state
-        // this property is not needed and should be removed
-        remote="/api/p/{product.id}?color={color.id}"
-        store={state}
-        updateStore={updateState}
-        root="pageData"
-      >
-        {useAmp() && (
-          <Head>
-            <script
-              async
-              custom-element="amp-form"
-              src="https://cdn.ampproject.org/v0/amp-form-0.1.js"
-            />
-          </Head>
-        )}
-        {!loading && <TrackPageView />}
-        <Breadcrumbs items={!loading && state.pageData.breadcrumbs} />
-        <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
-          <form onSubmit={handleSubmit} method="post" action-xhr="/api/cart">
-            <Grid container spacing={4}>
-              <HiddenInput name="id" bind="product.id" />
-              <Grid item xs={12} sm={6} md={5}>
-                <Hidden implementation="css" smUp>
-                  {header}
-                </Hidden>
-                <MediaCarousel
-                  className={classes.carousel}
-                  thumbnail={thumbnail.current}
-                  height="100%"
-                  bind={{
-                    media: ['color.media', 'product.media'],
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={7}>
-                <Grid container spacing={4}>
-                  <Grid item xs={12}>
-                    <Hidden implementation="css" xsDown>
-                      <div style={{ paddingBottom: theme.spacing(1) }}>{header}</div>
-                    </Hidden>
-                    {product ? (
-                      <>
-                        <Hbox style={{ marginBottom: 10 }}>
-                          <Label>COLOR: </Label>
-                          <Typography>
-                            <HiddenInput name="color" bind="color.id" />
-                            <Text bind="color.text" />
-                          </Typography>
-                        </Hbox>
+    <DataBindingProvider
+      // If data is not already available in the model during SSR,
+      // you can instruct the DataBindingProvider to fetch new state
+      // when the `remote` URL changes.
+      //
+      // If no data will need to be fetched and is available in the page state
+      // this property is not needed and should be removed
+      remote="/api/p/{product.id}?color={color.id}"
+      store={state}
+      updateStore={updateState}
+      root="pageData"
+    >
+      {useAmp() && (
+        <Head>
+          <script
+            async
+            custom-element="amp-form"
+            src="https://cdn.ampproject.org/v0/amp-form-0.1.js"
+          />
+        </Head>
+      )}
+      {!loading && <TrackPageView />}
+      <Breadcrumbs items={!loading && state.pageData.breadcrumbs} />
+      <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
+        <form onSubmit={handleSubmit} method="post" action-xhr="/api/cart">
+          <Grid container spacing={4}>
+            <HiddenInput name="id" bind="product.id" />
+            <Grid item xs={12} sm={6} md={5}>
+              <Hidden implementation="css" smUp>
+                {header}
+              </Hidden>
+              <MediaCarousel
+                className={classes.carousel}
+                thumbnail={thumbnail.current}
+                height="100%"
+                bind={{
+                  media: ['color.media', 'product.media'],
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={7}>
+              <Grid container spacing={4}>
+                <Grid item xs={12}>
+                  <Hidden implementation="css" xsDown>
+                    <div style={{ paddingBottom: theme.spacing(1) }}>{header}</div>
+                  </Hidden>
+                  {product ? (
+                    <>
+                      <Hbox style={{ marginBottom: 10 }}>
+                        <Label>COLOR: </Label>
+                        <Typography>
+                          <HiddenInput name="color" bind="color.id" />
+                          <Text bind="color.text" />
+                        </Typography>
+                      </Hbox>
 
-                        <ProductOptionSelector
-                          optionProps={{
-                            showLabel: false,
-                          }}
-                          bind={{ value: 'color', options: 'product.colors' }}
-                        />
-                      </>
-                    ) : (
-                      <div>
-                        <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
-                        <Hbox>
-                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                        </Hbox>
-                      </div>
-                    )}
-                  </Grid>
-                  <Grid item xs={12}>
-                    {product ? (
-                      <>
-                        <Hbox style={{ marginBottom: 10 }}>
-                          <Label>SIZE: </Label>
-                          <Typography>
-                            <HiddenInput name="size" bind="size.id" />
-                            <Text bind="size.text" />
-                          </Typography>
-                        </Hbox>
-                        <ProductOptionSelector bind={{ value: 'size', options: 'product.sizes' }} />
-                      </>
-                    ) : (
-                      <div>
-                        <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
-                        <Hbox>
-                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                        </Hbox>
-                      </div>
-                    )}
-                  </Grid>
+                      <ProductOptionSelector
+                        optionProps={{
+                          showLabel: false,
+                        }}
+                        bind={{ value: 'color', options: 'product.colors' }}
+                      />
+                    </>
+                  ) : (
+                    <div>
+                      <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
+                      <Hbox>
+                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                      </Hbox>
+                    </div>
+                  )}
+                </Grid>
+                <Grid item xs={12}>
+                  {product ? (
+                    <>
+                      <Hbox style={{ marginBottom: 10 }}>
+                        <Label>SIZE: </Label>
+                        <Typography>
+                          <HiddenInput name="size" bind="size.id" />
+                          <Text bind="size.text" />
+                        </Typography>
+                      </Hbox>
+                      <ProductOptionSelector bind={{ value: 'size', options: 'product.sizes' }} />
+                    </>
+                  ) : (
+                    <div>
+                      <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
+                      <Hbox>
+                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                      </Hbox>
+                    </div>
+                  )}
+                </Grid>
 
-                  <Grid item xs={12}>
-                    <Hbox>
-                      <Label>QTY:</Label>
-                      <QuantitySelector bind="quantity" />
-                    </Hbox>
-                  </Grid>
+                <Grid item xs={12}>
+                  <Hbox>
+                    <Label>QTY:</Label>
+                    <QuantitySelector bind="quantity" />
+                  </Hbox>
+                </Grid>
 
-                  <Grid item xs={12}>
-                    <Button
-                      key="button"
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                      data-th="add-to-cart"
-                      className={clsx(classes.docked, classes.noShadow)}
-                      disabled={addToCartInProgress}
-                    >
-                      Add to Cart
-                    </Button>
-                    <AddToCartConfirmation
-                      open={confirmationOpen}
-                      setOpen={setConfirmationOpen}
-                      product={product}
-                      color={color}
-                      size={size}
-                      quantity={quantity}
-                      price={product.priceText}
-                    />
-                  </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    key="button"
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    data-th="add-to-cart"
+                    className={clsx(classes.docked, classes.noShadow)}
+                    disabled={addToCartInProgress}
+                  >
+                    Add to Cart
+                  </Button>
+                  <AddToCartConfirmation
+                    open={confirmationOpen}
+                    setOpen={setConfirmationOpen}
+                    product={product}
+                    color={color}
+                    size={size}
+                    quantity={quantity}
+                    price={product.priceText}
+                  />
                 </Grid>
               </Grid>
             </Grid>
+          </Grid>
 
+          <Grid item xs={12}>
+            <TabPanel>
+              <CmsSlot label="Description">{product.description}</CmsSlot>
+              <CmsSlot label="Specs">{product.specs}</CmsSlot>
+            </TabPanel>
+          </Grid>
+
+          {!useAmp() && (
             <Grid item xs={12}>
-              <TabPanel>
-                <CmsSlot label="Description">{product.description}</CmsSlot>
-                <CmsSlot label="Specs">{product.specs}</CmsSlot>
-              </TabPanel>
+              <SuggestedProducts product={product} />
             </Grid>
-
-            {!useAmp() && (
-              <Grid item xs={12}>
-                <SuggestedProducts product={product} />
-              </Grid>
-            )}
-          </form>
-        </Container>
-      </DataBindingProvider>
-    </LazyHydrate>
+          )}
+        </form>
+      </Container>
+    </DataBindingProvider>
   )
 })
 
