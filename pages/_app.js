@@ -39,7 +39,7 @@ export default function MyApp({ Component, pageProps }) {
               <Header menu={appData && appData.menu} />
               <NavBar tabs={appData && appData.tabs} />
               <main className={classes.main}>
-                <h1>HEADER WITH SUSPENSE</h1>
+                <h1>EMPTY PROD PAGE</h1>
                 <Component {...pageProps} />
               </main>
             </Analytics>
