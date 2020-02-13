@@ -36,10 +36,8 @@ export default function MyApp({ pageProps }) {
           <MuiThemeProvider theme={theme}>
             <Analytics>
               <CssBaseline />
-              <Header menu={appData && appData.menu} />
-              <NavBar tabs={appData && appData.tabs} />
               <main className={classes.main}>
-                <h1>Without Page Component</h1>
+                <h1>ONLY APP WRAPPER</h1>
               </main>
             </Analytics>
           </MuiThemeProvider>
