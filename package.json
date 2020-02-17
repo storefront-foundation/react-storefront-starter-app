@@ -12,6 +12,7 @@
     "prod": "cross-env NODE_ENV=production node server.js",
     "build": "rm -rf .next && next build && npm run xdn",
     "xdn": "node node_modules/xdn-next/build.js",
+    "sls": "cd .xdn/lambda && sls offline",
     "test": "jest",
     "deploy": "npm run build && xdn deploy",
     "rsf:link": "yalc add react-storefront react-storefront-analytics react-storefront-amp xdn-router xdn-next && npm i",
@@ -43,12 +44,12 @@
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-storefront": "^7.3.0",
-    "react-storefront-amp": "^1.1.0",
-    "react-storefront-analytics": "^1.0.0",
+    "react-storefront": "file:.yalc/react-storefront",
+    "react-storefront-amp": "file:.yalc/react-storefront-amp",
+    "react-storefront-analytics": "file:.yalc/react-storefront-analytics",
     "react-visibility-sensor": "^5.1.1",
-    "xdn-next": "^0.4.0",
-    "xdn-router": "^0.4.0"
+    "xdn-next": "file:.yalc/xdn-next",
+    "xdn-router": "file:.yalc/xdn-router"
   },
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",
@@ -63,6 +64,7 @@
     "jsdom": "^15.2.1",
     "prettier": "^1.19.1",
     "rewire": "^4.0.1",
+    "serverless-offline": "^5.12.1",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-clear-require-cache-plugin": "^0.0.3",
     "xdn": "^0.0.6"

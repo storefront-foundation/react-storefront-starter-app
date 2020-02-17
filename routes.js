@@ -28,7 +28,5 @@ module.exports = app => {
     .match('/p/:productId', cacheResponse(SSR_CACHE_CONFIG))
     .match('/api/p/:productId', cacheResponse(API_CACHE_CONFIG))
     .use(nextMiddleware)
-    .fallback(({ proxy }) => {
-      proxy('legacy', { path: '{path}' })
-    })
+    .fallback(async ({ proxy }) => proxy('legacy'))
 }
