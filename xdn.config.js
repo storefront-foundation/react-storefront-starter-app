@@ -1,5 +1,8 @@
 module.exports = {
   backends: {
-    legacy: 'mockaroo.com',
+    legacy: {
+      domainOrIp: 'www.ebay.com',
+      hostHeader: 'www.ebay.com',
+    },
   },
 }

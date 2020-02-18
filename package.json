@@ -1,5 +1,5 @@
 {
-  "name": "react-storefront-starter-app",
+  "name": "app",
   "version": "1.0.0",
   "private": true,
   "description": "",
@@ -12,7 +12,7 @@
     "prod": "cross-env NODE_ENV=production node server.js",
     "build": "rm -rf .next && next build && npm run xdn",
     "xdn": "node node_modules/xdn-next/build.js",
-    "sls": "cd .xdn/lambda && sls offline",
+    "sls": "XDN_DEPLOYMENT_TYPE=AWS cd .xdn/lambda && sls offline",
     "test": "jest",
     "deploy": "npm run build && xdn deploy",
     "rsf:link": "yalc add react-storefront react-storefront-analytics react-storefront-amp xdn-router xdn-next && npm i",
@@ -36,7 +36,7 @@
     "isomorphic-unfetch": "^3.0.0",
     "lorem-ipsum": "^2.0.3",
     "module-alias": "^2.2.1",
-    "next": "^9.2.0",
+    "next": "^9.2.2",
     "path-to-regexp": "^3.1.0",
     "preact": "10.1.0",
     "preact-render-to-string": "^5.1.2",
@@ -67,7 +67,7 @@
     "serverless-offline": "^5.12.1",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-clear-require-cache-plugin": "^0.0.3",
-    "xdn": "^0.0.6"
+    "xdn": "^0.0.7-alpha.0"
   },
   "lint-staged": {
     "*.js": [
