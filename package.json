@@ -67,7 +67,7 @@
     "serverless-offline": "^5.12.1",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-clear-require-cache-plugin": "^0.0.3",
-    "xdn": "^0.0.7-alpha.0"
+    "xdn": "^0.0.7-alpha.1"
   },
   "lint-staged": {
     "*.js": [
