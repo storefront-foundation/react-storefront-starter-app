@@ -16,7 +16,7 @@ module.exports = app => {
       cache({
         ...FAR_FUTURE_CACHE_CONFIG,
         browser: {
-          fileSystemSeconds: 0,
+          httpCacheSeconds: 0,
         },
       })
       serveStatic('.next/service-worker.js')
