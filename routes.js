@@ -12,14 +12,14 @@ module.exports = app => {
   const { nextMiddleware, renderNext } = createNextPlugin(app)
 
   return new Router()
-    .match('/service-worker.js', ({ cache, serveStatic }) => {
+    .match('/service-worker.js', async ({ cache, serveStatic }) => {
       cache({
         ...FAR_FUTURE_CACHE_CONFIG,
         browser: {
           httpCacheSeconds: 0,
         },
       })
-      serveStatic('.next/service-worker.js')
+      await serveStatic('.next/service-worker.js')
     })
     .match('/', cacheResponse(SSR_CACHE_CONFIG))
     .match('/api/', cacheResponse(API_CACHE_CONFIG))
@@ -28,7 +28,5 @@ module.exports = app => {
     .match('/p/:productId', cacheResponse(SSR_CACHE_CONFIG))
     .match('/api/p/:productId', cacheResponse(API_CACHE_CONFIG))
     .use(nextMiddleware)
-    .fallback(({ proxy }) => {
-      proxy('legacy', { path: '{path}' })
-    })
+    .fallback(({ proxy }) => proxy('legacy'))
 }
