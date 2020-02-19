@@ -53,6 +53,7 @@
     "react-storefront-amp": "^1.0.0",
     "react-storefront-analytics": "^1.0.0",
     "react-visibility-sensor": "^5.1.1",
+    "typeface-roboto": "0.0.75",
     "xdn-next": "^0.6.0",
     "xdn-router": "^0.6.0"
   },
