@@ -12,6 +12,7 @@ import Analytics from '../components/Analytics'
 import SessionProvider from 'react-storefront/session/SessionProvider'
 import AmpProvider from 'react-storefront-amp/AmpProvider'
 import useAppStore from 'react-storefront/hooks/useAppStore'
+import 'typeface-roboto'
 
 installAmpOverrides()
 
