@@ -23,7 +23,14 @@ module.exports = app => {
     })
     .match('/', cacheResponse(SSR_CACHE_CONFIG))
     .match('/api/', cacheResponse(API_CACHE_CONFIG))
-    .match('/s/:subcategoryId', cacheResponse(SSR_CACHE_CONFIG))
+    .match('/s/:subcategoryId', ({ cache }) => {
+      cache({
+        edge: {
+          maxAgeSeconds: 1000,
+          key: createCustomCache().addCookie('language'),
+        },
+      })
+    })
     .match('/api/s/:subcategoryId', cacheResponse(API_CACHE_CONFIG))
     .match('/p/:productId', cacheResponse(SSR_CACHE_CONFIG))
     .match('/api/p/:productId', cacheResponse(API_CACHE_CONFIG))
