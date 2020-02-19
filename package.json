@@ -8,7 +8,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "npm run dev",
-    "dev": "cross-env NODE_ENV=development node server.js",
+    "dev": "cross-env NODE_ENV=development nodemon server.js",
     "build": "rm -rf .next && next build && npm run xdn",
     "xdn": "node node_modules/xdn-next/build.js",
     "prod": "XDN_DEPLOYMENT_TYPE=AWS concurrently \"cd .xdn/lambda && sls offline\" \"cd .xdn && PORT=3002 node ../node_modules/xdn-router/devAssetServer.js\"",
@@ -21,6 +21,12 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "nodemonConfig": {
+    "verbose": true,
+    "watch": [
+      ".yalc/react-storefront/service-worker/[b]ootstrap.js"
+    ]
   },
   "dependencies": {
     "@material-ui/core": "4.5.2",
@@ -43,12 +49,12 @@
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-storefront": "file:.yalc/react-storefront",
-    "react-storefront-amp": "file:.yalc/react-storefront-amp",
-    "react-storefront-analytics": "file:.yalc/react-storefront-analytics",
+    "react-storefront": "^7.3.0",
+    "react-storefront-amp": "^1.0.0",
+    "react-storefront-analytics": "^1.0.0",
     "react-visibility-sensor": "^5.1.1",
-    "xdn-next": "file:.yalc/xdn-next",
-    "xdn-router": "file:.yalc/xdn-router"
+    "xdn-next": "^0.6.0",
+    "xdn-router": "^0.6.0"
   },
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",
@@ -62,6 +68,7 @@
     "jest-enzyme": "^7.1.2",
     "jest-fetch-mock": "^2.1.2",
     "jsdom": "^15.2.1",
+    "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "rewire": "^4.0.1",
     "serverless-offline": "^5.12.1",
