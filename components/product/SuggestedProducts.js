@@ -10,7 +10,7 @@
 import React, { useState, useEffect } from 'react'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import PropTypes from 'prop-types'
-import fetch from 'isomorphic-unfetch'
+import fetch from 'react-storefront/fetch'
 import ProductItem from './ProductItem'
 import { Typography } from '@material-ui/core'
 import LoadMask from 'react-storefront/LoadMask'
