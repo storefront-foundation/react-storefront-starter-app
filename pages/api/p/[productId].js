@@ -1,7 +1,6 @@
 import createProduct from '../../../components/mocks/createProduct'
 import fulfillAPIRequest from 'react-storefront/props/fulfillAPIRequest'
 import createAppData from '../../../components/mocks/createAppData'
-import { colorForId } from '../../../components/mocks/colors'
 
 async function getPageData(productId) {
   return Promise.resolve({
@@ -21,8 +20,8 @@ async function getPageData(productId) {
   })
 }
 
-function asciiSum(string) {
-  return string.split``.reduce((s, e) => s + e.charCodeAt(), 0)
+function asciiSum(string = '') {
+  return string.split('').reduce((s, e) => s + e.charCodeAt(), 0)
 }
 
 export default async function fetchProduct(req, res) {
@@ -35,7 +34,6 @@ export default async function fetchProduct(req, res) {
   if (color) {
     const data = await getPageData(productId)
     data.carousel = { index: 0 }
-    data.color = colorForId(color)
     // A price for the fetched product variant would be included in
     // the response, but for demo purposes only, we are setting the
     // price based on the color and size.

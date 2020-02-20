@@ -1,5 +1,6 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import clsx from 'clsx'
+import URL from 'url'
 import useLazyState from 'react-storefront/hooks/useLazyState'
 import Breadcrumbs from 'react-storefront/Breadcrumbs'
 import CmsSlot from 'react-storefront/CmsSlot'
@@ -13,7 +14,7 @@ import { Hbox } from 'react-storefront/Box'
 import Label from 'react-storefront/Label'
 import Rating from 'react-storefront/Rating'
 import get from 'lodash/get'
-import fetch from 'isomorphic-unfetch'
+import fetch from 'react-storefront/fetch'
 import SessionContext from 'react-storefront/session/SessionContext'
 import AddToCartConfirmation from '../../components/product/AddToCartConfirmation'
 import SuggestedProducts from '../../components/product/SuggestedProducts'
@@ -23,6 +24,17 @@ import QuantitySelector from 'react-storefront/QuantitySelector'
 import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
+
+const useDidMountEffect = (func, deps) => {
+  const didMount = useRef(false)
+  useEffect(() => {
+    if (didMount.current) {
+      func()
+    } else {
+      didMount.current = true
+    }
+  }, deps)
+}
 
 const styles = theme => ({
   carousel: {
@@ -72,7 +84,7 @@ const Product = React.memo(lazyProps => {
   const classes = useStyles()
   const product = get(state, 'pageData.product') || {}
   const color = get(state, 'pageData.color', {})
-  const size = get(state, 'pageData.size')
+  const size = get(state, 'pageData.size', {})
   const quantity = get(state, 'pageData.quantity')
   const { actions } = useContext(SessionContext)
   const { loading } = state
@@ -121,21 +133,24 @@ const Product = React.memo(lazyProps => {
     </Row>
   )
 
-  function fetchVariant() {
-    fetch(`/api/p/${product.id}?color=${color.id}&size=${size.id}`)
+  // Fetch variant data upon changing color or size options
+  useDidMountEffect(() => {
+    const url = URL.format({
+      pathname: `/api/p/${product.id}`,
+      query: {
+        color: get(color, 'id'),
+        size: get(size, 'id'),
+      },
+    })
+    fetch(url)
       .then(res => res.json())
       .then(data => {
-        updateStore({
-          ...store,
-          pageData: { ...store.pageData, ...data },
+        updateState({
+          ...state,
+          pageData: { ...state.pageData, ...data },
         })
       })
-  }
-
-  // Fetch variant data upon changing color or size options
-  useEffect(() => {
-    fetchVariant()
-  }, [color.id, size.id])
+  }, [get(color, 'id'), get(size, 'id')])
 
   return (
     <>
