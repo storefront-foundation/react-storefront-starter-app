@@ -78,7 +78,7 @@ const Product = React.memo(lazyProps => {
   const classes = useStyles()
   const product = get(state, 'pageData.product') || {}
   const color = get(state, 'pageData.color', {})
-  const size = get(state, 'pageData.size')
+  const size = get(state, 'pageData.size', {})
   const quantity = get(state, 'pageData.quantity')
   const { actions } = useContext(SessionContext)
   const { loading } = state
@@ -135,7 +135,7 @@ const Product = React.memo(lazyProps => {
       //
       // If no data will need to be fetched and is available in the page state
       // this property is not needed and should be removed
-      remote="/api/p/{product.id}?color={color.id}"
+      remote="/api/p/{product.id}?color={color.id}&size={size.id}"
       store={state}
       updateStore={updateState}
       root="pageData"
