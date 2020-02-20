@@ -17,4 +17,4 @@ jobs:
       - run: npm ci
       - run: npm run deploy -- --branch=commercial
         env:
-          xdn_deploy_key: ${{secrets.xdn_deploy_key}}
+          xdn_deploy_token: ${{secrets.xdn_deploy_token}}
