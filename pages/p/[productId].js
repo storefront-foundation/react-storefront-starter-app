@@ -1,5 +1,6 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import clsx from 'clsx'
+import URL from 'url'
 import useLazyState from 'react-storefront/hooks/useLazyState'
 import Breadcrumbs from 'react-storefront/Breadcrumbs'
 import CmsSlot from 'react-storefront/CmsSlot'
@@ -23,6 +24,17 @@ import QuantitySelector from 'react-storefront/QuantitySelector'
 import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
+
+const useDidMountEffect = (func, deps) => {
+  const didMount = useRef(false)
+  useEffect(() => {
+    if (didMount.current) {
+      func()
+    } else {
+      didMount.current = true
+    }
+  }, deps)
+}
 
 const styles = theme => ({
   carousel: {
@@ -121,21 +133,24 @@ const Product = React.memo(lazyProps => {
     </Row>
   )
 
-  function fetchVariant() {
-    fetch(`/api/p/${product.id}?color=${color.id}&size=${size.id}`)
+  // Fetch variant data upon changing color or size options
+  useDidMountEffect(() => {
+    const url = URL.format({
+      pathname: `/api/p/${product.id}`,
+      query: {
+        color: get(color, 'id'),
+        size: get(size, 'id'),
+      },
+    })
+    fetch(url)
       .then(res => res.json())
       .then(data => {
-        updateStore({
-          ...store,
-          pageData: { ...store.pageData, ...data },
+        updateState({
+          ...state,
+          pageData: { ...state.pageData, ...data },
         })
       })
-  }
-
-  // Fetch variant data upon changing color or size options
-  useEffect(() => {
-    fetchVariant()
-  }, [color.id, size.id])
+  }, [get(color, 'id'), get(size, 'id')])
 
   return (
     <>
