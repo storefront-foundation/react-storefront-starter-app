@@ -105,7 +105,7 @@ const Product = React.memo(lazyProps => {
         body: JSON.stringify({
           id: product.id,
           color: color.id,
-          size: color.id,
+          size: size.id,
           quantity,
         }),
       }).then(res => res.json())
