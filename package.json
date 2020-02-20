@@ -8,7 +8,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "npm run dev",
-    "dev": "cross-env NODE_ENV=development node server.js",
+    "dev": "cross-env NODE_ENV=development nodemon server.js",
     "prod": "cross-env NODE_ENV=production node server.js",
     "build": "next build",
     "test": "jest",
@@ -20,6 +20,12 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "nodemonConfig": {
+    "verbose": true,
+    "watch": [
+      ".yalc/react-storefront/service-worker/[b]ootstrap.js"
+    ]
   },
   "dependencies": {
     "@material-ui/core": "4.5.2",
@@ -36,13 +42,13 @@
     "module-alias": "^2.2.1",
     "next": "^9.2.0",
     "path-to-regexp": "^3.1.0",
-    "preact": "^10.1.0",
+    "preact": "10.1.0",
     "preact-render-to-string": "^5.1.2",
     "preact-ssr-prepass": "^1.0.0",
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-storefront": "^7.0.0",
+    "react-storefront": "^7.3.0",
     "react-visibility-sensor": "^5.1.1"
   },
   "devDependencies": {
@@ -56,6 +62,7 @@
     "jest-enzyme": "^7.1.2",
     "jest-fetch-mock": "^2.1.2",
     "jsdom": "^15.2.1",
+    "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "rewire": "^4.0.1",
     "webpack-bundle-analyzer": "^3.6.0",

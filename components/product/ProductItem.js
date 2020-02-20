@@ -74,11 +74,9 @@ function ProductItem({ product, index, classes, className, colorSelector }) {
           {colorSelector && (
             <ProductOptionSelector
               options={store.colors}
+              value={store.color}
+              onChange={value => updateStore({ ...store, color: value })}
               optionProps={{
-                selectedOption: store.color,
-                onSelectedOptionChange: value => {
-                  updateStore({ ...store, color: value })
-                },
                 size: 'small',
                 showLabel: false,
               }}

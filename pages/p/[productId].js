@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect } from 'react'
 import clsx from 'clsx'
-import useLazyStore from 'react-storefront/hooks/useLazyStore'
-import fetchProps from 'react-storefront/props/fetchProps'
+import useLazyState from 'react-storefront/hooks/useLazyState'
 import Breadcrumbs from 'react-storefront/Breadcrumbs'
 import CmsSlot from 'react-storefront/CmsSlot'
 import MediaCarousel from 'react-storefront/carousel/MediaCarousel'
@@ -14,7 +13,7 @@ import { Hbox } from 'react-storefront/Box'
 import Label from 'react-storefront/Label'
 import Rating from 'react-storefront/Rating'
 import get from 'lodash/get'
-import fetch from 'isomorphic-unfetch'
+import fetch from 'react-storefront/fetch'
 import SessionContext from 'react-storefront/session/SessionContext'
 import AddToCartConfirmation from '../../components/product/AddToCartConfirmation'
 import SuggestedProducts from '../../components/product/SuggestedProducts'
@@ -22,6 +21,8 @@ import Lazy from 'react-storefront/Lazy'
 import TabPanel from 'react-storefront/TabPanel'
 import QuantitySelector from 'react-storefront/QuantitySelector'
 import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector'
+import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
+import createLazyProps from 'react-storefront/props/createLazyProps'
 
 const styles = theme => ({
   carousel: {
@@ -65,16 +66,16 @@ const Product = React.memo(lazyProps => {
   const theme = useTheme()
   const [confirmationOpen, setConfirmationOpen] = useState(false)
   const [addToCartInProgress, setAddToCartInProgress] = useState(false)
-  const [store, updateStore] = useLazyStore(lazyProps, {
+  const [state, updateState] = useLazyState(lazyProps, {
     pageData: { quantity: 1, carousel: { index: 0 }, color: { id: null } },
   })
   const classes = useStyles()
-  const product = get(store, 'pageData.product') || {}
-  const color = get(store, 'pageData.color', {})
-  const size = get(store, 'pageData.size', {})
-  const quantity = get(store, 'pageData.quantity')
+  const product = get(state, 'pageData.product') || {}
+  const color = get(state, 'pageData.color', {})
+  const size = get(state, 'pageData.size', {})
+  const quantity = get(state, 'pageData.quantity')
   const { actions } = useContext(SessionContext)
-  const { loading } = store
+  const { loading } = state
 
   // This is provided when <ForwardThumbnail> is wrapped around product links
   const { thumbnail } = useContext(PWAContext)
@@ -138,7 +139,7 @@ const Product = React.memo(lazyProps => {
 
   return (
     <>
-      <Breadcrumbs items={!loading && store.pageData.breadcrumbs} />
+      <Breadcrumbs items={!loading && state.pageData.breadcrumbs} />
       <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
         <form onSubmit={handleSubmit} method="post" action-xhr="/api/cart">
           <Grid container spacing={4}>
@@ -166,14 +167,14 @@ const Product = React.memo(lazyProps => {
                         <Typography>{color && color.text}</Typography>
                       </Hbox>
                       <ProductOptionSelector
+                        options={product.colors}
+                        value={color}
+                        onChange={value =>
+                          updateState({ ...state, pageData: { ...state.pageData, color: value } })
+                        }
                         optionProps={{
                           showLabel: false,
-                          onSelectedOptionChange: value => {
-                            updateStore({ ...store, pageData: { ...store.pageData, color: value } })
-                          },
-                          selectedOption: color,
                         }}
-                        options={product.colors}
                       />
                     </>
                   ) : (
@@ -196,12 +197,10 @@ const Product = React.memo(lazyProps => {
                       </Hbox>
                       <ProductOptionSelector
                         options={product.sizes}
-                        optionProps={{
-                          onSelectedOptionChange: value => {
-                            updateStore({ ...store, pageData: { ...store.pageData, size: value } })
-                          },
-                          selectedOption: size,
-                        }}
+                        value={size}
+                        onChange={value =>
+                          updateState({ ...state, pageData: { ...state.pageData, size: value } })
+                        }
                       />
                     </>
                   ) : (
@@ -221,7 +220,7 @@ const Product = React.memo(lazyProps => {
                     <QuantitySelector
                       value={quantity}
                       onChange={value =>
-                        updateStore({ ...store, pageData: { ...store.pageData, quantity: value } })
+                        updateState({ ...state, pageData: { ...state.pageData, quantity: value } })
                       }
                     />
                   </Hbox>
@@ -269,9 +268,10 @@ const Product = React.memo(lazyProps => {
   )
 })
 
-Product.getInitialProps = fetchProps(({ res, query }) => {
+Product.getInitialProps = createLazyProps(opts => {
+  const { res } = opts
   if (res) res.setHeader('Cache-Control', 'max-age=99999')
-  return `/api/p/${query.productId}`
+  return fetchFromAPI(opts)
 })
 
 export default Product
