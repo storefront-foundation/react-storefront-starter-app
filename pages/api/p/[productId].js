@@ -29,24 +29,22 @@ export default async function fetchProduct(req, res) {
     query: { productId, color, size },
   } = req
 
+  const result = await fulfillAPIRequest(req, {
+    appData: createAppData,
+    pageData: () => getPageData(productId),
+  })
+
   // When a query parameter exists, we can fetch custom product data
   // pertaining to specific filters.
-  if (color) {
-    const data = await getPageData(productId)
-    data.carousel = { index: 0 }
+  if (color || size) {
+    result.pageData.carousel = { index: 0 }
     // A price for the fetched product variant would be included in
     // the response, but for demo purposes only, we are setting the
     // price based on the color and size.
     const mockPrice = (asciiSum(color) + asciiSum(size)) / 100
-    data.product.price = mockPrice
-    data.product.priceText = `$${mockPrice.toFixed(2)}`
-    return res.json(data)
+    result.pageData.product.price = mockPrice
+    result.pageData.product.priceText = `$${mockPrice.toFixed(2)}`
   }
 
-  res.json(
-    await fulfillAPIRequest(req, {
-      appData: createAppData,
-      pageData: () => getPageData(productId),
-    })
-  )
+  res.json(result)
 }
