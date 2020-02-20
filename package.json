@@ -13,7 +13,7 @@
     "build:xdn": "node node_modules/xdn-next/build.js",
     "prod": "XDN_DEPLOYMENT_TYPE=AWS concurrently \"cd .xdn/lambda && sls offline\" \"cd .xdn && PORT=3002 node ../node_modules/xdn-router/devAssetServer.js\"",
     "test": "jest",
-    "deploy": "npm run build && xdn deploy react-storefront --api-url=https://moovweb.io --api-key=$xdn_deploy_token",
+    "deploy": "npm run build && xdn deploy react-storefront --api-url=https://moovweb.io --api-key=$xdn_deploy_token --environment=production",
     "rsf:link": "yalc add react-storefront react-storefront-analytics react-storefront-amp xdn-router xdn-next && npm i",
     "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\""
   },
