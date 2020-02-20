@@ -1,11 +1,12 @@
 import React from 'react'
 import { Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import useLazyStore from 'react-storefront/hooks/useLazyStore'
+import useLazyState from 'react-storefront/hooks/useLazyState'
 import CmsSlot from 'react-storefront/CmsSlot'
-import fetchProps from 'react-storefront/props/fetchProps'
 import LoadMask from 'react-storefront/LoadMask'
 import Head from 'next/head'
+import createLazyProps from 'react-storefront/props/createLazyProps'
+import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -19,24 +20,24 @@ const useStyles = makeStyles(theme => ({
 
 export default function Index(lazyProps) {
   const classes = useStyles()
-  const [store] = useLazyStore(lazyProps)
+  const [state] = useLazyState(lazyProps)
 
   return (
     <>
-      {store.loading ? null : (
+      {state.loading ? null : (
         <Head>
-          <title>{store.pageData.title}</title>
+          <title>{state.pageData.title}</title>
         </Head>
       )}
       <Container maxWidth="lg">
-        {store.loading ? (
+        {state.loading ? (
           <LoadMask fullscreen />
         ) : (
           <div className={classes.main}>
             <Typography variant="h3" component="h1" gutterBottom color="primary">
-              {store.pageData.slots.heading}
+              {state.pageData.slots.heading}
             </Typography>
-            <CmsSlot>{store.pageData.slots.description}</CmsSlot>
+            <CmsSlot>{state.pageData.slots.description}</CmsSlot>
           </div>
         )}
       </Container>
@@ -44,9 +45,6 @@ export default function Index(lazyProps) {
   )
 }
 
-Index.getInitialProps = fetchProps(({ res }) => {
-  if (res) res.setHeader('Cache-Control', 'max-age=99999')
-  return `/api`
-})
+Index.getInitialProps = createLazyProps(fetchFromAPI)
 
 export const config = { amp: 'hybrid' }

@@ -1,8 +1,7 @@
 import { useContext, useState } from 'react'
 import clsx from 'clsx'
 import Head from 'next/head'
-import useLazyStore from 'react-storefront/hooks/useLazyStore'
-import fetchProps from 'react-storefront/props/fetchProps'
+import useLazyState from 'react-storefront/hooks/useLazyState'
 import Breadcrumbs from 'react-storefront/Breadcrumbs'
 import CmsSlot from 'react-storefront/CmsSlot'
 import MediaCarousel from 'react-storefront-amp/carousel/AmpMediaCarousel'
@@ -16,7 +15,7 @@ import Label from 'react-storefront/Label'
 import Rating from 'react-storefront/Rating'
 import get from 'lodash/get'
 import HiddenInput from 'react-storefront-amp/HiddenInput'
-import fetch from 'isomorphic-unfetch'
+import fetch from 'react-storefront/fetch'
 import SessionContext from 'react-storefront/session/SessionContext'
 import AddToCartConfirmation from '../../components/product/AddToCartConfirmation'
 import SuggestedProducts from '../../components/product/SuggestedProducts'
@@ -28,6 +27,8 @@ import QuantitySelector from 'react-storefront-amp/AmpQuantitySelector'
 import ProductOptionSelector from 'react-storefront-amp/option/AmpProductOptionSelector'
 import { TrackPageView } from 'react-storefront-analytics'
 import { useAmp } from 'next/amp'
+import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
+import createLazyProps from 'react-storefront/props/createLazyProps'
 
 const styles = theme => ({
   carousel: {
@@ -71,16 +72,16 @@ const Product = React.memo(lazyProps => {
   const theme = useTheme()
   const [confirmationOpen, setConfirmationOpen] = useState(false)
   const [addToCartInProgress, setAddToCartInProgress] = useState(false)
-  const [store, updateStore] = useLazyStore(lazyProps, {
+  const [state, updateState] = useLazyState(lazyProps, {
     pageData: { quantity: 1, carousel: { index: 0 }, color: { id: null } },
   })
   const classes = useStyles()
-  const product = get(store, 'pageData.product') || {}
-  const color = get(store, 'pageData.color', {})
-  const size = get(store, 'pageData.size')
-  const quantity = get(store, 'pageData.quantity')
+  const product = get(state, 'pageData.product') || {}
+  const color = get(state, 'pageData.color', {})
+  const size = get(state, 'pageData.size')
+  const quantity = get(state, 'pageData.quantity')
   const { actions } = useContext(SessionContext)
-  const { loading } = store
+  const { loading } = state
 
   // This is provided when <ForwardThumbnail> is wrapped around product links
   const { thumbnail } = useContext(PWAContext)
@@ -135,19 +136,21 @@ const Product = React.memo(lazyProps => {
       // If no data will need to be fetched and is available in the page state
       // this property is not needed and should be removed
       remote="/api/p/{product.id}?color={color.id}"
-      store={store}
-      updateStore={updateStore}
+      store={state}
+      updateStore={updateState}
       root="pageData"
     >
-      <Head>
-        <script
-          async
-          custom-element="amp-form"
-          src="https://cdn.ampproject.org/v0/amp-form-0.1.js"
-        />
-      </Head>
+      {useAmp() && (
+        <Head>
+          <script
+            async
+            custom-element="amp-form"
+            src="https://cdn.ampproject.org/v0/amp-form-0.1.js"
+          />
+        </Head>
+      )}
       {!loading && <TrackPageView />}
-      <Breadcrumbs items={!loading && store.pageData.breadcrumbs} />
+      <Breadcrumbs items={!loading && state.pageData.breadcrumbs} />
       <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
         <form onSubmit={handleSubmit} method="post" action-xhr="/api/cart">
           <Grid container spacing={4}>
@@ -272,10 +275,7 @@ const Product = React.memo(lazyProps => {
   )
 })
 
-Product.getInitialProps = fetchProps(({ res, query }) => {
-  if (res) res.setHeader('Cache-Control', 'max-age=99999')
-  return `/api/p/${query.productId}`
-})
+Product.getInitialProps = createLazyProps(fetchFromAPI)
 
 export default Product
 export const config = { amp: 'hybrid' }
