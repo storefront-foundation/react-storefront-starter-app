@@ -2,6 +2,9 @@ import createProduct from '../../components/mocks/createProduct'
 import withAmpFormParser from 'react-storefront/middlewares/withAmpFormParser'
 
 const cart = (req, res) => {
+  console.log('method', req.method)
+  console.log('body', req.body)
+
   if (req.method === 'POST') {
     const { id, color, size, quantity } = req.body
     console.log('product id: ', id)
