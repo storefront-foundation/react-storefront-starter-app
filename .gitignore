@@ -37,3 +37,6 @@ yalc.lock
 
 # XDN Build
 .xdn
+
+# local dev enviornment variables
+.env
