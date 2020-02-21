@@ -17,7 +17,7 @@
 
 # misc
 .DS_Store
-.env*
+.env
 .serverless_nextjs
 
 # moovweb xdn
@@ -37,6 +37,3 @@ yalc.lock
 
 # XDN Build
 .xdn
-
-# local dev enviornment variables
-.env
