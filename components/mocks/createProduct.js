@@ -1,11 +1,24 @@
 import colors, { colorForId } from './colors'
 import capitalize from 'lodash/capitalize'
 import { loremIpsum } from 'lorem-ipsum'
+import qs from 'qs'
+
+function getOptimizedSrc(url, options) {
+  return `https://opt.moovweb.net/?${qs.stringify({ ...options, img: url })}`
+}
 
 export default function createProduct(id, numColors = 4) {
   const color = colorForId(id)
   const variants = [color, 'red', 'blue']
   const price = (id % 10) * 10 + 0.99
+
+  const getImg = (size, key = color, ignoreText) =>
+    getOptimizedSrc(
+      `https://via.placeholder.com/${size}/${colors[key].background}/${
+        colors[key].foreground
+      }?${'text=' + encodeURIComponent(ignoreText ? ' ' : 'Product ' + id)}`,
+      { quality: '80', format: 'webp' }
+    )
 
   return {
     id,
@@ -15,29 +28,21 @@ export default function createProduct(id, numColors = 4) {
     priceText: `$${price}`,
     rating: (10 - (id % 10)) / 2.0,
     thumbnail: {
-      src: `https://via.placeholder.com/400x400/${colors[color].background}/${
-        colors[color].foreground
-      }?text=${encodeURIComponent('Product ' + id)}`,
+      src: getImg(400, color),
       alt: `Product ${id}`,
     },
     media: {
       full: variants.map(key => ({
-        src: `https://via.placeholder.com/600x600/${colors[key].background}/${
-          colors[key].foreground
-        }?text=${encodeURIComponent('Product ' + id)}`,
+        src: getImg(600, key),
         alt: `Product ${id}`,
         magnify: {
           height: 1200,
           width: 1200,
-          src: `https://via.placeholder.com/1200x1200/${colors[key].background}/${
-            colors[key].foreground
-          }?text=${encodeURIComponent('Product ' + id)}`,
+          src: getImg(1200, key),
         },
       })),
       thumbnails: variants.map(key => ({
-        src: `https://via.placeholder.com/300x300/${colors[key].background}/${
-          colors[key].foreground
-        }?text=${encodeURIComponent('Product ' + id)}`,
+        src: getImg(300, key),
         alt: `Product ${id}`,
       })),
     },
@@ -56,35 +61,25 @@ export default function createProduct(id, numColors = 4) {
         text: capitalize(name),
         id: name,
         image: {
-          src: `https://via.placeholder.com/48x48/${
-            colors[name].background
-          }?text=${encodeURIComponent(' ')}`,
+          src: getImg(48, name, true),
           alt: name,
         },
         media: {
           full: [name, name, name].map(key => ({
-            src: `https://via.placeholder.com/600x600/${colors[key].background}/${
-              colors[key].foreground
-            }?text=${encodeURIComponent('Product ' + id)}`,
+            src: getImg(600, key),
             alt: `Product ${id}`,
             magnify: {
               height: 1200,
               width: 1200,
-              src: `https://via.placeholder.com/1200x1200/${colors[key].background}/${
-                colors[key].foreground
-              }?text=${encodeURIComponent('Product ' + id)}`,
+              src: getImg(1200, key),
             },
           })),
           thumbnails: [name, name, name].map(key => ({
-            src: `https://via.placeholder.com/400x400/${colors[key].background}/${
-              colors[key].foreground
-            }?text=${encodeURIComponent(`Product ${id}`)}`,
+            src: getImg(400, key),
             alt: key,
           })),
           thumbnail: [name].map(key => ({
-            src: `https://via.placeholder.com/400x400/${colors[key].background}/${
-              colors[key].foreground
-            }?text=${encodeURIComponent('Product ' + id)}`,
+            src: getImg(400, key),
             alt: `Product ${id}`,
           }))[0],
         },
