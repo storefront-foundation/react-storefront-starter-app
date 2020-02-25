@@ -19,7 +19,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "yalc remove --all && lint-staged"
     }
   },
   "nodemonConfig": {
@@ -50,13 +50,13 @@
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-storefront": "file:.yalc/react-storefront",
-    "react-storefront-amp": "file:.yalc/react-storefront-amp",
-    "react-storefront-analytics": "file:.yalc/react-storefront-analytics",
+    "react-storefront": "^7.4.0",
+    "react-storefront-amp": "^1.0.0",
+    "react-storefront-analytics": "^1.0.0",
     "react-visibility-sensor": "^5.1.1",
     "typeface-roboto": "0.0.75",
-    "xdn-next": "file:.yalc/xdn-next",
-    "xdn-router": "file:.yalc/xdn-router"
+    "xdn-next": "^0.8.0",
+    "xdn-router": "^0.8.0"
   },
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",
@@ -83,7 +83,6 @@
   },
   "lint-staged": {
     "*.js": [
-      "yalc remove --all",
       "npm run prettier",
       "git add"
     ]
