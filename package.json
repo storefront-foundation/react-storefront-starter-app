@@ -10,11 +10,11 @@
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development nodemon server.js",
     "build": "rm -rf .next && next build && npm run build:xdn",
-    "build:xdn": "node node_modules/xdn-next/build.js",
+    "build:xdn": "xdn-next-build",
     "prod": "XDN_DEPLOYMENT_TYPE=AWS concurrently \"cd .xdn/lambda && sls offline\" \"cd .xdn && PORT=3002 node ../node_modules/xdn-router/devAssetServer.js\"",
     "test": "jest",
     "deploy": "npm run build && xdn deploy react-storefront --api-url=https://moovweb.io --token=$xdn_deploy_token --environment=production",
-    "rsf:link": "yalc add react-storefront react-storefront-analytics react-storefront-amp xdn-router xdn-next && npm i",
+    "rsf:link": "yalc add react-storefront react-storefront-analytics react-storefront-amp xdn-router xdn-next && npm i --prefer-offline",
     "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\""
   },
   "husky": {
@@ -50,13 +50,13 @@
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-storefront": "^7.3.1",
+    "react-storefront": "^7.4.0",
     "react-storefront-amp": "^1.0.0",
     "react-storefront-analytics": "^1.0.0",
     "react-visibility-sensor": "^5.1.1",
     "typeface-roboto": "0.0.75",
-    "xdn-next": "^0.7.2",
-    "xdn-router": "^0.7.2"
+    "xdn-next": "^0.8.0",
+    "xdn-router": "^0.8.0"
   },
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",
@@ -73,6 +73,7 @@
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "rewire": "^4.0.1",
+    "serverless": "^1.64.0",
     "serverless-offline": "^5.12.1",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-clear-require-cache-plugin": "^0.0.3",

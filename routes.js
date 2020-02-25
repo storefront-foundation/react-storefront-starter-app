@@ -19,7 +19,7 @@ module.exports = app => {
           httpCacheSeconds: 0,
         },
       })
-      await serveStatic('.next/service-worker.js')
+      await serveStatic('.next/static/service-worker.js')
     })
     .match('/', cacheResponse(SSR_CACHE_CONFIG))
     .match('/api/', cacheResponse(API_CACHE_CONFIG))
