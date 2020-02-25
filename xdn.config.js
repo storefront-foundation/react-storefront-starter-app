@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 const { LEGACY_BACKEND_DOMAIN, LEGACY_BACKEND_HOST_HEADER } = process.env
 
 if (!LEGACY_BACKEND_DOMAIN) {
