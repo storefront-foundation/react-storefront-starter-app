@@ -4,8 +4,9 @@ import createProduct from '../../../components/mocks/createProduct'
 import colors, { indexForColor } from '../../../components/mocks/colors'
 import fulfillAPIRequest from 'react-storefront/props/fulfillAPIRequest'
 import createAppData from '../../../components/mocks/createAppData'
+import withCaching from 'react-storefront/utils/withCaching'
 
-export default async function getSubcategory(req, res) {
+async function getSubcategory(req, res) {
   let {
     query: { q, subcategoryId = '1', page = 0, filters, sort, more = false },
   } = req
@@ -73,3 +74,5 @@ function filterProducts(page, filters, more) {
 
   return products.sort((a, b) => a.id - b.id).slice(0, count)
 }
+
+export default withCaching(getSubcategory, 60 * 60 * 24) // cache with the service worker for 24 hours
