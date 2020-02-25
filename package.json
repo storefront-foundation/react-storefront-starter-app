@@ -50,7 +50,7 @@
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-storefront": "^7.4.0",
+    "react-storefront": "^7.5.0",
     "react-storefront-amp": "^1.0.0",
     "react-storefront-analytics": "^1.0.0",
     "react-visibility-sensor": "^5.1.1",
