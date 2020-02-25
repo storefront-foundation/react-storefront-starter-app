@@ -8,7 +8,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "npm run dev",
-    "dev": "cross-env NODE_ENV=development nodemon server.js",
+    "dev": "cross-env NODE_ENV=development nodemon -r dotenv/config server.js",
     "build": "rm -rf .next && next build && npm run build:xdn",
     "build:xdn": "xdn-next-build",
     "prod": "XDN_DEPLOYMENT_TYPE=AWS concurrently \"cd .xdn/lambda && sls offline\" \"cd .xdn && PORT=3002 node ../node_modules/xdn-router/devAssetServer.js\"",
@@ -19,7 +19,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "yalc remove --all && lint-staged"
     }
   },
   "nodemonConfig": {
@@ -64,6 +64,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-imports": "^2.0.0",
     "concurrently": "^5.1.0",
+    "dotenv": "^8.2.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "jest": "^24.9.0",
@@ -74,6 +75,7 @@
     "prettier": "^1.19.1",
     "rewire": "^4.0.1",
     "serverless": "^1.64.0",
+    "serverless-dotenv-plugin": "^2.3.2",
     "serverless-offline": "^5.12.1",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-clear-require-cache-plugin": "^0.0.3",
@@ -81,7 +83,6 @@
   },
   "lint-staged": {
     "*.js": [
-      "yalc remove --all",
       "npm run prettier",
       "git add"
     ]
