@@ -21,7 +21,7 @@ app.prepare().then(() => {
     const { pathname } = parsedUrl
 
     if (pathname === '/service-worker.js') {
-      app.serveStatic(req, res, path.join(__dirname, '.next', 'service-worker.js'))
+      app.serveStatic(req, res, path.join(__dirname, '.next', 'static', 'service-worker.js'))
     } else if (pathname.indexOf('/serviceWorkerBootstrap.') === 0) {
       app.serveStatic(req, res, path.join(__dirname, '.next', pathname.substr(1)))
     } else if (pathname === '/pages-manifest.json') {
