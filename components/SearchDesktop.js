@@ -24,67 +24,56 @@ export const styles = theme => ({
 const useStyles = makeStyles(styles, { name: 'RSFSearchDesktop' })
 
 function SearchDesktop({ classes }) {
-  const insideRef = useRef(false)
+  const isFinished = useRef(false)
   const [open, setOpen] = useState(false)
   const myRef = useRef(null)
   classes = useStyles({ classes })
-
-  const handleClickOutside = () => {
-    setTimeout(() => {
-      if (!insideRef.current) {
-        setOpen(false)
-        myRef.current.blur()
-      }
-      insideRef.current = false
-    }, 10)
-  }
-
-  useEffect(() => {
-    document.addEventListener('mouseup', handleClickOutside)
-    return () => {
-      document.removeEventListener('mouseup', handleClickOutside)
-    }
-  }, [])
 
   return (
     <SearchProvider
       onFetchFinish={() => {
         setOpen(true)
+        isFinished.current = true
       }}
       onClose={() => setOpen(false)}
     >
-      <div ref={myRef} className={classes.root} onClick={() => (insideRef.current = true)}>
+      <div ref={myRef} className={classes.root}>
         <SearchForm>
           <SearchField
-            onFocus={inputRef => inputRef.current.value !== '' && setOpen(true)}
+            onFocus={() => {
+              if (isFinished.current) {
+                setOpen(true)
+              }
+            }}
             submitButtonVariant="none"
             showClearButton={false}
             classes={{ input: classes.searchinput }}
           />
         </SearchForm>
+        <Popover
+          open={open}
+          disableAutoFocus
+          disableEnforceFocus
+          disableRestoreFocus
+          disablePortal
+          onClose={() => setOpen(false)}
+          anchorEl={myRef.current}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          PaperProps={{
+            square: true,
+            className: classes.paper,
+          }}
+        >
+          <SearchSuggestions />
+        </Popover>
       </div>
-      <Popover
-        open={open}
-        disableAutoFocus
-        disableEnforceFocus
-        disableRestoreFocus
-        anchorEl={myRef.current}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        PaperProps={{
-          square: true,
-          onClick: () => (insideRef.current = true),
-          className: classes.paper,
-        }}
-      >
-        <SearchSuggestions />
-      </Popover>
     </SearchProvider>
   )
 }
