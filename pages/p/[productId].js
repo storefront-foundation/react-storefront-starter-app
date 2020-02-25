@@ -140,6 +140,9 @@ const Product = React.memo(lazyProps => {
       updateStore={updateState}
       root="pageData"
     >
+      <Head>
+        <link rel="preload" as="image" href={product.media.full[0].src} />
+      </Head>
       {useAmp() && (
         <Head>
           <script
