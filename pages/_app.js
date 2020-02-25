@@ -56,5 +56,8 @@ MyApp.getInitialProps = async function({ Component, ctx }) {
     pageProps = await Component.getInitialProps(ctx)
   }
 
+  // Preconnecting to the optimizer host
+  ctx.res.setHeader('link', '<https://opt.moovweb.net>; rel=preconnect')
+
   return { pageProps }
 }
