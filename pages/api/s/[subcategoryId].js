@@ -75,9 +75,4 @@ function filterProducts(page, filters, more) {
   return products.sort((a, b) => a.id - b.id).slice(0, count)
 }
 
-export default withCaching(getSubcategory, {
-  edge: {},
-  browser: {
-    maxAgeSeconds: 1000, // this should make the service worker cache requests to this route
-  },
-})
+export default withCaching(getSubcategory, 60 * 60 * 24) // cache with the service worker for 24 hours

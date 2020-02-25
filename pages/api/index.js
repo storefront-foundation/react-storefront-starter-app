@@ -25,9 +25,4 @@ async function index(req, res) {
   )
 }
 
-export default withCaching(index, {
-  edge: {},
-  browser: {
-    maxAgeSeconds: 1000, // this should make the service worker cache requests to this route
-  },
-})
+export default withCaching(index, 60 * 60 * 24) // cache with the service worker for 24 hours

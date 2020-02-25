@@ -42,9 +42,4 @@ async function fetchProduct(req, res) {
   )
 }
 
-export default withCaching(fetchProduct, {
-  edge: {},
-  browser: {
-    maxAgeSeconds: 1000, // this should make the service worker cache requests to this route
-  },
-})
+export default withCaching(fetchProduct, 60 * 60 * 24) // cache with the service worker for 24 hours
