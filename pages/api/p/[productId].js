@@ -1,6 +1,7 @@
 import createProduct from '../../../components/mocks/createProduct'
 import fulfillAPIRequest from 'react-storefront/props/fulfillAPIRequest'
 import createAppData from '../../../components/mocks/createAppData'
+import withCaching from 'react-storefront/utils/withCaching'
 
 async function getPageData(productId) {
   return Promise.resolve({
@@ -24,7 +25,7 @@ function asciiSum(string = '') {
   return string.split('').reduce((s, e) => s + e.charCodeAt(), 0)
 }
 
-export default async function fetchProduct(req, res) {
+async function fetchProduct(req, res) {
   const {
     query: { productId, color, size },
   } = req
@@ -48,3 +49,5 @@ export default async function fetchProduct(req, res) {
 
   res.json(result)
 }
+
+export default withCaching(fetchProduct, 60 * 60 * 24) // cache with the service worker for 24 hours
