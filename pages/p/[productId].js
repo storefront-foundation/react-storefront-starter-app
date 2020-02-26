@@ -1,5 +1,6 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import clsx from 'clsx'
+import qs from 'qs'
 import useLazyState from 'react-storefront/hooks/useLazyState'
 import Breadcrumbs from 'react-storefront/Breadcrumbs'
 import CmsSlot from 'react-storefront/CmsSlot'
@@ -23,6 +24,17 @@ import QuantitySelector from 'react-storefront/QuantitySelector'
 import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
+
+const useDidMountEffect = (func, deps) => {
+  const didMount = useRef(false)
+  useEffect(() => {
+    if (didMount.current) {
+      func()
+    } else {
+      didMount.current = true
+    }
+  }, deps)
+}
 
 const styles = theme => ({
   carousel: {
@@ -67,12 +79,12 @@ const Product = React.memo(lazyProps => {
   const [confirmationOpen, setConfirmationOpen] = useState(false)
   const [addToCartInProgress, setAddToCartInProgress] = useState(false)
   const [state, updateState] = useLazyState(lazyProps, {
-    pageData: { quantity: 1, carousel: { index: 0 }, color: { id: null } },
+    pageData: { quantity: 1, carousel: { index: 0 } },
   })
   const classes = useStyles()
   const product = get(state, 'pageData.product') || {}
-  const color = get(state, 'pageData.color', {})
-  const size = get(state, 'pageData.size')
+  const color = get(state, 'pageData.color') || {}
+  const size = get(state, 'pageData.size') || {}
   const quantity = get(state, 'pageData.quantity')
   const { actions } = useContext(SessionContext)
   const { loading } = state
@@ -92,8 +104,8 @@ const Product = React.memo(lazyProps => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           id: product.id,
-          color: get(color, 'id'),
-          size: get(size, 'id'),
+          color: color.id,
+          size: size.id,
           quantity,
         }),
       }).then(res => res.json())
@@ -121,6 +133,16 @@ const Product = React.memo(lazyProps => {
     </Row>
   )
 
+  // Fetch variant data upon changing color or size options
+  useDidMountEffect(() => {
+    const query = qs.stringify({ color: color.id, size: size.id }, { addQueryPrefix: true })
+    fetch(`/api/p/${product.id}${query}`)
+      .then(res => res.json())
+      .then(data => {
+        return updateState({ ...state, pageData: { ...state.pageData, ...data.pageData } })
+      })
+  }, [color.id, size.id])
+
   return (
     <>
       <Breadcrumbs items={!loading && state.pageData.breadcrumbs} />
@@ -135,7 +157,7 @@ const Product = React.memo(lazyProps => {
                 className={classes.carousel}
                 thumbnail={thumbnail.current}
                 height="100%"
-                media={(color && color.media) || (product && product.media)}
+                media={color.media || (product && product.media)}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={7}>
@@ -148,7 +170,7 @@ const Product = React.memo(lazyProps => {
                     <>
                       <Hbox style={{ marginBottom: 10 }}>
                         <Label>COLOR: </Label>
-                        <Typography>{color && color.text}</Typography>
+                        <Typography>{color.text}</Typography>
                       </Hbox>
                       <ProductOptionSelector
                         options={product.colors}
@@ -177,7 +199,7 @@ const Product = React.memo(lazyProps => {
                     <>
                       <Hbox style={{ marginBottom: 10 }}>
                         <Label>SIZE: </Label>
-                        <Typography>{size && size.text}</Typography>
+                        <Typography>{size.text}</Typography>
                       </Hbox>
                       <ProductOptionSelector
                         options={product.sizes}
