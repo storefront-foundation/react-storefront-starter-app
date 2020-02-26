@@ -15,6 +15,8 @@ export const styles = theme => ({
   },
   searchinput: {
     border: '1px solid',
+    borderRadius: theme.spacing(1),
+    margin: theme.spacing(0.5, 0, 0.5, 0),
   },
   paper: {
     boxShadow: '0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14)',
@@ -58,7 +60,7 @@ function SearchDesktop({ classes }) {
           disableAutoFocus
           disableEnforceFocus
           disableRestoreFocus
-          //disablePortal  // without this prop clicking on header does not close the popover, with it closes popover on input focus
+          disablePortal
           onClose={() => setOpen(false)}
           anchorEl={myRef.current}
           anchorOrigin={{
