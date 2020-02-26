@@ -1,4 +1,4 @@
-import React, { memo, useState, useRef, useEffect } from 'react'
+import React, { memo, useState, useRef } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Popover } from '@material-ui/core'
 import SearchForm from 'react-storefront/search/SearchForm'
@@ -18,22 +18,24 @@ export const styles = theme => ({
   },
   paper: {
     boxShadow: '0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14)',
+    minWidth: theme.spacing(84),
+    minHeight: theme.spacing(75),
   },
 })
 
 const useStyles = makeStyles(styles, { name: 'RSFSearchDesktop' })
 
 function SearchDesktop({ classes }) {
-  const isFinished = useRef(false)
   const [open, setOpen] = useState(false)
+  const isFetchedRef = useRef(false)
   const myRef = useRef(null)
   classes = useStyles({ classes })
 
   return (
     <SearchProvider
-      onFetchFinish={() => {
+      onFetch={() => {
         setOpen(true)
-        isFinished.current = true
+        isFetchedRef.current = true
       }}
       onClose={() => setOpen(false)}
     >
@@ -41,10 +43,11 @@ function SearchDesktop({ classes }) {
         <SearchForm>
           <SearchField
             onFocus={() => {
-              if (isFinished.current) {
+              if (isFetchedRef.current) {
                 setOpen(true)
               }
             }}
+            fetchOnFirstFocus
             submitButtonVariant="none"
             showClearButton={false}
             classes={{ input: classes.searchinput }}
@@ -55,7 +58,7 @@ function SearchDesktop({ classes }) {
           disableAutoFocus
           disableEnforceFocus
           disableRestoreFocus
-          disablePortal
+          //disablePortal  // without this prop clicking on header does not close the popover, with it closes popover on input focus
           onClose={() => setOpen(false)}
           anchorEl={myRef.current}
           anchorOrigin={{

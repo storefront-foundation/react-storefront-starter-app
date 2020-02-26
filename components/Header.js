@@ -1,13 +1,10 @@
 import React, { useState, useCallback, useContext } from 'react'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { makeStyles } from '@material-ui/core/styles'
 import AppBar from 'react-storefront/AppBar'
-import Spacer from 'react-storefront/Spacer'
 import CartButton from 'react-storefront/CartButton'
+import Search from './search/Search'
 import Logo from '../components/assets/react-storefront-logo.svg'
-import Search from './Search'
-import SearchDesktop from './SearchDesktop'
-import { Container, Hidden } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 import Menu from 'react-storefront/menu/Menu'
 import MenuButton from 'react-storefront/menu/MenuButton'
 import Link from 'react-storefront/link/Link'
@@ -47,8 +44,6 @@ export default function Header({ menu }) {
   const handleMenuClose = useCallback(() => setMenuOpen(false), [])
   const handleMenuButtonClick = useCallback(() => setMenuOpen(menuOpen => !menuOpen), [])
   const { session } = useContext(SessionContext)
-  const theme = useTheme()
-  const isSmall = useMediaQuery(theme.breakpoints.down('xs'))
 
   return (
     <>
@@ -59,13 +54,7 @@ export default function Header({ menu }) {
               <Logo style={{ width: 120, height: 48 }} className={classes.logo} />
             </a>
           </Link>
-          <Hidden implementation="css" smUp>
-            <Search />
-          </Hidden>
-          <Spacer />
-          <Hidden implementation="css" xsDown>
-            <SearchDesktop />
-          </Hidden>
+          <Search />
           <CartButton quantity={get(session, 'itemsInCart')} />
           <MenuButton open={menuOpen} onClick={handleMenuButtonClick} />
         </Container>
