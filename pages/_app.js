@@ -6,7 +6,7 @@ import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles'
 import PWA from 'react-storefront/PWA'
 import NavBar from '../components/NavBar'
 import reportError from '../components/reportError'
-import useJssStyles from 'react-storefront/hooks/useJssStyles'
+// import useJssStyles from 'react-storefront/hooks/useJssStyles'
 import installAmpOverrides from 'react-storefront-amp/installAmpOverrides'
 import Analytics from '../components/Analytics'
 import SessionProvider from 'react-storefront/session/SessionProvider'
@@ -25,7 +25,7 @@ const styles = theme => ({
 const useStyles = makeStyles(styles)
 
 export default function MyApp({ Component, pageProps }) {
-  useJssStyles()
+  // useJssStyles()
   const classes = useStyles()
   const [appData] = useAppStore(pageProps || {})
 

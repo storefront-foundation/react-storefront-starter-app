@@ -53,7 +53,17 @@ MyDocument.getInitialProps = async ctx => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-  const sheets = new ServerStyleSheets()
+
+  // Custom class name generation
+  let counter = 0
+  const serverGenerateClassName = () => {
+    return `jss-${counter++}`
+  }
+
+  const sheets = new ServerStyleSheets({
+    serverGenerateClassName,
+  })
+
   const originalRenderPage = ctx.renderPage
 
   ctx.res.setHeader('service-worker-allowed', '/')
