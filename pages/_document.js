@@ -2,6 +2,7 @@ import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import theme from '../components/theme'
+import generateClassName from '../components/generateClassName'
 import renderAmp from 'react-storefront-amp/renderAmp'
 
 class MyDocument extends Document {
@@ -54,14 +55,8 @@ MyDocument.getInitialProps = async ctx => {
 
   // Render app and page and get the context of the page with collected side effects.
 
-  // Custom class name generation
-  let counter = 0
-  const serverGenerateClassName = () => {
-    return `jss-${counter++}`
-  }
-
   const sheets = new ServerStyleSheets({
-    serverGenerateClassName,
+    serverGenerateClassName: generateClassName,
   })
 
   const originalRenderPage = ctx.renderPage
