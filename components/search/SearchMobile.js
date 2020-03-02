@@ -5,21 +5,25 @@ import SearchField from 'react-storefront/search/SearchField'
 import SearchDrawer from 'react-storefront/search/SearchDrawer'
 import SearchButton from 'react-storefront/search/SearchButton'
 import SearchSuggestions from 'react-storefront/search/SearchSuggestions'
+import SearchProvider from 'react-storefront/search/SearchProvider'
 
 function SearchMobile() {
-  const [searchOpen, setSearchOpen] = useState(false)
-  const toggleSearch = () => setSearchOpen(!searchOpen)
-  const closeSearch = () => setSearchOpen(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const toggleDrawer = () => setDrawerOpen(!drawerOpen)
+  const closeDrawer = () => setDrawerOpen(false)
 
   return (
     <>
-      <SearchButton onClick={toggleSearch} />
-      <SearchDrawer open={searchOpen} onClose={closeSearch}>
+      <SearchButton onClick={toggleDrawer} />
+      <SearchDrawer open={drawerOpen} onClose={closeDrawer}>
         <SearchForm>
           <SearchHeader>
-            <SearchField />
+            <SearchField onChange={value => setQuery(value)} value={query} />
           </SearchHeader>
-          <SearchSuggestions />
+          <SearchProvider query={query} active={drawerOpen} onClose={closeDrawer}>
+            <SearchSuggestions />
+          </SearchProvider>
         </SearchForm>
       </SearchDrawer>
     </>
