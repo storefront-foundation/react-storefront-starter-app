@@ -2,7 +2,7 @@ import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import theme from '../components/theme'
-import generateClassName from '../components/generateClassName'
+import { getLazyStyleElement } from '../components/LazyStyles'
 import renderAmp from 'react-storefront-amp/renderAmp'
 
 class MyDocument extends Document {
@@ -55,9 +55,7 @@ MyDocument.getInitialProps = async ctx => {
 
   // Render app and page and get the context of the page with collected side effects.
 
-  const sheets = new ServerStyleSheets({
-    serverGenerateClassName: generateClassName,
-  })
+  const sheets = new ServerStyleSheets()
 
   const originalRenderPage = ctx.renderPage
 
@@ -88,6 +86,7 @@ MyDocument.getInitialProps = async ctx => {
         ) : (
           sheets.getStyleElement()
         )}
+        {getLazyStyleElement()}
       </>
     ),
   }
