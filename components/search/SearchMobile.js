@@ -21,7 +21,7 @@ function SearchMobile() {
           <SearchHeader>
             <SearchField onChange={value => setQuery(value)} value={query} />
           </SearchHeader>
-          <SearchProvider query={query} active={drawerOpen} onClose={closeDrawer}>
+          <SearchProvider query={query} active={drawerOpen}>
             <SearchSuggestions />
           </SearchProvider>
         </SearchForm>

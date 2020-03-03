@@ -27,20 +27,8 @@ function SearchDesktop() {
         submitButtonVariant="none"
         showClearButton={false}
       />
-      <SearchProvider
-        query={query}
-        active={activeRef.current}
-        onClose={() => {
-          setPopoverOpen(false)
-          setQuery('')
-          inputRef.current.blur()
-        }}
-      >
-        <SearchPopover
-          open={popoverOpen}
-          onClose={() => setPopoverOpen(false)}
-          anchor={inputRef.current}
-        >
+      <SearchProvider query={query} setQuery={setQuery} active={activeRef.current}>
+        <SearchPopover open={popoverOpen} anchor={inputRef} onClose={() => setPopoverOpen(false)}>
           <SearchSuggestions />
         </SearchPopover>
       </SearchProvider>
