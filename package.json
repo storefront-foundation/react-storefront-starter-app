@@ -9,11 +9,10 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development nodemon -r dotenv/config server.js",
-    "build": "rm -rf .next && next build && npm run build:xdn",
-    "build:xdn": "xdn-next-build",
+    "build": "xdn build",
     "prod": "XDN_DEPLOYMENT_TYPE=AWS concurrently \"cd .xdn/lambda && sls offline\" \"cd .xdn && PORT=3002 node ../node_modules/xdn-router/devAssetServer.js\"",
     "test": "jest",
-    "deploy": "npm run build && xdn deploy react-storefront --api-url=https://moovweb.app --token=$xdn_deploy_token --environment=production",
+    "deploy": "xdn deploy react-storefront --environment=production",
     "rsf:link": "yalc add react-storefront react-storefront-analytics react-storefront-amp xdn-router xdn-next && npm i --prefer-offline",
     "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\""
   },
@@ -51,13 +50,13 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-lazy-hydration": "0.0.8",
-    "react-storefront": "^7.5.0",
+    "react-storefront": "^7.7.0",
     "react-storefront-amp": "^1.0.0",
-    "react-storefront-analytics": "^1.0.0",
+    "react-storefront-analytics": "^1.0.1",
     "react-visibility-sensor": "^5.1.1",
     "typeface-roboto": "0.0.75",
-    "xdn-next": "^0.8.1",
-    "xdn-router": "^0.8.1"
+    "xdn-next": "^0.11.4",
+    "xdn-router": "^0.11.4"
   },
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",
@@ -80,7 +79,7 @@
     "serverless-offline": "^5.12.1",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-clear-require-cache-plugin": "^0.0.3",
-    "xdn": "^0.0.7"
+    "xdn": "^0.2.0"
   },
   "lint-staged": {
     "*.js": [
