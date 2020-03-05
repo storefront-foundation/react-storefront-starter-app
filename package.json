@@ -9,8 +9,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development nodemon -r dotenv/config server.js",
-    "build": "rm -rf .next && next build && npm run build:xdn",
-    "build:xdn": "xdn-next-build",
+    "build": "xdn build",
     "prod": "XDN_DEPLOYMENT_TYPE=AWS concurrently \"cd .xdn/lambda && sls offline\" \"cd .xdn && PORT=3002 node ../node_modules/xdn-router/devAssetServer.js\"",
     "test": "jest",
     "deploy": "xdn deploy react-storefront --environment=production",
