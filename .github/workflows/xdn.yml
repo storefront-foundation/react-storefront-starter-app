@@ -13,7 +13,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-          registry-url: https://npm-proxy.fury.io/moovweb/
       - run: npm ci
       - run: npm run deploy -- --branch=commercial
         env:
