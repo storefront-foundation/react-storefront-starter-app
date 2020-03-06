@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState, useRef } from 'react'
 import SearchForm from 'react-storefront/search/SearchForm'
-import SearchField from 'react-storefront-amp/search/AmpSearchField'
-import SearchSuggestions from 'react-storefront-amp/search/AmpSearchSuggestions'
+import SearchField from 'react-storefront/search/SearchField'
+import SearchSuggestions from 'react-storefront/search/SearchSuggestions'
 import SearchProvider from 'react-storefront/search/SearchProvider'
 import SearchPopover from 'react-storefront/search/SearchPopover'
 
