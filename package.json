@@ -13,7 +13,8 @@
     "prod": "XDN_DEPLOYMENT_TYPE=AWS concurrently \"cd .xdn/lambda && sls offline\" \"cd .xdn && PORT=3002 node ../node_modules/xdn-router/devAssetServer.js\"",
     "test": "jest",
     "deploy": "xdn deploy react-storefront --environment=production",
-    "rsf:link": "yalc add react-storefront react-storefront-analytics react-storefront-amp xdn-router xdn-next && npm i --prefer-offline",
+    "rsf:link": "yalc add react-storefront react-storefront-analytics react-storefront-amp && npm i --prefer-offline",
+    "xdn:link": "yalc add xdn-next xdn-router && npm i --prefer-offline",
     "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\""
   },
   "husky": {
