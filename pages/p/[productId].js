@@ -29,6 +29,7 @@ import { TrackPageView } from 'react-storefront-analytics'
 import { useAmp } from 'next/amp'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
+import LazyHydrate from '../../components/LazyHydrate'
 
 const styles = theme => ({
   carousel: {
@@ -185,12 +186,14 @@ const Product = React.memo(lazyProps => {
                           <Text bind="color.text" />
                         </Typography>
                       </Hbox>
-                      <ProductOptionSelector
-                        optionProps={{
-                          showLabel: false,
-                        }}
-                        bind={{ value: 'color', options: 'product.colors' }}
-                      />
+                      <LazyHydrate on="visible">
+                        <ProductOptionSelector
+                          optionProps={{
+                            showLabel: false,
+                          }}
+                          bind={{ value: 'color', options: 'product.colors' }}
+                        />
+                      </LazyHydrate>
                     </>
                   ) : (
                     <div>

@@ -37,34 +37,55 @@ const isBrowser =
   typeof window.document !== 'undefined' &&
   typeof window.document.createElement !== 'undefined'
 
-function LazyHydrate({ hydrated, children, on, index, ...rest }) {
+const io =
+  isBrowser && IntersectionObserver
+    ? new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting || entry.intersectionRatio > 0) {
+            entry.target.dispatchEvent(new CustomEvent('visible'))
+          }
+        })
+      })
+    : null
+
+function LazyHydrate({ hydrated, ssrOnly, children, on, index, ...rest }) {
   const childRef = React.useRef(null)
   const [_hydrated, setHydrated] = React.useState(!isBrowser)
 
-  if (on === 'click') {
-    React.useEffect(() => {
-      function hydrate() {
-        setHydrated(true)
-      }
-      childRef.current.addEventListener('click', hydrate, {
-        once: true,
-        capture: true,
-        passive: true,
-      })
-      return () => {
-        childRef.current.removeEventListener('click', hydrate, { capture: true })
-      }
-    })
-  }
-
   React.useEffect(() => {
+    if (ssrOnly || hydrated) return
+
+    function hydrate() {
+      setHydrated(true)
+    }
+
     if (hydrated || _hydrated) {
       const stylesheet = window.document.getElementById(`jss-lazy-${index}`)
       if (stylesheet) {
         stylesheet.remove()
       }
     }
-  })
+
+    let el
+    if (on === 'visible') {
+      if (io && childRef.current.childElementCount) {
+        // As root node does not have any box model, it cannot intersect.
+        el = childRef.current.children[0]
+        io.observe(el)
+      }
+    }
+
+    childRef.current.addEventListener(on, hydrate, {
+      once: true,
+      capture: true,
+      passive: true,
+    })
+
+    return () => {
+      if (el) io.unobserve(el)
+      childRef.current.removeEventListener(on, hydrate)
+    }
+  }, [])
 
   if (hydrated || _hydrated) {
     return (
