@@ -8,7 +8,8 @@ import { useAmp } from 'next/amp'
 
 function Search() {
   const theme = useTheme()
-  const isDesktop = useMediaQuery(theme.breakpoints.up('sm')) && !useAmp()
+  const amp = useAmp()
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm')) && !amp
 
   return (
     <>
