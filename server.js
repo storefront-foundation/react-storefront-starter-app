@@ -1,4 +1,4 @@
-if (process.env.preact !== 'false') {
+if (process.env.preact === 'true') {
   const moduleAlias = require('module-alias')
   moduleAlias.addAlias('react', 'preact/compat')
   moduleAlias.addAlias('react-dom', 'preact/compat')
