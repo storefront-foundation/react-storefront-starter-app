@@ -40,7 +40,7 @@
     "isomorphic-unfetch": "^3.0.0",
     "lorem-ipsum": "^2.0.3",
     "module-alias": "^2.2.1",
-    "next": "^9.2.0",
+    "next": "^9.3.0",
     "path-to-regexp": "^3.1.0",
     "preact": "10.1.0",
     "preact-render-to-string": "^5.1.2",
@@ -48,7 +48,7 @@
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-storefront": "^7.9.0",
+    "react-storefront": "file:.yalc/react-storefront",
     "react-visibility-sensor": "^5.1.1"
   },
   "devDependencies": {
