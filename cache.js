@@ -1,4 +1,4 @@
-const createCustomCacheKey = require('xdn-router/createCustomCacheKey')
+const { createCustomCacheKey } = require('xdn-router')
 
 /**
  * 24 hours
@@ -26,7 +26,7 @@ module.exports = {
   /**
    * The cache config for all server side rendered pages
    */
-  SSR_CACHE_CONFIG: {
+  SSR: {
     browser: {
       httpCacheSeconds: 0,
     },
@@ -40,7 +40,7 @@ module.exports = {
   /**
    * The cache config for all server side rendered pages
    */
-  API_CACHE_CONFIG: {
+  API: {
     browser: {
       httpCacheSeconds: 0,
       serviceWorkerSeconds: PAGE_TTL,
@@ -56,9 +56,23 @@ module.exports = {
    * Cache config for static assets that never change and thus can be cached
    * at the edge and in the browser forever.
    */
-  FAR_FUTURE_CACHE_CONFIG: {
+  FAR_FUTURE: {
     browser: {
       httpCacheSeconds: FAR_FUTURE_TTL,
+    },
+    edge: {
+      maxAgeSeconds: FAR_FUTURE_TTL,
+      staleWhileRevalidateSeconds: 60 * 60 * 24,
+    },
+  },
+
+  /**
+   * Cache the service worker at edge, but never in the browser.  Allowing
+   * the service worker to be cached in the browser can prevent it from ever being updated.
+   */
+  SERVICE_WORKER: {
+    browser: {
+      httpCacheSeconds: 0,
     },
     edge: {
       maxAgeSeconds: FAR_FUTURE_TTL,

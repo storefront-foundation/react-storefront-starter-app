@@ -13,7 +13,10 @@
     "prod": "XDN_DEPLOYMENT_TYPE=AWS concurrently \"cd .xdn/lambda && sls offline\" \"cd .xdn && PORT=3002 node ../node_modules/xdn-router/devAssetServer.js\"",
     "test": "jest",
     "deploy": "xdn deploy react-storefront --environment=production",
-    "rsf:link": "yalc add react-storefront react-storefront-analytics react-storefront-amp xdn-router xdn-next && npm i --prefer-offline",
+    "rsf:link": "yalc add react-storefront react-storefront-analytics react-storefront-amp && npm i --prefer-offline",
+    "xdn:link": "rm -rf node_modules/xdn-router node_modules/xdn-next && yalc add xdn-next xdn-router && npm i --prefer-offline",
+    "xdn:update": "npm i --save xdn-router@latest xdn-next@latest",
+    "reinstall": "rm -rf node_modules && npm i --prefer-offline",
     "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\""
   },
   "husky": {
@@ -49,13 +52,13 @@
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-storefront": "^7.7.0",
-    "react-storefront-amp": "^1.0.0",
+    "react-storefront": "^7.9.0",
+    "react-storefront-amp": "^1.1.0",
     "react-storefront-analytics": "^1.0.1",
     "react-visibility-sensor": "^5.1.1",
     "typeface-roboto": "0.0.75",
-    "xdn-next": "^0.11.4",
-    "xdn-router": "^0.11.4"
+    "xdn-next": "^1.0.9",
+    "xdn-router": "^1.0.9"
   },
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",
