@@ -11,6 +11,11 @@ export default async function getProduct(req, res) {
     query: { productId, color, size },
   } = req
 
+  const result = await fulfillAPIRequest(req, {
+    appData: createAppData,
+    pageData: () => getPageData(productId),
+  })
+
   // When a query parameter exists, we can fetch custom product data
   // pertaining to specific filters.
   if (color || size) {
@@ -25,12 +30,7 @@ export default async function getProduct(req, res) {
     return res.json(data)
   }
 
-  res.json(
-    await fulfillAPIRequest(req, {
-      appData: createAppData,
-      pageData: () => getPageData(productId),
-    })
-  )
+  res.json(result)
 }
 
 async function getPageData(productId) {
