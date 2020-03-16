@@ -1,3 +1,3 @@
-const createServer = require('xdn-next/createServer')
+const createServer = require('@xdn/next/createServer')
 
 createServer(require('./routes'))

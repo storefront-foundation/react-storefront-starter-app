@@ -1,4 +1,4 @@
-const { createCustomCacheKey } = require('xdn-router')
+const { createCustomCacheKey } = require('@xdn/router')
 
 /**
  * 24 hours
@@ -82,7 +82,7 @@ module.exports = {
 
   /**
    * Creates a route handler that caches based on the specified config
-   * @param {Object} config A config for xdn-router's cache function
+   * @param {Object} config A config for @xdn/router's cache function
    * @return {Function} a route handler
    */
   cacheResponse: config => ({ cache }) => cache(config),

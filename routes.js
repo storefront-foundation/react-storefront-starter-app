@@ -1,12 +1,12 @@
-const { Router } = require('xdn-router')
-const createNextPlugin = require('xdn-next/router/createNextPlugin')
+import { Router } from '@xdn/router'
+import createNextPlugin from '@xdn/next/router/createNextPlugin'
 
-const {
+import {
   API,
   SSR,
   SERVICE_WORKER,
   cacheResponse,
-} = require('./cache')
+} from './cache'
 
 module.exports = app => {
   const { nextMiddleware, renderNext } = createNextPlugin(app)
