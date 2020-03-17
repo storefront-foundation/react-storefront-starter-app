@@ -1,5 +1,5 @@
-const { Router } = require('xdn-router')
-const createNextPlugin = require('xdn-next/router/createNextPlugin')
+const { Router } = require('@xdn/router')
+const createNextPlugin = require('@xdn/next/router/createNextPlugin')
 
 const {
   API,
