@@ -37,8 +37,8 @@
     "@material-ui/lab": "^4.0.0-alpha.35",
     "@material-ui/styles": "4.5.2",
     "@svgr/webpack": "^4.3.3",
-    "@xdn/next": "file:.yalc/@xdn/next",
-    "@xdn/router": "file:.yalc/@xdn/router",
+    "@xdn/next": "^1.1.2",
+    "@xdn/router": "^1.1.2",
     "cheerio": "^1.0.0-rc.3",
     "clsx": "^1.0.4",
     "copy-webpack-plugin": "^5.1.1",
@@ -63,6 +63,7 @@
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",
     "@babel/helper-split-export-declaration": "^7.8.3",
+    "@xdn/cli": "^1.0.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-imports": "^2.0.0",
     "concurrently": "^5.1.0",
@@ -80,8 +81,7 @@
     "serverless-dotenv-plugin": "^2.3.2",
     "serverless-offline": "^5.12.1",
     "webpack-bundle-analyzer": "^3.6.0",
-    "webpack-clear-require-cache-plugin": "^0.0.3",
-    "xdn": "^0.2.0"
+    "webpack-clear-require-cache-plugin": "^0.0.3"
   },
   "lint-staged": {
     "*.js": [
