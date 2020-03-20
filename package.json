@@ -54,7 +54,7 @@
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-storefront": "^7.9.1",
+    "react-storefront": "^7.9.2",
     "react-storefront-amp": "^1.1.0",
     "react-storefront-analytics": "^1.0.2",
     "react-visibility-sensor": "^5.1.1",
