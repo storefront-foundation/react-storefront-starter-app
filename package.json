@@ -38,7 +38,6 @@
     "@material-ui/styles": "4.5.2",
     "@svgr/webpack": "^4.3.3",
     "@xdn/core": "^1.2.6",
-    "@xdn/framework-detector": "file:.yalc/@xdn/framework-detector",
     "@xdn/next": "^1.2.6",
     "cheerio": "^1.0.0-rc.3",
     "clsx": "^1.0.4",
