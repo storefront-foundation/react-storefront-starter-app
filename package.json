@@ -15,7 +15,7 @@
     "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\"",
     "rsf:link": "rm -rf node_modules/react-storefront node_modules/react-storefront-analytics node_modules/react-storefront-amp && yalc add react-storefront react-storefront-analytics react-storefront-amp && npm i --prefer-offline",
     "xdn:link": "rm -rf node_modules/@xdn/core node_modules/@xdn/next && yalc add @xdn/next @xdn/core @xdn/cli",
-    "xdn:update": "npm i --save @xdn/core@latest @xdn/next@latest",
+    "xdn:update": "npm i --save @xdn/core@latest @xdn/next@latest @xdn/cli@latest",
     "reinstall": "rm -rf node_modules && npm i --prefer-offline"
   },
   "husky": {
@@ -37,8 +37,9 @@
     "@material-ui/lab": "^4.0.0-alpha.35",
     "@material-ui/styles": "4.5.2",
     "@svgr/webpack": "^4.3.3",
-    "@xdn/core": "^1.2.0",
-    "@xdn/next": "^1.2.0",
+    "@xdn/core": "^1.2.6",
+    "@xdn/framework-detector": "file:.yalc/@xdn/framework-detector",
+    "@xdn/next": "^1.2.6",
     "cheerio": "^1.0.0-rc.3",
     "clsx": "^1.0.4",
     "copy-webpack-plugin": "^5.1.1",
@@ -63,7 +64,7 @@
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",
     "@babel/helper-split-export-declaration": "^7.8.3",
-    "@xdn/cli": "^1.2.0",
+    "@xdn/cli": "^1.2.6",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-imports": "^2.0.0",
     "concurrently": "^5.1.0",
