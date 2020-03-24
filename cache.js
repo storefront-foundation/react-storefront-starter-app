@@ -1,4 +1,4 @@
-const { createCustomCacheKey } = require('@xdn/router')
+const { createCustomCacheKey } = require('@xdn/core/router')
 
 /**
  * 24 hours
@@ -28,7 +28,7 @@ module.exports = {
    */
   SSR: {
     browser: {
-      httpCacheSeconds: 0,
+      maxAgeSeconds: 0,
     },
     edge: {
       maxAgeSeconds: PAGE_TTL,
@@ -42,7 +42,7 @@ module.exports = {
    */
   API: {
     browser: {
-      httpCacheSeconds: 0,
+      maxAgeSeconds: 0,
       serviceWorkerSeconds: PAGE_TTL,
     },
     edge: {
@@ -58,7 +58,7 @@ module.exports = {
    */
   FAR_FUTURE: {
     browser: {
-      httpCacheSeconds: FAR_FUTURE_TTL,
+      maxAgeSeconds: FAR_FUTURE_TTL,
     },
     edge: {
       maxAgeSeconds: FAR_FUTURE_TTL,
@@ -72,7 +72,7 @@ module.exports = {
    */
   SERVICE_WORKER: {
     browser: {
-      httpCacheSeconds: 0,
+      maxAgeSeconds: 0,
     },
     edge: {
       maxAgeSeconds: FAR_FUTURE_TTL,
@@ -82,7 +82,7 @@ module.exports = {
 
   /**
    * Creates a route handler that caches based on the specified config
-   * @param {Object} config A config for @xdn/router's cache function
+   * @param {Object} config A config for @xdn/core's cache function
    * @return {Function} a route handler
    */
   cacheResponse: config => ({ cache }) => cache(config),

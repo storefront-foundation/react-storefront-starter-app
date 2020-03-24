@@ -1,4 +1,4 @@
-const Router = require('@xdn/router/Router')
+const { Router } = require('@xdn/core/router')
 const { createNextPlugin } = require('@xdn/next')
 const { API, SSR, SERVICE_WORKER, cacheResponse } = require('./cache')
 

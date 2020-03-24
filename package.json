@@ -7,17 +7,16 @@
   "author": "",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "npm run dev",
-    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node ./node_modules/@xdn/next/bin/dev.js",
+    "start": "xdn run",
     "build": "xdn build",
-    "prod": "XDN_DEPLOYMENT_TYPE=AWS concurrently \"cd .xdn/lambda && sls offline\" \"port=3002 xdn-serve-assets\"",
+    "prod": "xdn run --production",
     "test": "jest",
     "deploy": "xdn deploy react-storefront --environment=production",
+    "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\"",
     "rsf:link": "rm -rf node_modules/react-storefront node_modules/react-storefront-analytics node_modules/react-storefront-amp && yalc add react-storefront react-storefront-analytics react-storefront-amp && npm i --prefer-offline",
-    "xdn:link": "rm -rf node_modules/@xdn/router node_modules/@xdn/next && yalc add @xdn/next @xdn/router",
-    "xdn:update": "npm i --save @xdn/router@latest @xdn/next@latest",
-    "reinstall": "rm -rf node_modules && npm i --prefer-offline",
-    "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\""
+    "xdn:link": "rm -rf node_modules/@xdn/core node_modules/@xdn/next && yalc add @xdn/next @xdn/core @xdn/cli",
+    "xdn:update": "npm i --save @xdn/core@latest @xdn/next@latest",
+    "reinstall": "rm -rf node_modules && npm i --prefer-offline"
   },
   "husky": {
     "hooks": {
@@ -28,17 +27,18 @@
     "verbose": true,
     "watch": [
       ".yalc/react-storefront/service-worker/[b]ootstrap.js",
-      ".yalc/@xdn/router/*"
+      ".yalc/@xdn/core/*"
     ]
   },
   "dependencies": {
+    "@babel/cli": "^7.8.4",
     "@material-ui/core": "4.5.2",
     "@material-ui/icons": "4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.35",
     "@material-ui/styles": "4.5.2",
     "@svgr/webpack": "^4.3.3",
+    "@xdn/core": "file:.yalc/@xdn/core",
     "@xdn/next": "file:.yalc/@xdn/next",
-    "@xdn/router": "file:.yalc/@xdn/router",
     "cheerio": "^1.0.0-rc.3",
     "clsx": "^1.0.4",
     "copy-webpack-plugin": "^5.1.1",
@@ -63,7 +63,7 @@
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",
     "@babel/helper-split-export-declaration": "^7.8.3",
-    "@xdn/cli": "^1.0.2",
+    "@xdn/cli": "file:.yalc/@xdn/cli",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-imports": "^2.0.0",
     "concurrently": "^5.1.0",
@@ -77,9 +77,6 @@
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "rewire": "^4.0.1",
-    "serverless": "^1.64.0",
-    "serverless-dotenv-plugin": "^2.3.2",
-    "serverless-offline": "^5.12.1",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-clear-require-cache-plugin": "^0.0.3"
   },
