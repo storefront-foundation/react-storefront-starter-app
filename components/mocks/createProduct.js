@@ -21,21 +21,21 @@ export default function createProduct(id, numColors = 4) {
       alt: `Product ${id}`,
     },
     media: {
-      full: variants.map(key => ({
-        src: `https://via.placeholder.com/600x600/${colors[key].background}/${
+      full: variants.map((key, i) => ({
+        src: `https://via.placeholder.com/${i === 2 ? 400 : 600}x${i === 1 ? 400 : 600}/${colors[key].background}/${
           colors[key].foreground
         }?text=${encodeURIComponent('Product ' + id)}`,
         alt: `Product ${id}`,
         magnify: {
-          height: 1200,
-          width: 1200,
-          src: `https://via.placeholder.com/1200x1200/${colors[key].background}/${
+          height: i === 1 ? 800 : 1200,
+          width: i === 2 ? 800 : 1200,
+          src: `https://via.placeholder.com/${i === 2 ? 800 : 1200}x${i === 1 ? 800 : 1200}/${colors[key].background}/${
             colors[key].foreground
           }?text=${encodeURIComponent('Product ' + id)}`,
         },
       })),
-      thumbnails: variants.map(key => ({
-        src: `https://via.placeholder.com/300x300/${colors[key].background}/${
+      thumbnails: variants.map((key, i) => ({
+        src: `https://via.placeholder.com/${i === 2 ? 233 : 300}x${i === 1 ? 233 : 300}/${colors[key].background}/${
           colors[key].foreground
         }?text=${encodeURIComponent('Product ' + id)}`,
         alt: `Product ${id}`,
@@ -62,21 +62,21 @@ export default function createProduct(id, numColors = 4) {
           alt: name,
         },
         media: {
-          full: [name, name, name].map(key => ({
-            src: `https://via.placeholder.com/600x600/${colors[key].background}/${
+          full: [name, name, name].map((key, i) => ({
+            src: `https://via.placeholder.com/${i === 2 ? 400 : 600}x${i === 1 ? 400 : 600}/${colors[key].background}/${
               colors[key].foreground
             }?text=${encodeURIComponent('Product ' + id)}`,
             alt: `Product ${id}`,
             magnify: {
-              height: 1200,
-              width: 1200,
-              src: `https://via.placeholder.com/1200x1200/${colors[key].background}/${
+              height: i === 1 ? 800 : 1200,
+              width: i === 2 ? 800 : 1200,
+              src: `https://via.placeholder.com/${i === 2 ? 800 : 1200}x${i === 1 ? 800 : 1200}/${colors[key].background}/${
                 colors[key].foreground
               }?text=${encodeURIComponent('Product ' + id)}`,
             },
           })),
-          thumbnails: [name, name, name].map(key => ({
-            src: `https://via.placeholder.com/400x400/${colors[key].background}/${
+          thumbnails: [name, name, name].map((key, i) => ({
+            src: `https://via.placeholder.com/${i === 2 ? 300 : 400}x${i === 1 ? 300 : 400}/${colors[key].background}/${
               colors[key].foreground
             }?text=${encodeURIComponent(`Product ${id}`)}`,
             alt: key,
