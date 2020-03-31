@@ -49,6 +49,11 @@ const styles = theme => ({
       width: '100vw',
     },
   },
+  lightboxCarousel: {
+    [theme.breakpoints.down('xs')]: {
+      margin: 0,
+    },
+  },
   confirmation: {
     padding: '2px 0',
   },
@@ -185,6 +190,7 @@ const Product = React.memo(lazyProps => {
               </Hidden>
               <MediaCarousel
                 className={classes.carousel}
+                lightboxClassName={classes.lightboxCarousel}
                 thumbnail={thumbnail.current}
                 height="100%"
                 bind={{
