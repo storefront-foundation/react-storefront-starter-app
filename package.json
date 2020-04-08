@@ -7,6 +7,7 @@
   "author": "",
   "license": "UNLICENSED",
   "scripts": {
+    "xdn": "xdn",
     "start": "xdn run",
     "build": "xdn build",
     "prod": "xdn run --production",
@@ -38,8 +39,8 @@
     "@material-ui/lab": "^4.0.0-alpha.35",
     "@material-ui/styles": "4.5.2",
     "@svgr/webpack": "^4.3.3",
-    "@xdn/core": "^1.5.0",
-    "@xdn/next": "^1.5.0",
+    "@xdn/core": "^1.11.0",
+    "@xdn/next": "^1.11.0",
     "cheerio": "^1.0.0-rc.3",
     "clsx": "^1.0.4",
     "copy-webpack-plugin": "^5.1.1",
@@ -59,12 +60,13 @@
     "react-storefront-amp": "^1.1.0",
     "react-storefront-analytics": "^1.0.2",
     "react-visibility-sensor": "^5.1.1",
+    "resolve-package-path": "^2.0.0",
     "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",
     "@babel/helper-split-export-declaration": "^7.8.3",
-    "@xdn/cli": "^1.5.0",
+    "@xdn/cli": "^1.11.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-imports": "^2.0.0",
     "concurrently": "^5.1.0",

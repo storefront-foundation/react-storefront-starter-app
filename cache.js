@@ -1,4 +1,4 @@
-const { createCustomCacheKey } = require('@xdn/core/router')
+const { CustomCacheKey } = require('@xdn/core/router')
 
 /**
  * 24 hours
@@ -16,7 +16,7 @@ const FAR_FUTURE_TTL = 60 * 60 * 24 * 365 * 10
  * prevents cache fragmentation due to unexpected query parameters added in links
  * from 3rd parties.
  */
-const key = createCustomCacheKey().excludeAllQueryParametersExcept('q')
+const key = new CustomCacheKey().excludeAllQueryParametersExcept('q', 'color', 'size')
 
 module.exports = {
   FAR_FUTURE_TTL,
