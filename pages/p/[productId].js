@@ -217,6 +217,7 @@ const Product = React.memo(lazyProps => {
                         optionProps={{
                           showLabel: false,
                         }}
+                        strikeThroughDisabled
                         bind={{ value: 'color', options: 'product.colors' }}
                       />
                     </>
@@ -241,7 +242,10 @@ const Product = React.memo(lazyProps => {
                           <Text bind="size.text" />
                         </Typography>
                       </Hbox>
-                      <ProductOptionSelector bind={{ value: 'size', options: 'product.sizes' }} />
+                      <ProductOptionSelector
+                        strikeThroughDisabled
+                        bind={{ value: 'size', options: 'product.sizes' }}
+                      />
                     </>
                   ) : (
                     <div>
