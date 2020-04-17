@@ -52,9 +52,10 @@ export default function createProduct(id, numColors = 4) {
     specs: loremIpsum({ count: 10 }),
     colors: Object.keys(colors)
       .slice(0, numColors)
-      .map(name => ({
+      .map((name, idx) => ({
         text: capitalize(name),
         id: name,
+        disabled: idx === 2,
         image: {
           src: `https://via.placeholder.com/48x48/${
             colors[name].background
