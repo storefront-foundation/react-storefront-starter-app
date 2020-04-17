@@ -66,6 +66,7 @@ export default function Header({ menu }) {
         onClose={handleMenuClose}
         // renderItem={item => <div>{item.text} (custom)</div>}
         // renderItemContent={item => <div>{item.text} (custom content)</div>}
+        // renderBack={item => <div>{item.text} back</div>}
         // renderHeader={item => <div>{item.text} header</div>}
         // renderFooter={item => <div>{item.text} footer</div>}
       />
