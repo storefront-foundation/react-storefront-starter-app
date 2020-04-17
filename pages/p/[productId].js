@@ -184,6 +184,7 @@ const Product = React.memo(lazyProps => {
                         onChange={value =>
                           updateState({ ...state, pageData: { ...state.pageData, color: value } })
                         }
+                        strikeThroughDisabled
                         optionProps={{
                           showLabel: false,
                         }}
@@ -210,6 +211,7 @@ const Product = React.memo(lazyProps => {
                       <ProductOptionSelector
                         options={product.sizes}
                         value={size}
+                        strikeThroughDisabled
                         onChange={value =>
                           updateState({ ...state, pageData: { ...state.pageData, size: value } })
                         }
