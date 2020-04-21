@@ -1,4 +1,4 @@
-import createProduct from '../../components/mocks/createProduct'
+import createProduct from '../../../mocks/createProduct'
 import withAmpFormParser from 'react-storefront/middlewares/withAmpFormParser'
 
 const cart = (req, res) => {

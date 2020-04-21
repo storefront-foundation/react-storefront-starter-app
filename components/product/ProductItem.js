@@ -1,5 +1,4 @@
 import React, { memo, useState } from 'react'
-import Link from 'react-storefront/link/Link'
 import { Vbox } from 'react-storefront/Box'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -10,6 +9,9 @@ import { Track } from 'react-storefront-analytics'
 import clsx from 'clsx'
 import ProductOptionSelector from 'react-storefront-amp/option/AmpProductOptionSelector'
 import DataBindingProvider from 'react-storefront-amp/bind/DataBindingProvider'
+import Link from 'react-storefront/link/Link'
+import Prefetch from '../Prefetch'
+import getAPIURL from 'react-storefront/api/getAPIURL'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,21 +52,22 @@ function ProductItem({ product, index, classes, className, colorSelector }) {
                 as={product.url}
                 href="/p/[productId]"
                 className={classes.link}
-                prefetch="visible"
                 pageData={{ product, color: store.color }}
               >
-                <a>
-                  <AmpImage
-                    className={classes.thumbnail}
-                    bind={{
-                      src: ['color.media.thumbnail.src', 'thumbnail.src'],
-                      alt: ['color.media.thumbnail.alt', 'thumbnail.alt'],
-                    }}
-                    optimize={{ width: 200 }}
-                    lazy={index >= 4 && index < 20 ? 'ssr' : false}
-                    aspectRatio={1}
-                  />
-                </a>
+                <Prefetch>
+                  <a>
+                    <AmpImage
+                      className={classes.thumbnail}
+                      bind={{
+                        src: ['color.media.thumbnail.src', 'thumbnail.src'],
+                        alt: ['color.media.thumbnail.alt', 'thumbnail.alt'],
+                      }}
+                      optimize={{ maxWidth: 200 }}
+                      lazy={index >= 4 && index < 20 ? 'ssr' : false}
+                      aspectRatio={1}
+                    />
+                  </a>
+                </Prefetch>
               </Link>
             </Track>
           </ForwardThumbnail>

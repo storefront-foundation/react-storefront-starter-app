@@ -12,6 +12,7 @@ import Analytics from '../components/Analytics'
 import SessionProvider from 'react-storefront/session/SessionProvider'
 import AmpProvider from 'react-storefront-amp/AmpProvider'
 import useAppStore from 'react-storefront/hooks/useAppStore'
+import getAPIURL from 'react-storefront/api/getAPIURL'
 import 'typeface-roboto'
 
 installAmpOverrides()
@@ -32,7 +33,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <PWA errorReporter={reportError}>
       <AmpProvider>
-        <SessionProvider url="/api/session">
+        <SessionProvider url={getAPIURL('/session')}>
           <MuiThemeProvider theme={theme}>
             <Analytics>
               <CssBaseline />

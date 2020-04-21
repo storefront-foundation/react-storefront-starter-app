@@ -1,9 +1,9 @@
-import createFacets from '../../../components/mocks/createFacets'
-import createSortOptions from '../../../components/mocks/createSortOptions'
-import createProduct from '../../../components/mocks/createProduct'
-import colors, { indexForColor } from '../../../components/mocks/colors'
+import createFacets from '../../../../mocks/createFacets'
+import createSortOptions from '../../../../mocks/createSortOptions'
+import createProduct from '../../../../mocks/createProduct'
+import colors, { indexForColor } from '../../../../mocks/colors'
 import fulfillAPIRequest from 'react-storefront/props/fulfillAPIRequest'
-import createAppData from '../../../components/mocks/createAppData'
+import createAppData from '../../../../mocks/createAppData'
 
 export default async function getSubcategory(req, res) {
   let {

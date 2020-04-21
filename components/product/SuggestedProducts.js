@@ -14,6 +14,7 @@ import fetch from 'react-storefront/fetch'
 import ProductItem from './ProductItem'
 import { Typography } from '@material-ui/core'
 import LoadMask from 'react-storefront/LoadMask'
+import getAPIURL from 'react-storefront/api/getAPIURL'
 
 export const styles = theme => ({
   products: {
@@ -45,7 +46,7 @@ export default function SuggestedProducts({ product }) {
 
   // Fetch suggested products when the product page is mounted
   useEffect(() => {
-    fetch(`/api/p/${encodeURIComponent(product.id)}/suggestions`)
+    fetch(getAPIURL(`/p/${encodeURIComponent(product.id)}/suggestions`))
       .then(res => res.json())
       .then(result => setSuggestedProducts(result))
   }, [])

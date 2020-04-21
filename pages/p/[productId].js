@@ -30,6 +30,7 @@ import { TrackPageView } from 'react-storefront-analytics'
 import { useAmp } from 'next/amp'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
+import getAPIURL from 'react-storefront/api/getAPIURL'
 
 const useDidMountEffect = (func, deps) => {
   const didMount = useRef(false)
@@ -110,7 +111,7 @@ const Product = React.memo(lazyProps => {
 
     try {
       // send the data to the server
-      const { cartCount } = await fetch('/api/cart', {
+      const { cartCount } = await fetch(getAPIURL('/cart'), {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -149,7 +150,7 @@ const Product = React.memo(lazyProps => {
   // Fetch variant data upon changing color or size options
   useDidMountEffect(() => {
     const query = qs.stringify({ color: color.id, size: size.id }, { addQueryPrefix: true })
-    fetch(`/api/p/${product.id}${query}`)
+    fetch(getAPIURL(`/p/${product.id}${query}`))
       .then(res => res.json())
       .then(data => {
         return updateState({ ...state, pageData: { ...state.pageData, ...data.pageData } })
@@ -164,7 +165,7 @@ const Product = React.memo(lazyProps => {
       //
       // If no data will need to be fetched and is available in the page state
       // this property is not needed and should be removed
-      remote="/api/p/{product.id}?color={color.id}&size={size.id}"
+      remote={getAPIURL(`/p/{product.id}?color={color.id}&size={size.id}`)}
       store={state}
       updateStore={updateState}
       root="pageData"
@@ -181,7 +182,7 @@ const Product = React.memo(lazyProps => {
       {!loading && <TrackPageView />}
       <Breadcrumbs items={!loading && state.pageData.breadcrumbs} />
       <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
-        <form onSubmit={handleSubmit} method="post" action-xhr="/api/cart">
+        <form onSubmit={handleSubmit} method="post" action-xhr={getAPIURL('/cart')}>
           <Grid container spacing={4}>
             <HiddenInput name="id" bind="product.id" />
             <Grid item xs={12} sm={6} md={5}>

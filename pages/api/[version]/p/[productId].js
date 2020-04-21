@@ -1,6 +1,6 @@
-import createProduct from '../../../components/mocks/createProduct'
+import createProduct from '../../../../mocks/createProduct'
 import fulfillAPIRequest from 'react-storefront/props/fulfillAPIRequest'
-import createAppData from '../../../components/mocks/createAppData'
+import createAppData from '../../../../mocks/createAppData'
 
 function asciiSum(string = '') {
   return string.split('').reduce((s, e) => s + e.charCodeAt(), 0)

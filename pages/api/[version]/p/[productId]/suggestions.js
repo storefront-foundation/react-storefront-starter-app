@@ -1,4 +1,4 @@
-import createProduct from '../../../../components/mocks/createProduct'
+import createProduct from '../../../../../mocks/createProduct'
 
 /**
  * An example endpoint that returns mock product suggestions for a PDP.

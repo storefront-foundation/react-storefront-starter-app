@@ -1,6 +1,6 @@
 // returns data for the homepage
 import fulfillAPIRequest from 'react-storefront/props/fulfillAPIRequest'
-import createAppData from '../../components/mocks/createAppData'
+import createAppData from '../../../mocks/createAppData'
 
 export default async function index(req, res) {
   res.json(

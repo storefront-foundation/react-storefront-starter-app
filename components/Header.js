@@ -10,6 +10,7 @@ import MenuButton from 'react-storefront/menu/MenuButton'
 import Link from 'react-storefront/link/Link'
 import SessionContext from 'react-storefront/session/SessionContext'
 import get from 'lodash/get'
+import Prefetch from './Prefetch'
 
 const useStyles = makeStyles(theme => ({
   title: {},
@@ -50,9 +51,11 @@ export default function Header({ menu }) {
       <AppBar>
         <Container maxWidth="lg" className={classes.container}>
           <Link href="/">
-            <a>
-              <Logo style={{ width: 120, height: 48 }} className={classes.logo} />
-            </a>
+            <Prefetch>
+              <a>
+                <Logo style={{ width: 120, height: 48 }} className={classes.logo} />
+              </a>
+            </Prefetch>
           </Link>
           <Search />
           <CartButton quantity={get(session, 'itemsInCart')} />

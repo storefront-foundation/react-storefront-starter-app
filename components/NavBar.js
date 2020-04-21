@@ -4,6 +4,8 @@ import NavTabs from 'react-storefront/nav/NavTabs'
 import Link from 'react-storefront/link/Link'
 import { Container, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import Prefetch from './Prefetch'
+import getAPIURL from 'react-storefront/api/getAPIURL'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -28,16 +30,24 @@ function NavBar({ tabs }) {
       <Container maxWidth="lg" className={classes.container}>
         <NavTabs>
           {tabs.map(tab => (
-            <NavTab key={tab.as} href={tab.href} as={tab.as} label={tab.text} prefetch="visible">
+            <NavTab
+              key={tab.as}
+              href={tab.href}
+              as={tab.as}
+              label={tab.text}
+              renderLink={link => <Prefetch url={tab.as}>{link}</Prefetch>}
+            >
               <div style={{ padding: 20 }}>
-                {tab.subcategories.map(subcategory => (
+                {tab.subcategories.map((subcategory, i) => (
                   <Link
+                    key={i}
                     href={subcategory.href}
-                    key={subcategory.as}
                     as={subcategory.as}
                     className={classes.link}
                   >
-                    {subcategory.text}
+                    <Prefetch>
+                      <a>{subcategory.text}</a>
+                    </Prefetch>
                   </Link>
                 ))}
               </div>
