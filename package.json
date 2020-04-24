@@ -39,10 +39,6 @@
     "@material-ui/lab": "^4.0.0-alpha.35",
     "@material-ui/styles": "4.5.2",
     "@svgr/webpack": "^4.3.3",
-    "@xdn/core": "file:.yalc/@xdn/core",
-    "@xdn/next": "file:.yalc/@xdn/next",
-    "@xdn/prefetch": "file:.yalc/@xdn/prefetch",
-    "@xdn/react": "file:.yalc/@xdn/react",
     "cheerio": "^1.0.0-rc.3",
     "clsx": "^1.0.4",
     "copy-webpack-plugin": "^5.1.1",
@@ -59,9 +55,6 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-merge-refs": "^1.0.0",
-    "react-storefront": "file:.yalc/react-storefront",
-    "react-storefront-amp": "file:.yalc/react-storefront-amp",
-    "react-storefront-analytics": "file:.yalc/react-storefront-analytics",
     "react-visibility-sensor": "^5.1.1",
     "resolve-package-path": "^2.0.0",
     "typeface-roboto": "0.0.75"
@@ -69,7 +62,6 @@
   "devDependencies": {
     "@babel/helper-function-name": "^7.8.3",
     "@babel/helper-split-export-declaration": "^7.8.3",
-    "@xdn/cli": "file:.yalc/@xdn/cli",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-imports": "^2.0.0",
     "concurrently": "^5.1.0",
