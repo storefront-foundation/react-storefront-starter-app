@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const withReactStorefront = require('react-storefront/plugins/withReactStorefront')
-const { withServiceWorker } = require('@xdn/next')
+const { withServiceWorker } = require('@xdn/next/sw')
 
 module.exports = withReactStorefront(
   withServiceWorker({
