@@ -146,16 +146,6 @@ const Product = React.memo(lazyProps => {
     </Row>
   )
 
-  // Fetch variant data upon changing color or size options
-  useDidMountEffect(() => {
-    const query = qs.stringify({ color: color.id, size: size.id }, { addQueryPrefix: true })
-    fetch(`/api/p/${product.id}${query}`)
-      .then(res => res.json())
-      .then(data => {
-        return updateState({ ...state, pageData: { ...state.pageData, ...data.pageData } })
-      })
-  }, [color.id, size.id])
-
   return (
     <DataBindingProvider
       // If data is not already available in the model during SSR,
