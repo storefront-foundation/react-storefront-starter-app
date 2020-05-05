@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect, useRef } from 'react'
 import clsx from 'clsx'
 import Head from 'next/head'
-import qs from 'qs'
 import useLazyState from 'react-storefront/hooks/useLazyState'
 import Breadcrumbs from 'react-storefront/Breadcrumbs'
 import CmsSlot from 'react-storefront/CmsSlot'
@@ -30,6 +29,7 @@ import { TrackPageView } from 'react-storefront-analytics'
 import { useAmp } from 'next/amp'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
+import getAPIURL from 'react-storefront/api/getAPIURL'
 
 const useDidMountEffect = (func, deps) => {
   const didMount = useRef(false)
@@ -154,7 +154,7 @@ const Product = React.memo(lazyProps => {
       //
       // If no data will need to be fetched and is available in the page state
       // this property is not needed and should be removed
-      remote="/api/p/{product.id}?color={color.id}&size={size.id}"
+      remote={getAPIURL('/api/p/{product.id}?color={color.id}&size={size.id}')}
       store={state}
       updateStore={updateState}
       root="pageData"

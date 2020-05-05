@@ -15,9 +15,9 @@
     "deploy": "xdn deploy react-storefront",
     "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\"",
     "rsf:link": "rm -rf node_modules/react-storefront node_modules/react-storefront-analytics node_modules/react-storefront-amp && yalc add react-storefront react-storefront-analytics react-storefront-amp && npm i --prefer-offline",
-    "xdn:link": "rm -rf node_modules/@xdn/core node_modules/@xdn/next && yalc add @xdn/next @xdn/core @xdn/cli @xdn/framework-detector",
+    "xdn:link": "rm -rf node_modules/@xdn/core node_modules/@xdn/next && yalc add @xdn/next @xdn/core @xdn/cli @xdn/prefetch",
     "rsf:update": "npm i --save react-storefront@latest react-storefront-amp@latest react-storefront-analytics@latest",
-    "xdn:update": "npm i --save @xdn/core@latest @xdn/next@latest @xdn/cli@latest",
+    "xdn:update": "npm i --save @xdn/core@latest @xdn/next@latest @xdn/cli@latest @xdn/prefetch@latest",
     "reinstall": "rm -rf node_modules && npm i --prefer-offline"
   },
   "husky": {
@@ -28,28 +28,25 @@
   "nodemonConfig": {
     "verbose": true,
     "watch": [
-      ".yalc/react-storefront/service-worker/[b]ootstrap.js",
-      ".yalc/@xdn/core/*"
+      "routes.js",
+      "cache.js",
+      ".yalc/*"
     ]
   },
   "dependencies": {
-    "@babel/cli": "^7.8.4",
     "@material-ui/core": "4.5.2",
     "@material-ui/icons": "4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.35",
     "@material-ui/styles": "4.5.2",
     "@svgr/webpack": "^4.3.3",
-    "@xdn/core": "^1.13.0",
-    "@xdn/next": "^1.13.0",
-    "cheerio": "^1.0.0-rc.3",
+    "@xdn/core": "^1.17.0",
+    "@xdn/next": "^1.17.0",
+    "@xdn/prefetch": "^1.17.0",
     "clsx": "^1.0.4",
-    "copy-webpack-plugin": "^5.1.1",
     "cross-env": "^5.2.0",
     "isomorphic-unfetch": "^3.0.0",
     "lorem-ipsum": "^2.0.3",
-    "module-alias": "^2.2.1",
     "next": "^9.3.0",
-    "path-to-regexp": "^3.1.0",
     "preact": "10.1.0",
     "preact-render-to-string": "^5.1.2",
     "preact-ssr-prepass": "^1.0.0",
@@ -59,31 +56,20 @@
     "react-storefront": "^7.10.0",
     "react-storefront-amp": "^1.1.0",
     "react-storefront-analytics": "^1.0.2",
-    "react-visibility-sensor": "^5.1.1",
-    "resolve-package-path": "^2.0.0",
     "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
     "@babel/helper-function-name": "^7.8.3",
     "@babel/helper-split-export-declaration": "^7.8.3",
-    "@xdn/cli": "^1.13.0",
+    "@xdn/cli": "^1.17.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-imports": "^2.0.0",
-    "concurrently": "^5.1.0",
     "dotenv": "^8.2.0",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1",
     "husky": "^4.0.0",
-    "jest": "^24.9.0",
-    "jest-enzyme": "^7.1.2",
-    "jest-fetch-mock": "^2.1.2",
-    "jsdom": "^15.2.1",
     "lint-staged": "^10.0.9",
     "nodemon": "^2.0.2",
-    "prettier": "^1.19.1",
-    "rewire": "^4.0.1",
-    "webpack-bundle-analyzer": "^3.6.0",
-    "webpack-clear-require-cache-plugin": "^0.0.3"
+    "prettier": "^1.19.1"
   },
   "lint-staged": {
     "*.js": [

@@ -17,7 +17,7 @@ class MyDocument extends Document {
           /> */}
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
-          <link rel="preconnect" href="https://opt.moovweb.net" crossorigin />
+          <link rel="preconnect" href="https://opt.moovweb.net" crossOrigin="true" />
         </Head>
         <body>
           <Main />
