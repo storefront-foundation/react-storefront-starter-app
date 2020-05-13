@@ -31,17 +31,6 @@ import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
 import getAPIURL from 'react-storefront/api/getAPIURL'
 
-const useDidMountEffect = (func, deps) => {
-  const didMount = useRef(false)
-  useEffect(() => {
-    if (didMount.current) {
-      func()
-    } else {
-      didMount.current = true
-    }
-  }, deps)
-}
-
 const styles = theme => ({
   carousel: {
     [theme.breakpoints.down('xs')]: {
@@ -52,6 +41,7 @@ const styles = theme => ({
   lightboxCarousel: {
     [theme.breakpoints.down('xs')]: {
       margin: 0,
+      width: '100%',
     },
   },
   confirmation: {
