@@ -53,8 +53,8 @@
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-storefront": "^7.10.0",
-    "react-storefront-amp": "^1.1.0",
+    "react-storefront": "^8.1.0",
+    "react-storefront-amp": "^1.2.1",
     "react-storefront-analytics": "^1.0.2",
     "typeface-roboto": "0.0.75"
   },
