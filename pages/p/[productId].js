@@ -46,6 +46,7 @@ const styles = theme => ({
   lightboxCarousel: {
     [theme.breakpoints.down('xs')]: {
       margin: 0,
+      width: '100%',
     },
   },
   confirmation: {
