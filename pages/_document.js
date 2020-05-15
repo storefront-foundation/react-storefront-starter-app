@@ -3,7 +3,7 @@ import Document, { Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import theme from '../components/theme'
 import renderAmp from 'react-storefront-amp/renderAmp'
-import { LazyStyleElements } from '../components/LazyHydrate'
+import { LazyStyleElements } from 'react-storefront/LazyHydrate'
 
 class MyDocument extends Document {
   render() {
