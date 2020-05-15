@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import clsx from 'clsx'
 import Head from 'next/head'
 import useLazyState from 'react-storefront/hooks/useLazyState'
@@ -29,13 +29,20 @@ import { TrackPageView } from 'react-storefront-analytics'
 import { useAmp } from 'next/amp'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
-import LazyHydrate from '../../components/LazyHydrate'
+import LazyHydrate from 'react-storefront/LazyHydrate'
+import getAPIURL from 'react-storefront/api/getAPIURL'
 
 const styles = theme => ({
   carousel: {
     [theme.breakpoints.down('xs')]: {
       margin: theme.spacing(0, -2),
       width: '100vw',
+    },
+  },
+  lightboxCarousel: {
+    [theme.breakpoints.down('xs')]: {
+      margin: 0,
+      width: '100%',
     },
   },
   confirmation: {
@@ -74,7 +81,7 @@ const Product = React.memo(lazyProps => {
   const [confirmationOpen, setConfirmationOpen] = useState(false)
   const [addToCartInProgress, setAddToCartInProgress] = useState(false)
   const [state, updateState] = useLazyState(lazyProps, {
-    pageData: { quantity: 1, carousel: { index: 0 }, color: { id: null } },
+    pageData: { quantity: 1, carousel: { index: 0 } },
   })
   const classes = useStyles()
   const product = get(state, 'pageData.product') || {}
@@ -99,8 +106,8 @@ const Product = React.memo(lazyProps => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           id: product.id,
-          color: get(color, 'id'),
-          size: get(size, 'id'),
+          color: color.id,
+          size: size.id,
           quantity,
         }),
       }).then(res => res.json())
@@ -138,7 +145,7 @@ const Product = React.memo(lazyProps => {
       //
       // If no data will need to be fetched and is available in the page state
       // this property is not needed and should be removed
-      remote="/api/p/{product.id}?color={color.id}&size={size.id}"
+      remote={getAPIURL('/api/p/{product.id}?color={color.id}&size={size.id}')}
       store={state}
       updateStore={updateState}
       root="pageData"
@@ -164,6 +171,7 @@ const Product = React.memo(lazyProps => {
               </Hidden>
               <MediaCarousel
                 className={classes.carousel}
+                lightboxClassName={classes.lightboxCarousel}
                 thumbnail={thumbnail.current}
                 height="100%"
                 bind={{
@@ -191,6 +199,7 @@ const Product = React.memo(lazyProps => {
                           optionProps={{
                             showLabel: false,
                           }}
+                          strikeThroughDisabled
                           bind={{ value: 'color', options: 'product.colors' }}
                         />
                       </LazyHydrate>
@@ -216,7 +225,10 @@ const Product = React.memo(lazyProps => {
                           <Text bind="size.text" />
                         </Typography>
                       </Hbox>
-                      <ProductOptionSelector bind={{ value: 'size', options: 'product.sizes' }} />
+                      <ProductOptionSelector
+                        strikeThroughDisabled
+                        bind={{ value: 'size', options: 'product.sizes' }}
+                      />
                     </>
                   ) : (
                     <div>

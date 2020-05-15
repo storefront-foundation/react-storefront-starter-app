@@ -1,11 +1,10 @@
 import React, { useState, useCallback, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from 'react-storefront-amp/AmpAppBar'
-import Spacer from 'react-storefront/Spacer'
 import CartButton from 'react-storefront/CartButton'
+import Search from './search/Search'
 import Logo from '../components/assets/react-storefront-logo.svg'
-import Search from './Search'
-import { Hidden, Container } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 import Menu from 'react-storefront-amp/menu/AmpMenu'
 import MenuButton from 'react-storefront/menu/MenuButton'
 import Link from 'react-storefront/link/Link'
@@ -55,10 +54,7 @@ export default function Header({ menu }) {
               <Logo style={{ width: 120, height: 48 }} className={classes.logo} />
             </a>
           </Link>
-          <Hidden implementation="css" smUp>
-            <Search />
-          </Hidden>
-          <Spacer />
+          <Search />
           <CartButton quantity={get(session, 'itemsInCart')} />
           <MenuButton open={menuOpen} onClick={handleMenuButtonClick} />
         </Container>
@@ -70,6 +66,7 @@ export default function Header({ menu }) {
         onClose={handleMenuClose}
         // renderItem={item => <div>{item.text} (custom)</div>}
         // renderItemContent={item => <div>{item.text} (custom content)</div>}
+        // renderBack={item => <div>{item.text} back</div>}
         // renderHeader={item => <div>{item.text} header</div>}
         // renderFooter={item => <div>{item.text} footer</div>}
       />

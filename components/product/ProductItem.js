@@ -60,7 +60,7 @@ function ProductItem({ product, index, classes, className, colorSelector }) {
                       src: ['color.media.thumbnail.src', 'thumbnail.src'],
                       alt: ['color.media.thumbnail.alt', 'thumbnail.alt'],
                     }}
-                    optimize={{ maxWidth: 200 }}
+                    optimize={{ width: 200 }}
                     lazy={index >= 4 && index < 20 ? 'ssr' : false}
                     aspectRatio={1}
                   />
