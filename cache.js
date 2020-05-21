@@ -67,20 +67,6 @@ module.exports = {
   },
 
   /**
-   * Cache the service worker at edge, but never in the browser.  Allowing
-   * the service worker to be cached in the browser can prevent it from ever being updated.
-   */
-  SERVICE_WORKER: {
-    browser: {
-      maxAgeSeconds: 0,
-    },
-    edge: {
-      maxAgeSeconds: FAR_FUTURE_TTL,
-      staleWhileRevalidateSeconds: 60 * 60 * 24,
-    },
-  },
-
-  /**
    * Creates a route handler that caches based on the specified config
    * @param {Object} config A config for @xdn/core's cache function
    * @return {Function} a route handler
