@@ -13,4 +13,7 @@ module.exports = withReactStorefront({
     )
     return config
   },
+  experimental: {
+    // reactMode: 'concurrent',
+  },
 })

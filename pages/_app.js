@@ -13,6 +13,7 @@ import SessionProvider from 'react-storefront/session/SessionProvider'
 import AmpProvider from 'react-storefront-amp/AmpProvider'
 import useAppStore from 'react-storefront/hooks/useAppStore'
 import 'typeface-roboto'
+// import { getRoutesManifest } from 'react-storefront/router'
 
 installAmpOverrides()
 
@@ -24,13 +25,16 @@ const styles = theme => ({
 
 const useStyles = makeStyles(styles)
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps, routes }) {
   useJssStyles()
   const classes = useStyles()
   const [appData] = useAppStore(pageProps || {})
 
   return (
-    <PWA errorReporter={reportError}>
+    <PWA
+      errorReporter={reportError}
+      // routes={routes}
+    >
       <AmpProvider>
         <SessionProvider url="/api/session">
           <MuiThemeProvider theme={theme}>
@@ -56,5 +60,5 @@ MyApp.getInitialProps = async function({ Component, ctx }) {
     pageProps = await Component.getInitialProps(ctx)
   }
 
-  return { pageProps }
+  return { pageProps /* routes: getRoutesManifest()*/ }
 }

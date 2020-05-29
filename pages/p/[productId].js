@@ -30,6 +30,7 @@ import { useAmp } from 'next/amp'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
 import getAPIURL from 'react-storefront/api/getAPIURL'
+import LazyHydrate from 'react-storefront/LazyHydrate'
 
 const styles = theme => ({
   carousel: {
@@ -168,15 +169,17 @@ const Product = React.memo(lazyProps => {
               <Hidden implementation="css" smUp>
                 {header}
               </Hidden>
-              <MediaCarousel
-                className={classes.carousel}
-                lightboxClassName={classes.lightboxCarousel}
-                thumbnail={thumbnail.current}
-                height="100%"
-                bind={{
-                  media: ['color.media', 'product.media'],
-                }}
-              />
+              <LazyHydrate on="click">
+                <MediaCarousel
+                  className={classes.carousel}
+                  lightboxClassName={classes.lightboxCarousel}
+                  thumbnail={thumbnail.current}
+                  height="100%"
+                  bind={{
+                    media: ['color.media', 'product.media'],
+                  }}
+                />
+              </LazyHydrate>
             </Grid>
             <Grid item xs={12} sm={6} md={7}>
               <Grid container spacing={4}>
