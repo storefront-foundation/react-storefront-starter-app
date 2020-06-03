@@ -3,7 +3,7 @@ import Document, { Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import theme from '../components/theme'
 import renderAmp from 'react-storefront-amp/renderAmp'
-import { LazyStyleElements } from 'react-storefront/LazyHydrate'
+import { LazyStyleElements, clearLazyHydrateRegistries } from 'react-storefront/LazyHydrate'
 
 class MyDocument extends Document {
   render() {
@@ -21,6 +21,7 @@ class MyDocument extends Document {
           <link rel="preconnect" href="https://opt.moovweb.net" crossOrigin="true" />
         </Head>
         <body>
+          <LazyStyleElements />
           <Main />
           <NextScript />
         </body>
@@ -60,6 +61,8 @@ MyDocument.getInitialProps = async ctx => {
 
   ctx.res.setHeader('service-worker-allowed', '/')
 
+  clearLazyHydrateRegistries()
+
   ctx.renderPage = async () => {
     const document = originalRenderPage({
       enhanceApp: App => props => sheets.collect(<App {...props} />),
@@ -85,7 +88,6 @@ MyDocument.getInitialProps = async ctx => {
         ) : (
           sheets.getStyleElement()
         )}
-        <LazyStyleElements />
       </>
     ),
   }

@@ -169,7 +169,7 @@ const Product = React.memo(lazyProps => {
               <Hidden implementation="css" smUp>
                 {header}
               </Hidden>
-              <LazyHydrate on="click">
+              <LazyHydrate on="click" id="carousel">
                 <MediaCarousel
                   className={classes.carousel}
                   lightboxClassName={classes.lightboxCarousel}
@@ -196,13 +196,15 @@ const Product = React.memo(lazyProps => {
                           <Text bind="color.text" />
                         </Typography>
                       </Hbox>
-                      <ProductOptionSelector
-                        optionProps={{
-                          showLabel: false,
-                        }}
-                        strikeThroughDisabled
-                        bind={{ value: 'color', options: 'product.colors' }}
-                      />
+                      <LazyHydrate on="visible" id="colors">
+                        <ProductOptionSelector
+                          optionProps={{
+                            showLabel: false,
+                          }}
+                          strikeThroughDisabled
+                          bind={{ value: 'color', options: 'product.colors' }}
+                        />
+                      </LazyHydrate>
                     </>
                   ) : (
                     <div>
@@ -248,18 +250,20 @@ const Product = React.memo(lazyProps => {
                   </Hbox>
                 </Grid>
                 <Grid item xs={12}>
-                  <Button
-                    key="button"
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    data-th="add-to-cart"
-                    className={clsx(classes.docked, classes.noShadow)}
-                    disabled={addToCartInProgress}
-                  >
-                    Add to Cart
-                  </Button>
+                  <LazyHydrate on="visible" id="add-to-cart">
+                    <Button
+                      key="button"
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      data-th="add-to-cart"
+                      className={clsx(classes.docked, classes.noShadow)}
+                      disabled={addToCartInProgress}
+                    >
+                      Add to Cart
+                    </Button>
+                  </LazyHydrate>
                   <AddToCartConfirmation
                     open={confirmationOpen}
                     setOpen={setConfirmationOpen}
