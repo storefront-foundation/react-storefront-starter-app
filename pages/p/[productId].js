@@ -169,7 +169,7 @@ const Product = React.memo(lazyProps => {
               <Hidden implementation="css" smUp>
                 {header}
               </Hidden>
-              <LazyHydrate on="click" id="carousel">
+              <LazyHydrate id="carousel">
                 <MediaCarousel
                   className={classes.carousel}
                   lightboxClassName={classes.lightboxCarousel}
@@ -196,7 +196,7 @@ const Product = React.memo(lazyProps => {
                           <Text bind="color.text" />
                         </Typography>
                       </Hbox>
-                      <LazyHydrate on="visible" id="colors">
+                      <LazyHydrate id="colors">
                         <ProductOptionSelector
                           optionProps={{
                             showLabel: false,
@@ -250,20 +250,18 @@ const Product = React.memo(lazyProps => {
                   </Hbox>
                 </Grid>
                 <Grid item xs={12}>
-                  <LazyHydrate on="visible" id="add-to-cart">
-                    <Button
-                      key="button"
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                      data-th="add-to-cart"
-                      className={clsx(classes.docked, classes.noShadow)}
-                      disabled={addToCartInProgress}
-                    >
-                      Add to Cart
-                    </Button>
-                  </LazyHydrate>
+                  <Button
+                    key="button"
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    data-th="add-to-cart"
+                    className={clsx(classes.docked, classes.noShadow)}
+                    disabled={addToCartInProgress}
+                  >
+                    Add to Cart
+                  </Button>
                   <AddToCartConfirmation
                     open={confirmationOpen}
                     setOpen={setConfirmationOpen}
