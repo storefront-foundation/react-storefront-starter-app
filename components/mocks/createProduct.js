@@ -1,6 +1,11 @@
 import colors, { colorForId } from './colors'
 import capitalize from 'lodash/capitalize'
 import { loremIpsum } from 'lorem-ipsum'
+import qs from 'qs'
+
+function optimize(url) {
+  return `https://opt.moovweb.net/?${qs.stringify({ img: url })}`
+}
 
 export default function createProduct(id, numColors = 4) {
   const color = colorForId(id)
@@ -22,22 +27,28 @@ export default function createProduct(id, numColors = 4) {
     },
     media: {
       full: variants.map((key, i) => ({
-        src: `https://via.placeholder.com/${i === 2 ? 400 : 600}x${i === 1 ? 400 : 600}/${
-          colors[key].background
-        }/${colors[key].foreground}?text=${encodeURIComponent('Product ' + id)}`,
+        src: optimize(
+          `https://via.placeholder.com/${i === 2 ? 400 : 600}x${i === 1 ? 400 : 600}/${
+            colors[key].background
+          }/${colors[key].foreground}?text=${encodeURIComponent('Product ' + id)}`
+        ),
         alt: `Product ${id}`,
         magnify: {
           height: i === 1 ? 800 : 1200,
           width: i === 2 ? 800 : 1200,
-          src: `https://via.placeholder.com/${i === 2 ? 800 : 1200}x${i === 1 ? 800 : 1200}/${
-            colors[key].background
-          }/${colors[key].foreground}?text=${encodeURIComponent('Product ' + id)}`,
+          src: optimize(
+            `https://via.placeholder.com/${i === 2 ? 800 : 1200}x${i === 1 ? 800 : 1200}/${
+              colors[key].background
+            }/${colors[key].foreground}?text=${encodeURIComponent('Product ' + id)}`
+          ),
         },
       })),
       thumbnails: variants.map((key, i) => ({
-        src: `https://via.placeholder.com/${i === 2 ? 233 : 300}x${i === 1 ? 233 : 300}/${
-          colors[key].background
-        }/${colors[key].foreground}?text=${encodeURIComponent('Product ' + id)}`,
+        src: optimize(
+          `https://via.placeholder.com/${i === 2 ? 233 : 300}x${i === 1 ? 233 : 300}/${
+            colors[key].background
+          }/${colors[key].foreground}?text=${encodeURIComponent('Product ' + id)}`
+        ),
         alt: `Product ${id}`,
       })),
     },

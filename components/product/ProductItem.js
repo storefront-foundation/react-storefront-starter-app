@@ -61,7 +61,7 @@ function ProductItem({ product, index, classes, className, colorSelector }) {
                       alt: ['color.media.thumbnail.alt', 'thumbnail.alt'],
                     }}
                     optimize={{ width: 200 }}
-                    lazy={index >= 4 && index < 20 ? 'ssr' : false}
+                    lazy={index >= 4}
                     aspectRatio={1}
                   />
                 </a>

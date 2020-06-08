@@ -4,6 +4,40 @@ import { ServerStyleSheets } from '@material-ui/core/styles'
 import theme from '../components/theme'
 import renderAmp from 'react-storefront-amp/renderAmp'
 
+class NextScriptOverride extends NextScript {
+  getScripts() {
+    const { assetPrefix, files, lowPriorityFiles } = this.context._documentProps
+    const { _devOnlyInvalidateCacheQueryString } = this.context
+
+    const normalScripts = files?.filter(file => file.endsWith('.js'))
+    const lowPriorityScripts = lowPriorityFiles?.filter(file => file.endsWith('.js'))
+
+    const appendScripts = [...normalScripts, ...lowPriorityScripts]
+      .map(
+        file =>
+          `
+          var s = document.createElement("script")
+          s.setAttribute('src', '${assetPrefix}/_next/${encodeURI(
+            file
+          )}${_devOnlyInvalidateCacheQueryString}')
+          document.body.appendChild(s)
+        `
+      )
+      .join('')
+
+    return (
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            let handler = function() { document.removeEventListener('click', handler) ${appendScripts} }
+            document.addEventListener('click', handler)
+          `,
+        }}
+      ></script>
+    )
+  }
+}
+
 class MyDocument extends Document {
   render() {
     return (
@@ -17,11 +51,12 @@ class MyDocument extends Document {
           /> */}
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
-          <link rel="preconnect" href="https://opt.moovweb.net" crossOrigin="true" />
+          <link rel="dns-prefetch" href="https://opt.moovweb.net/" />
+          <script></script>
         </Head>
         <body>
           <Main />
-          <NextScript />
+          <NextScriptOverride />
         </body>
       </html>
     )
