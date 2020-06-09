@@ -53,7 +53,7 @@
     "qs": "^6.9.0",
     "react": "0.0.0-experimental-33c3af284",
     "react-dom": "0.0.0-experimental-33c3af284",
-    "react-storefront": "^8.3.3",
+    "react-storefront": "file:.yalc/react-storefront",
     "react-storefront-amp": "^1.2.2",
     "react-storefront-analytics": "^1.0.2",
     "typeface-roboto": "0.0.75"

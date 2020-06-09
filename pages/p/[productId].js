@@ -169,7 +169,7 @@ const Product = React.memo(lazyProps => {
               <Hidden implementation="css" smUp>
                 {header}
               </Hidden>
-              <LazyHydrate id="carousel">
+              <LazyHydrate id="carousel" on="touch">
                 <MediaCarousel
                   className={classes.carousel}
                   lightboxClassName={classes.lightboxCarousel}
@@ -182,21 +182,21 @@ const Product = React.memo(lazyProps => {
               </LazyHydrate>
             </Grid>
             <Grid item xs={12} sm={6} md={7}>
-              <Grid container spacing={4}>
-                <Grid item xs={12}>
-                  <Hidden implementation="css" xsDown>
-                    <div style={{ paddingBottom: theme.spacing(1) }}>{header}</div>
-                  </Hidden>
-                  {product ? (
-                    <>
-                      <Hbox style={{ marginBottom: 10 }}>
-                        <Label>COLOR: </Label>
-                        <Typography>
-                          <HiddenInput name="color" bind="color.id" />
-                          <Text bind="color.text" />
-                        </Typography>
-                      </Hbox>
-                      <LazyHydrate id="colors">
+              <LazyHydrate id="options">
+                <Grid container spacing={4}>
+                  <Grid item xs={12}>
+                    <Hidden implementation="css" xsDown>
+                      <div style={{ paddingBottom: theme.spacing(1) }}>{header}</div>
+                    </Hidden>
+                    {product ? (
+                      <>
+                        <Hbox style={{ marginBottom: 10 }}>
+                          <Label>COLOR: </Label>
+                          <Typography>
+                            <HiddenInput name="color" bind="color.id" />
+                            <Text bind="color.text" />
+                          </Typography>
+                        </Hbox>
                         <ProductOptionSelector
                           optionProps={{
                             showLabel: false,
@@ -204,90 +204,94 @@ const Product = React.memo(lazyProps => {
                           strikeThroughDisabled
                           bind={{ value: 'color', options: 'product.colors' }}
                         />
-                      </LazyHydrate>
-                    </>
-                  ) : (
-                    <div>
-                      <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
-                      <Hbox>
-                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                      </Hbox>
-                    </div>
-                  )}
+                      </>
+                    ) : (
+                      <div>
+                        <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
+                        <Hbox>
+                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                        </Hbox>
+                      </div>
+                    )}
+                  </Grid>
+                  <Grid item xs={12}>
+                    {product ? (
+                      <>
+                        <Hbox style={{ marginBottom: 10 }}>
+                          <Label>SIZE: </Label>
+                          <Typography>
+                            <HiddenInput name="size" bind="size.id" />
+                            <Text bind="size.text" />
+                          </Typography>
+                        </Hbox>
+                        <ProductOptionSelector
+                          strikeThroughDisabled
+                          bind={{ value: 'size', options: 'product.sizes' }}
+                        />
+                      </>
+                    ) : (
+                      <div>
+                        <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
+                        <Hbox>
+                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                        </Hbox>
+                      </div>
+                    )}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Hbox>
+                      <Label>QTY:</Label>
+                      <QuantitySelector bind="quantity" />
+                    </Hbox>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      key="button"
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      data-th="add-to-cart"
+                      className={clsx(classes.docked, classes.noShadow)}
+                      disabled={addToCartInProgress}
+                    >
+                      Add to Cart
+                    </Button>
+                    <AddToCartConfirmation
+                      open={confirmationOpen}
+                      setOpen={setConfirmationOpen}
+                      product={product}
+                      color={color}
+                      size={size}
+                      quantity={quantity}
+                      price={product.priceText}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  {product ? (
-                    <>
-                      <Hbox style={{ marginBottom: 10 }}>
-                        <Label>SIZE: </Label>
-                        <Typography>
-                          <HiddenInput name="size" bind="size.id" />
-                          <Text bind="size.text" />
-                        </Typography>
-                      </Hbox>
-                      <ProductOptionSelector
-                        strikeThroughDisabled
-                        bind={{ value: 'size', options: 'product.sizes' }}
-                      />
-                    </>
-                  ) : (
-                    <div>
-                      <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
-                      <Hbox>
-                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                      </Hbox>
-                    </div>
-                  )}
-                </Grid>
-                <Grid item xs={12}>
-                  <Hbox>
-                    <Label>QTY:</Label>
-                    <QuantitySelector bind="quantity" />
-                  </Hbox>
-                </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    key="button"
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    data-th="add-to-cart"
-                    className={clsx(classes.docked, classes.noShadow)}
-                    disabled={addToCartInProgress}
-                  >
-                    Add to Cart
-                  </Button>
-                  <AddToCartConfirmation
-                    open={confirmationOpen}
-                    setOpen={setConfirmationOpen}
-                    product={product}
-                    color={color}
-                    size={size}
-                    quantity={quantity}
-                    price={product.priceText}
-                  />
-                </Grid>
+              </LazyHydrate>
+            </Grid>
+          </Grid>
+          <LazyHydrate id="info" on="fui">
+            <>
+              <Grid item xs={12}>
+                <TabPanel>
+                  <CmsSlot label="Description">{product.description}</CmsSlot>
+                  <CmsSlot label="Specs">{product.specs}</CmsSlot>
+                </TabPanel>
               </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <TabPanel>
-              <CmsSlot label="Description">{product.description}</CmsSlot>
-              <CmsSlot label="Specs">{product.specs}</CmsSlot>
-            </TabPanel>
-          </Grid>
-          {!useAmp() && (
-            <Grid item xs={12}>
-              <Lazy style={{ minHeight: 285 }}>
-                <SuggestedProducts product={product} />
-              </Lazy>
-            </Grid>
-          )}
+              {!useAmp() && (
+                <Grid item xs={12}>
+                  <Lazy style={{ minHeight: 285 }}>
+                    <SuggestedProducts product={product} />
+                  </Lazy>
+                </Grid>
+              )}
+            </>
+          </LazyHydrate>
         </form>
       </Container>
     </DataBindingProvider>

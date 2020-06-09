@@ -27,11 +27,11 @@ export default function createProduct(id, numColors = 4) {
         }/${colors[key].foreground}?text=${encodeURIComponent('Product ' + id)}`,
         alt: `Product ${id}`,
         magnify: {
-          height: i === 1 ? 800 : 1200,
-          width: i === 2 ? 800 : 1200,
-          src: `https://via.placeholder.com/${i === 2 ? 800 : 1200}x${i === 1 ? 800 : 1200}/${
+          height: i === 1 ? 1600 : 2400,
+          width: i === 2 ? 1600 : 2400,
+          src: `https://via.placeholder.com/${i === 2 ? 1600 : 2400}x${i === 1 ? 1600 : 2400}/${
             colors[key].background
-          }/${colors[key].foreground}?text=${encodeURIComponent('Product ' + id)}`,
+          }/${colors[key].foreground}?text=${encodeURIComponent('Magnified Product Image ' + id)}`,
         },
       })),
       thumbnails: variants.map((key, i) => ({
@@ -69,11 +69,13 @@ export default function createProduct(id, numColors = 4) {
             }/${colors[key].foreground}?text=${encodeURIComponent('Product ' + id)}`,
             alt: `Product ${id}`,
             magnify: {
-              height: i === 1 ? 800 : 1200,
-              width: i === 2 ? 800 : 1200,
-              src: `https://via.placeholder.com/${i === 2 ? 800 : 1200}x${i === 1 ? 800 : 1200}/${
+              height: i === 1 ? 800 : 2400,
+              width: i === 2 ? 800 : 2400,
+              src: `https://via.placeholder.com/${i === 2 ? 800 : 2400}x${i === 1 ? 800 : 2400}/${
                 colors[key].background
-              }/${colors[key].foreground}?text=${encodeURIComponent('Product ' + id)}`,
+              }/${colors[key].foreground}?text=${encodeURIComponent(
+                'Magnified Product Image ' + id
+              )}`,
             },
           })),
           thumbnails: [name, name, name].map((key, i) => ({
