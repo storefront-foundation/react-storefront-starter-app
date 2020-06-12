@@ -30,25 +30,29 @@ app.prepare().then(() => {
   })
 
   const connector = serverRuntimeConfig.reactStorefront.connector
-  const routes = connector ? require(connector).routes : []
+  const routes = connector && require(connector).routes
 
-  for (let route of routes) {
-    console.log(`> Route: ${route.source}`)
+  if (routes) {
+    for (let route of routes) {
+      console.log(`> Route: ${route.source}`)
 
-    // add SSR route
-    server.get(route.source, (req, res) => {
-      const parsedUrl = parse(req.url, true)
-      const { query } = parsedUrl
-      app.render(req, res, route.destination, query)
-    })
+      // add SSR route
+      server.get(route.source, (req, res) => {
+        const parsedUrl = parse(req.url, true)
+        const { query } = parsedUrl
+        app.render(req, res, route.destination, query)
+      })
 
-    // and corresponding API route
-    server.get(`/api${route.source.replace(/\/$/, '')}`, (req, res) => {
-      const search = stringify({ ...req.params, ...req.query })
-      const url = `/api${route.destination.replace(/\/$/, '')}${search.length ? `?${search}` : ''}`
-      const parsedUrl = parse(url, true)
-      handle(req, res, parsedUrl)
-    })
+      // and corresponding API route
+      server.get(`/api${route.source.replace(/\/$/, '')}`, (req, res) => {
+        const search = stringify({ ...req.params, ...req.query })
+        const url = `/api${route.destination.replace(/\/$/, '')}${
+          search.length ? `?${search}` : ''
+        }`
+        const parsedUrl = parse(url, true)
+        handle(req, res, parsedUrl)
+      })
+    }
   }
 
   server.all('*', (req, res) => {
