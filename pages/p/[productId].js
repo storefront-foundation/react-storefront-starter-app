@@ -144,7 +144,7 @@ const Product = React.memo(lazyProps => {
       //
       // If no data will need to be fetched and is available in the page state
       // this property is not needed and should be removed
-      remote={getAPIURL('/api/p/{product.id}?color={color.id}&size={size.id}')}
+      remote={getAPIURL('/p/{product.id}?color={color.id}&size={size.id}')}
       store={state}
       updateStore={updateState}
       root="pageData"
