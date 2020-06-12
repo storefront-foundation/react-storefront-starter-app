@@ -39,12 +39,13 @@
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-storefront": "^8.1.0",
+    "react-storefront": "^8.9.0",
     "react-visibility-sensor": "^5.1.1",
     "webpack-clear-require-cache-plugin": "0.0.4"
   },
   "devDependencies": {
     "babel-plugin-transform-imports": "^2.0.0",
+    "dotenv": "^8.2.0",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1"
   },

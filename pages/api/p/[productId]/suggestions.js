@@ -1,16 +1,6 @@
-import createProduct from '../../../../components/mocks/createProduct'
+import { productSuggestions } from 'react-storefront-connector'
 
-/**
- * An example endpoint that returns mock product suggestions for a PDP.
- * @param {*} req
- * @param {*} res
- */
-export default function suggestions(req, res) {
-  const products = []
-
-  for (let i = 1; i <= 10; i++) {
-    products.push(createProduct(i))
-  }
-
-  return res.json(products)
+export default async function(req, res) {
+  const { productId } = req.query
+  res.json(await productSuggestions(productId, req, res))
 }

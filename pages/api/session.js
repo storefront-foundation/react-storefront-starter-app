@@ -1,8 +1,5 @@
-export default function session(req, res) {
-  return res.json({
-    name: 'Mark',
-    email: 'mark@domain.com',
-    itemsInCart: 0,
-    currency: 'USD',
-  })
+import { session } from 'react-storefront-connector'
+
+export default async function(req, res) {
+  res.json(await session(req, res))
 }
