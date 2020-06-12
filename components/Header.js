@@ -10,6 +10,7 @@ import MenuButton from 'react-storefront/menu/MenuButton'
 import Link from 'react-storefront/link/Link'
 import SessionContext from 'react-storefront/session/SessionContext'
 import get from 'lodash/get'
+import LazyHydrate from 'react-storefront/LazyHydrate'
 
 const useStyles = makeStyles(theme => ({
   title: {},
@@ -41,8 +42,12 @@ const useStyles = makeStyles(theme => ({
 export default function Header({ menu }) {
   const classes = useStyles()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [hydrateMenu, setHydrateMenu] = useState(false)
   const handleMenuClose = useCallback(() => setMenuOpen(false), [])
-  const handleMenuButtonClick = useCallback(() => setMenuOpen(menuOpen => !menuOpen), [])
+  const handleMenuButtonClick = useCallback(() => {
+    setMenuOpen(menuOpen => !menuOpen)
+    setHydrateMenu(true)
+  }, [])
   const { session } = useContext(SessionContext)
 
   return (
@@ -59,17 +64,19 @@ export default function Header({ menu }) {
           <MenuButton open={menuOpen} onClick={handleMenuButtonClick} />
         </Container>
       </AppBar>
-      <Menu
-        anchor="right"
-        root={menu}
-        open={menuOpen}
-        onClose={handleMenuClose}
-        // renderItem={item => <div>{item.text} (custom)</div>}
-        // renderItemContent={item => <div>{item.text} (custom content)</div>}
-        // renderBack={item => <div>{item.text} back</div>}
-        // renderHeader={item => <div>{item.text} header</div>}
-        // renderFooter={item => <div>{item.text} footer</div>}
-      />
+      <LazyHydrate id="menu" hydrated={hydrateMenu}>
+        <Menu
+          anchor="right"
+          root={menu}
+          open={menuOpen}
+          onClose={handleMenuClose}
+          // renderItem={item => <div>{item.text} (custom)</div>}
+          // renderItemContent={item => <div>{item.text} (custom content)</div>}
+          // renderBack={item => <div>{item.text} back</div>}
+          // renderHeader={item => <div>{item.text} header</div>}
+          // renderFooter={item => <div>{item.text} footer</div>}
+        />
+      </LazyHydrate>
     </>
   )
 }

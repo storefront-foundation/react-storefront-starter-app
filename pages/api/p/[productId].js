@@ -1,6 +1,7 @@
 import createProduct from '../../../components/mocks/createProduct'
 import fulfillAPIRequest from 'react-storefront/props/fulfillAPIRequest'
 import createAppData from '../../../components/mocks/createAppData'
+import getBase64ForImage from 'react-storefront/utils/getBase64ForImage'
 
 function asciiSum(string = '') {
   return string.split('').reduce((s, e) => s + e.charCodeAt(), 0)
@@ -33,20 +34,25 @@ export default async function getProduct(req, res) {
   res.json(result)
 }
 
-async function getPageData(productId) {
-  return Promise.resolve({
-    title: `Product ${productId}`,
-    product: createProduct(productId),
+async function getPageData(id) {
+  const result = {
+    title: `Product ${id}`,
+    product: createProduct(id),
     breadcrumbs: [
       {
         text: `Home`,
         href: '/',
       },
       {
-        text: `Subcategory ${productId}`,
-        as: `/s/${productId}`,
+        text: `Subcategory ${id}`,
+        as: `/s/${id}`,
         href: '/s/[subcategoryId]',
       },
     ],
-  })
+  }
+
+  const mainProductImage = result.product.media.full[0]
+  mainProductImage.src = await getBase64ForImage(mainProductImage.src)
+
+  return result
 }

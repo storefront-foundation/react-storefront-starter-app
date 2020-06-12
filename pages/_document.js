@@ -1,5 +1,6 @@
 import React from 'react'
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document, { Head, Main } from 'next/document'
+import NextScript from 'react-storefront/NextScript'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import theme from '../components/theme'
 import renderAmp from 'react-storefront-amp/renderAmp'
@@ -23,7 +24,7 @@ class MyDocument extends Document {
         </Head>
         <body>
           <Main />
-          <NextScript />
+          <NextScript mode="defer" />
         </body>
       </html>
     )
