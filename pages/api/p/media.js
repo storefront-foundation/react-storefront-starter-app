@@ -1,19 +1,6 @@
-import createMedia from '../../../components/mocks/createMedia'
+export { productMedia as default } from 'react-storefront-connector'
 
-export default function media(req, res) {
-  const {
-    query: { productId, color },
-  } = req
-
-  setTimeout(() => {
-    res.setHeader('cache-control', 'no-cache, no-store')
-
-    const media = createMedia(productId, color)
-
-    res.end(
-      JSON.stringify({
-        media,
-      })
-    )
-  }, 1000)
+export default async function(req, res) {
+  const { productId, color } = req.query
+  res.json(await productMedia({ id: productId, color }, req, res))
 }
