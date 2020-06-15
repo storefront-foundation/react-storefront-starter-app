@@ -14,7 +14,6 @@ import AmpProvider from 'react-storefront-amp/AmpProvider'
 import useAppStore from 'react-storefront/hooks/useAppStore'
 import 'typeface-roboto'
 import Router from 'next/router'
-// import { getRoutesManifest } from 'react-storefront/router'
 
 installAmpOverrides()
 
@@ -68,5 +67,5 @@ MyApp.getInitialProps = async function({ Component, ctx }) {
     pageProps = await Component.getInitialProps(ctx)
   }
 
-  return { pageProps /* routes: getRoutesManifest()*/ }
+  return { pageProps }
 }
