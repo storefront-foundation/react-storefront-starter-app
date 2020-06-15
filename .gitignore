@@ -22,6 +22,7 @@
 
 # moovweb xdn
 .moov
+.xdn
 
 # debug
 npm-debug.log*

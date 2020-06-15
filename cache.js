@@ -18,11 +18,11 @@ const FAR_FUTURE_TTL = 60 * 60 * 24 * 365 * 10
  */
 const key = new CustomCacheKey().excludeAllQueryParametersExcept(
   'q',
+  'sort',
+  'filters',
   'color',
   'size',
-  'amp',
-  'sort',
-  'filters'
+  'amp'
 )
 
 module.exports = {

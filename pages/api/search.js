@@ -1,3 +1,1 @@
-import Subcategory from './s/[subcategoryId]'
-
-export default Subcategory
+export { search as default } from 'react-storefront-connector'
