@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import theme from '../components/theme'
 import Header from '../components/Header'
 import { CssBaseline } from '@material-ui/core'
@@ -13,6 +13,7 @@ import SessionProvider from 'react-storefront/session/SessionProvider'
 import AmpProvider from 'react-storefront-amp/AmpProvider'
 import useAppStore from 'react-storefront/hooks/useAppStore'
 import 'typeface-roboto'
+import Router from 'next/router'
 
 installAmpOverrides()
 
@@ -28,6 +29,13 @@ export default function MyApp({ Component, pageProps }) {
   useJssStyles()
   const classes = useStyles()
   const [appData] = useAppStore(pageProps || {})
+
+  // Setting global clientDidNavigate which is used by RSF LazyHydrate
+  useEffect(() => {
+    Router.events.on('routeChangeStart', url => {
+      window.clientDidNavigate = true
+    })
+  }, [])
 
   return (
     <PWA errorReporter={reportError}>

@@ -38,3 +38,5 @@ yalc.lock
 
 # XDN Build
 .xdn
+# XDN generated build directory
+.xdn
