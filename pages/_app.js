@@ -25,7 +25,7 @@ const styles = theme => ({
 
 const useStyles = makeStyles(styles)
 
-export default function MyApp({ Component, pageProps, routes }) {
+export default function MyApp({ Component, pageProps }) {
   useJssStyles()
   const classes = useStyles()
   const [appData] = useAppStore(pageProps || {})
@@ -38,10 +38,7 @@ export default function MyApp({ Component, pageProps, routes }) {
   }, [])
 
   return (
-    <PWA
-      errorReporter={reportError}
-      // routes={routes}
-    >
+    <PWA errorReporter={reportError}>
       <AmpProvider>
         <SessionProvider url="/api/session">
           <MuiThemeProvider theme={theme}>

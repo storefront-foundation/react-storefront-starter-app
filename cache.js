@@ -16,7 +16,14 @@ const FAR_FUTURE_TTL = 60 * 60 * 24 * 365 * 10
  * prevents cache fragmentation due to unexpected query parameters added in links
  * from 3rd parties.
  */
-const key = new CustomCacheKey().excludeAllQueryParametersExcept('q', 'color', 'size')
+const key = new CustomCacheKey().excludeAllQueryParametersExcept(
+  'q',
+  'color',
+  'size',
+  'amp',
+  'sort',
+  'filters'
+)
 
 module.exports = {
   FAR_FUTURE_TTL,
