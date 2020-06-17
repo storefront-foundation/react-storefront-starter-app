@@ -13,6 +13,7 @@ import { Hbox } from 'react-storefront/Box'
 import useLazyState from 'react-storefront/hooks/useLazyState'
 import SessionContext from 'react-storefront/session/SessionContext'
 import get from 'lodash/get'
+import useCartTotal from 'react-storefront/hooks/useCartTotal'
 
 const styles = theme => ({
   root: {
@@ -48,9 +49,10 @@ const useStyles = makeStyles(styles)
 
 export default function Cart(props) {
   const [state, updateState] = useLazyState(props)
-  const { items } = state.pageData
   const classes = useStyles()
+  const total = useCartTotal()
   const { session } = useContext(SessionContext)
+  const { items } = session.cart
 
   const updateProduct = product => {
     updateState({
@@ -83,7 +85,7 @@ export default function Cart(props) {
     <Container className={classes.root}>
       <Row>
         <Typography variant="h6">
-          My Cart ({items.length} {items.length === 1 ? 'item' : 'items'})
+          My Cart ({total} {total === 1 ? 'item' : 'items'})
         </Typography>
       </Row>
       <Row>

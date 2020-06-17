@@ -9,7 +9,7 @@ import Menu from 'react-storefront/menu/Menu'
 import MenuButton from 'react-storefront/menu/MenuButton'
 import Link from 'react-storefront/link/Link'
 import SessionContext from 'react-storefront/session/SessionContext'
-import get from 'lodash/get'
+import useCartTotal from 'react-storefront/hooks/useCartTotal'
 
 const useStyles = makeStyles(theme => ({
   title: {},
@@ -44,6 +44,7 @@ export default function Header({ menu }) {
   const handleMenuClose = useCallback(() => setMenuOpen(false), [])
   const handleMenuButtonClick = useCallback(() => setMenuOpen(menuOpen => !menuOpen), [])
   const { session } = useContext(SessionContext)
+  const cartTotal = useCartTotal()
 
   return (
     <>
@@ -55,7 +56,7 @@ export default function Header({ menu }) {
             </a>
           </Link>
           <Search />
-          <CartButton quantity={get(session, 'itemsInCart')} />
+          <CartButton quantity={cartTotal} />
           <MenuButton open={menuOpen} onClick={handleMenuButtonClick} />
         </Container>
       </AppBar>

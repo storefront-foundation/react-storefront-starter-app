@@ -9,6 +9,7 @@ import { Hbox } from 'react-storefront/Box'
 import Image from 'react-storefront/Image'
 import SessionContext from 'react-storefront/session/SessionContext'
 import RemoveDialog from './RemoveDialog'
+import get from 'lodash/get'
 
 const styles = theme => ({
   root: {
@@ -55,7 +56,7 @@ export default function CartItem({ product: prod, updateCart, remove }) {
       <Paper className={classes.root} elevation={3}>
         <Hbox alignItems="flex-start">
           <div className={classes.thumb}>
-            <Image src={product.thumbnail.src} fill aspectRatio={1} quality={50} />
+            <Image src={get(product, 'thumbnail.src')} fill aspectRatio={1} quality={50} />
           </div>
           <div className={classes.info}>
             <Link as={product.url} href="/p/[productId]" prefetch="visible" pageData={{ product }}>

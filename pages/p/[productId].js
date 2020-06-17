@@ -105,22 +105,19 @@ const Product = React.memo(lazyProps => {
 
     try {
       // send the data to the server
-      const { cartCount } = await fetch('/api/cart', {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id: product.id,
-          color: color.id,
-          size: size.id,
-          quantity,
-        }),
-      }).then(res => res.json())
+      const data = await actions.addToCart({
+        product,
+        quantity,
+        color: color.id,
+        size: size.id,
+      });
+      if (!data.success) {
+        // @TODO: notify user about errors occurred during add to cart
+        console.error(data.error)
+      }
 
       // open the confirmation dialog
       setConfirmationOpen(true)
-
-      // update the number of items in the cart in the header
-      actions.updateCartCount(cartCount)
     } finally {
       // re-enable the add to cart button
       setAddToCartInProgress(false)
