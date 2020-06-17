@@ -7,6 +7,7 @@ import LoadMask from 'react-storefront/LoadMask'
 import Head from 'next/head'
 import createLazyProps from 'react-storefront/props/createLazyProps'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
+import get from 'lodash/get'
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -26,7 +27,7 @@ export default function Index(lazyProps) {
     <>
       {state.loading ? null : (
         <Head>
-          <title>{state.pageData.title}</title>
+          <title>{get(state, 'pageData.title')}</title>
         </Head>
       )}
       <Container maxWidth="lg">
@@ -35,9 +36,9 @@ export default function Index(lazyProps) {
         ) : (
           <div className={classes.main}>
             <Typography variant="h3" component="h1" gutterBottom color="primary">
-              {state.pageData.slots.heading}
+              {get(state, 'pageData.slots.heading')}
             </Typography>
-            <CmsSlot>{state.pageData.slots.description}</CmsSlot>
+            <CmsSlot>{get(state, 'pageData.slots.description')}</CmsSlot>
           </div>
         )}
       </Container>
