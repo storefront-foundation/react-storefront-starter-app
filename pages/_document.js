@@ -72,23 +72,32 @@ MyDocument.getInitialProps = async ctx => {
 
   const initialProps = await Document.getInitialProps(ctx)
 
+  function getStyles() {
+    if (isAmp) {
+      const index = initialProps.head.findIndex(item => item.key === 'amp-custom')
+      const css = initialProps.head[index].props['amp-custom']
+      // Remove unneeded style tag
+      initialProps.head.splice(index, 1)
+      return (
+        <>
+          {initialProps.styles}
+          <style dangerouslySetInnerHTML={{ __html: css }} />
+        </>
+      )
+    } else {
+      return (
+        <>
+          {initialProps.styles}
+          {sheets.getStyleElement()}
+        </>
+      )
+    }
+  }
+
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
-    styles: (
-      <>
-        {initialProps.styles}
-        {isAmp ? (
-          <style
-            dangerouslySetInnerHTML={{
-              __html: initialProps.head.find(item => item.key === 'amp-custom').props['amp-custom'],
-            }}
-          />
-        ) : (
-          sheets.getStyleElement()
-        )}
-      </>
-    ),
+    styles: getStyles(),
   }
 }
 
