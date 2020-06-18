@@ -7,7 +7,7 @@ import path from 'path'
 const MANIFEST_PATHS = [
   path.join(process.cwd(), 'pages-manifest.json'),
   path.join(process.cwd(), '.next', 'server', 'pages-manifest.json'),
-  path.join(process.cwd(), '.next', '.serverless', 'pages-manifest.json'),
+  path.join(process.cwd(), '.next', 'serverless', 'pages-manifest.json'),
 ]
 
 export default function routes(req, res) {

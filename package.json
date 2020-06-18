@@ -13,7 +13,7 @@
     "prod": "xdn run --production",
     "test": "jest",
     "deploy": "xdn deploy react-storefront",
-    "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\"",
+    "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.xdn,.next,.yalc}/**\"",
     "rsf:link": "rm -rf node_modules/react-storefront node_modules/react-storefront-analytics node_modules/react-storefront-amp && yalc add react-storefront react-storefront-analytics react-storefront-amp && npm i --prefer-offline",
     "xdn:link": "rm -rf node_modules/@xdn/core node_modules/@xdn/next && yalc add @xdn/next @xdn/core @xdn/cli @xdn/prefetch",
     "rsf:update": "npm i --save react-storefront@latest react-storefront-amp@latest react-storefront-analytics@latest",
