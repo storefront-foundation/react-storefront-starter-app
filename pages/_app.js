@@ -44,13 +44,14 @@ export default function MyApp({ Component, pageProps }) {
         <SessionProvider url="/api/session">
           <MuiThemeProvider theme={theme}>
             <Analytics>
-              <FirebasePerformanceMonitoring />
-              <CssBaseline />
-              <Header menu={appData && appData.menu} />
-              <NavBar tabs={appData && appData.tabs} />
-              <main className={classes.main}>
-                <Component {...pageProps} />
-              </main>
+              <FirebasePerformanceMonitoring>
+                <CssBaseline />
+                <Header menu={appData && appData.menu} />
+                <NavBar tabs={appData && appData.tabs} />
+                <main className={classes.main}>
+                  <Component {...pageProps} />
+                </main>
+              </FirebasePerformanceMonitoring>
             </Analytics>
           </MuiThemeProvider>
         </SessionProvider>
