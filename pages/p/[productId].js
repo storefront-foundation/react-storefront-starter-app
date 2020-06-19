@@ -15,6 +15,7 @@ import Label from 'react-storefront/Label'
 import Rating from 'react-storefront/Rating'
 import get from 'lodash/get'
 import fetch from 'react-storefront/fetch'
+import { fetchLatest, StaleResponseError } from 'react-storefront/utils/fetchLatest'
 import SessionContext from 'react-storefront/session/SessionContext'
 import AddToCartConfirmation from '../../components/product/AddToCartConfirmation'
 import SuggestedProducts from '../../components/product/SuggestedProducts'
@@ -24,6 +25,8 @@ import QuantitySelector from 'react-storefront/QuantitySelector'
 import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
+
+const fetchVariant = fetchLatest(fetch)
 
 const useDidMountEffect = (func, deps) => {
   const didMount = useRef(false)
@@ -142,10 +145,15 @@ const Product = React.memo(lazyProps => {
   // Fetch variant data upon changing color or size options
   useDidMountEffect(() => {
     const query = qs.stringify({ color: color.id, size: size.id }, { addQueryPrefix: true })
-    fetch(`/api/p/${product.id}${query}`)
+    fetchVariant(`/api/p/${product.id}${query}`)
       .then(res => res.json())
       .then(data => {
         return updateState({ ...state, pageData: { ...state.pageData, ...data.pageData } })
+      })
+      .catch(e => {
+        if (!StaleResponseError.is(e)) {
+          throw e
+        }
       })
   }, [color.id, size.id])
 
@@ -283,10 +291,6 @@ const Product = React.memo(lazyProps => {
   )
 })
 
-Product.getInitialProps = createLazyProps(opts => {
-  const { res } = opts
-  if (res) res.setHeader('Cache-Control', 'max-age=99999')
-  return fetchFromAPI(opts)
-})
+Product.getInitialProps = createLazyProps(fetchFromAPI)
 
 export default Product
