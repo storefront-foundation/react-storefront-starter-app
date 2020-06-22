@@ -1,7 +1,10 @@
 import React from 'react'
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document, { Head, Main } from 'next/document'
+import NextScript from 'react-storefront/NextScript'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import theme from '../components/theme'
+import renderAmp from 'react-storefront-amp/renderAmp'
+import { LazyStyles } from 'react-storefront/LazyHydrate'
 
 class MyDocument extends Document {
   render() {
@@ -16,15 +19,12 @@ class MyDocument extends Document {
           /> */}
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
-          <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          />
+          <link rel="preconnect" href="https://opt.moovweb.net" crossOrigin="true" />
+          <LazyStyles />
         </Head>
         <body>
           <Main />
-          <NextScript />
+          <NextScript mode="defer" />
         </body>
       </html>
     )
@@ -32,6 +32,8 @@ class MyDocument extends Document {
 }
 
 MyDocument.getInitialProps = async ctx => {
+  const isAmp = ctx.req.url.includes('amp=1')
+
   // Resolution order
   //
   // On the server:
@@ -65,20 +67,37 @@ MyDocument.getInitialProps = async ctx => {
       enhanceApp: App => props => sheets.collect(<App {...props} />),
     })
 
-    return document
+    return isAmp ? await renderAmp(document, sheets) : document
   }
 
   const initialProps = await Document.getInitialProps(ctx)
 
+  function getStyles() {
+    if (isAmp) {
+      const index = initialProps.head.findIndex(item => item.key === 'amp-custom')
+      const css = initialProps.head[index].props['amp-custom']
+      // Remove unneeded style tag
+      initialProps.head.splice(index, 1)
+      return (
+        <>
+          {initialProps.styles}
+          <style dangerouslySetInnerHTML={{ __html: css }} />
+        </>
+      )
+    } else {
+      return (
+        <>
+          {initialProps.styles}
+          {sheets.getStyleElement()}
+        </>
+      )
+    }
+  }
+
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
-    styles: (
-      <>
-        {initialProps.styles}
-        {sheets.getStyleElement()}
-      </>
-    ),
+    styles: getStyles(),
   }
 }
 

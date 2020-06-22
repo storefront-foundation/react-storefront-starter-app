@@ -9,6 +9,7 @@ import createLazyProps from 'react-storefront/props/createLazyProps'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import get from 'lodash/get'
 import BasicLoginForm from '../components/BasicLoginForm'
+import { TrackPageView } from 'react-storefront-analytics'
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -35,21 +36,18 @@ export default function Index(lazyProps) {
         {state.loading ? (
           <LoadMask fullscreen />
         ) : (
-          <div className={classes.main}>
-            <Typography variant="h3" component="h1" gutterBottom color="primary">
-              {get(state, 'pageData.slots.heading')}
-            </Typography>
-            <CmsSlot>{get(state, 'pageData.slots.description')}</CmsSlot>
-            <BasicLoginForm />
-          </div>
+          <>
+            <TrackPageView />
+            <div className={classes.main}>
+              <BasicLoginForm />
+            </div>
+          </>
         )}
       </Container>
     </>
   )
 }
 
-Index.getInitialProps = createLazyProps(options => {
-  const { res } = options
-  if (res) res.setHeader('Cache-Control', 'max-age=99999')
-  return fetchFromAPI(options)
-})
+Index.getInitialProps = createLazyProps(fetchFromAPI)
+
+export const config = { amp: 'hybrid' }

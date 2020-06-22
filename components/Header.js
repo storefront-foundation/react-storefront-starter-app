@@ -1,15 +1,16 @@
 import React, { useState, useCallback, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import AppBar from 'react-storefront/AppBar'
+import AppBar from 'react-storefront-amp/AmpAppBar'
 import CartButton from 'react-storefront/CartButton'
 import Search from './search/Search'
 import Logo from '../components/assets/react-storefront-logo.svg'
 import { Container } from '@material-ui/core'
-import Menu from 'react-storefront/menu/Menu'
+import Menu from 'react-storefront-amp/menu/AmpMenu'
 import MenuButton from 'react-storefront/menu/MenuButton'
 import Link from 'react-storefront/link/Link'
 import SessionContext from 'react-storefront/session/SessionContext'
 import useCartTotal from 'react-storefront/hooks/useCartTotal'
+import LazyHydrate from 'react-storefront/LazyHydrate'
 
 const useStyles = makeStyles(theme => ({
   title: {},
@@ -41,8 +42,12 @@ const useStyles = makeStyles(theme => ({
 export default function Header({ menu }) {
   const classes = useStyles()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [hydrateMenu, setHydrateMenu] = useState(false)
   const handleMenuClose = useCallback(() => setMenuOpen(false), [])
-  const handleMenuButtonClick = useCallback(() => setMenuOpen(menuOpen => !menuOpen), [])
+  const handleMenuButtonClick = useCallback(() => {
+    setMenuOpen(menuOpen => !menuOpen)
+    setHydrateMenu(true)
+  }, [])
   const { session } = useContext(SessionContext)
   const cartTotal = useCartTotal()
 
@@ -60,17 +65,19 @@ export default function Header({ menu }) {
           <MenuButton open={menuOpen} onClick={handleMenuButtonClick} />
         </Container>
       </AppBar>
-      <Menu
-        anchor="right"
-        root={menu}
-        open={menuOpen}
-        onClose={handleMenuClose}
-        // renderItem={item => <div>{item.text} (custom)</div>}
-        // renderItemContent={item => <div>{item.text} (custom content)</div>}
-        // renderBack={item => <div>{item.text} back</div>}
-        // renderHeader={item => <div>{item.text} header</div>}
-        // renderFooter={item => <div>{item.text} footer</div>}
-      />
+      <LazyHydrate id="menu" hydrated={hydrateMenu}>
+        <Menu
+          anchor="right"
+          root={menu}
+          open={menuOpen}
+          onClose={handleMenuClose}
+          // renderItem={item => <div>{item.text} (custom)</div>}
+          // renderItemContent={item => <div>{item.text} (custom content)</div>}
+          // renderBack={item => <div>{item.text} back</div>}
+          // renderHeader={item => <div>{item.text} header</div>}
+          // renderFooter={item => <div>{item.text} footer</div>}
+        />
+      </LazyHydrate>
     </>
   )
 }

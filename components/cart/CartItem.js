@@ -4,10 +4,11 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Close as CloseIcon } from '@material-ui/icons'
 import Row from 'react-storefront/Row'
 import Link from 'react-storefront/link/Link'
-import QuantitySelector from 'react-storefront/QuantitySelector'
+import QuantitySelector from 'react-storefront-amp/AmpQuantitySelector'
 import { Hbox } from 'react-storefront/Box'
 import Image from 'react-storefront/Image'
 import SessionContext from 'react-storefront/session/SessionContext'
+import DataBindingProvider from 'react-storefront-amp/bind/DataBindingProvider'
 import RemoveDialog from './RemoveDialog'
 import get from 'lodash/get'
 
@@ -52,7 +53,12 @@ export default function CartItem({ product: prod, updateCart, remove }) {
   }, [product.quantity])
 
   return (
-    <>
+    <DataBindingProvider
+      id={`RSFProduct${product.id}`}
+      store={product}
+      updateStore={updateProduct}
+      root={null}
+    >
       <Paper className={classes.root} elevation={3}>
         <Hbox alignItems="flex-start">
           <div className={classes.thumb}>
@@ -73,12 +79,7 @@ export default function CartItem({ product: prod, updateCart, remove }) {
             )}
             <Row>
               <Typography>Quantity:</Typography>
-              <QuantitySelector
-                value={product.quantity}
-                onChange={value => {
-                  updateProduct({ ...product, quantity: value })
-                }}
-              />
+              <QuantitySelector bind="quantity" />
             </Row>
           </div>
         </Hbox>
@@ -92,6 +93,6 @@ export default function CartItem({ product: prod, updateCart, remove }) {
         name={product.name}
         action={() => handleRemove(product)}
       />
-    </>
+    </DataBindingProvider>
   )
 }

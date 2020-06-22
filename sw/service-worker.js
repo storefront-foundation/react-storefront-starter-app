@@ -1,11 +1,9 @@
-import { configureServiceWorker } from 'react-storefront/sw'
+import { skipWaiting, clientsClaim } from 'workbox-core'
+import { precacheAndRoute } from 'workbox-precaching'
+import { Prefetcher } from '@xdn/prefetch/sw'
 
-const maxAgeSeconds = 60 * 60 // 1 hour
+skipWaiting()
+clientsClaim()
+precacheAndRoute(self.__WB_MANIFEST || [])
 
-configureServiceWorker({
-  api: [
-    { path: '/api/p/[productId]', maxAgeSeconds },
-    { path: '/api/s/[...categorySlug]', maxAgeSeconds },
-    { path: '/api', maxAgeSeconds },
-  ],
-})
+new Prefetcher().route()

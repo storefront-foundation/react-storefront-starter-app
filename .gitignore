@@ -17,7 +17,7 @@
 
 # misc
 .DS_Store
-.env*
+.env
 .serverless_nextjs
 
 # moovweb xdn
@@ -35,3 +35,8 @@ yarn-error.log*
 # yalc
 .yalc
 yalc.lock
+
+# XDN Build
+.xdn
+# XDN generated build directory
+.xdn
