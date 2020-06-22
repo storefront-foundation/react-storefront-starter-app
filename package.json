@@ -47,7 +47,7 @@
     "react-dom": "^16.13.1",
     "react-storefront": "^8.11.0",
     "react-storefront-amp": "^1.2.4",
-    "react-storefront-analytics": "^1.1.1",
+    "react-storefront-analytics": "^1.1.2",
     "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
