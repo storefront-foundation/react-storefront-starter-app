@@ -40,6 +40,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-storefront": "^8.9.1",
+    "react-storefront-magento2-connector": "file:.yalc/react-storefront-magento2-connector",
     "react-visibility-sensor": "^5.1.1",
     "webpack-clear-require-cache-plugin": "0.0.4"
   },
