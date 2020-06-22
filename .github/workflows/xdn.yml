@@ -15,6 +15,7 @@ jobs:
           node-version: 12
           registry-url: https://npm-proxy.fury.io/moovweb/
       - run: npm ci
-      - run: npm run deploy -- --branch=commercial --token=$xdn_deploy_token --environment=production
+      - run: npm run deploy -- --branch=commercial --token=$XDN_DEPLOY_TOKEN --environment=production
         env:
-          xdn_deploy_token: ${{secrets.xdn_deploy_token}}
+          XDN_DEPLOY_TOKEN: ${{secrets.XDN_DEPLOY_TOKEN}}
+          FIREBASE_CONFIG: $${{secrets.FIREBASE_CONFIG}}
