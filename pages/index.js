@@ -7,6 +7,7 @@ import LoadMask from 'react-storefront/LoadMask'
 import Head from 'next/head'
 import createLazyProps from 'react-storefront/props/createLazyProps'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
+import { TrackPageView } from 'react-storefront-analytics'
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -33,12 +34,15 @@ export default function Index(lazyProps) {
         {state.loading ? (
           <LoadMask fullscreen />
         ) : (
-          <div className={classes.main}>
-            <Typography variant="h3" component="h1" gutterBottom color="primary">
-              {state.pageData.slots.heading}
-            </Typography>
-            <CmsSlot>{state.pageData.slots.description}</CmsSlot>
-          </div>
+          <>
+            <TrackPageView />
+            <div className={classes.main}>
+              <Typography variant="h3" component="h1" gutterBottom color="primary">
+                {state.pageData.slots.heading}
+              </Typography>
+              <CmsSlot>{state.pageData.slots.description}</CmsSlot>
+            </div>
+          </>
         )}
       </Container>
     </>
