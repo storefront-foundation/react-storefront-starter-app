@@ -1,6 +1,7 @@
-import React, { useState, useContext, useMemo } from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import SessionContext from 'react-storefront/session/SessionContext';
 import get from 'lodash/get';
 
@@ -9,17 +10,44 @@ const useStyles = makeStyles((theme) => ({
     border: `1px solid ${theme.palette.divider}`,
     minHeight: 100,
     padding: 10,
+    position: 'relative',
   },
   spacingBlock: {
     margin: 10,
   },
+  loader: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    background: 'rgba(0,0,0,0.5)',
+    zIndex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+  },
 }));
+
+const Loader = React.memo(({ active }) => {
+  const classes = useStyles();
+  if (!active) {
+    return null;
+  }
+  return (
+    <div className={classes.loader}>
+      <CircularProgress />
+    </div>
+  );
+});
 
 export default function BasicLoginForm() {
   const classes = useStyles();
 
   const { actions, session } = useContext(SessionContext);
   const { signedIn } = session;
+
+  const [loading, setLoading] = useState(false);
 
   const [signInEmail, setSignInEmail] = useState('');
   const [signInPassword, setSignInPassword] = useState('');
@@ -32,6 +60,7 @@ export default function BasicLoginForm() {
   const [signUpError, setSignUpError] = useState('');
 
   const signIn = async () => {
+    setLoading(true);
     setSignInError('');
     const email = signInEmail;
     const password = signInPassword;
@@ -39,13 +68,17 @@ export default function BasicLoginForm() {
     if (!response.success) {
       setSignInError(get(response, 'error.message', 'Sign in error, please check your credentials'));
     }
+    setLoading(false);
   };
 
   const signOut = async () => {
+    setLoading(true);
     await actions.signOut();
+    setLoading(false);
   };
 
   const signUp = async () => {
+    setLoading(true);
     setSignUpError('');
     const firstName = signUpFirstName;
     const lastName = signUpLastName;
@@ -65,11 +98,13 @@ export default function BasicLoginForm() {
     if (!response2.success) {
       setSignUpError(response2.error);
     }
+    setLoading(false);
   };
 
   return (
     <>
       <Container className={classes.root}>
+        <Loader active={loading} />
         {!signedIn ? (
           <>
             <div className={classes.spacingBlock}>
