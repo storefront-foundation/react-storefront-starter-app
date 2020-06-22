@@ -14,7 +14,6 @@ import AmpProvider from 'react-storefront-amp/AmpProvider'
 import useAppStore from 'react-storefront/hooks/useAppStore'
 import 'typeface-roboto'
 import Router from 'next/router'
-import { FirebasePerformanceMonitoring } from 'react-storefront-analytics/firebase'
 
 installAmpOverrides()
 
@@ -44,14 +43,12 @@ export default function MyApp({ Component, pageProps }) {
         <SessionProvider url="/api/session">
           <MuiThemeProvider theme={theme}>
             <Analytics>
-              <FirebasePerformanceMonitoring>
-                <CssBaseline />
-                <Header menu={appData && appData.menu} />
-                <NavBar tabs={appData && appData.tabs} />
-                <main className={classes.main}>
-                  <Component {...pageProps} />
-                </main>
-              </FirebasePerformanceMonitoring>
+              <CssBaseline />
+              <Header menu={appData && appData.menu} />
+              <NavBar tabs={appData && appData.tabs} />
+              <main className={classes.main}>
+                <Component {...pageProps} />
+              </main>
             </Analytics>
           </MuiThemeProvider>
         </SessionProvider>
