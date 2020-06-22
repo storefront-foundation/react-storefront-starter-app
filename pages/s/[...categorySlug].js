@@ -65,9 +65,7 @@ const Subcategory = lazyProps => {
             <Skeleton height={32} style={{ marginBottom: theme.spacing(1) }} />
           )}
         </Grid>
-        {!loading && (
-          <LandingCmsSlots cmsBlocks={pageData.cmsBlocks} />
-        )}
+        {!loading && <LandingCmsSlots cmsBlocks={pageData.cmsBlocks} />}
       </>
     )
   }

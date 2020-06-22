@@ -110,7 +110,7 @@ const Product = React.memo(lazyProps => {
         quantity,
         color: color.id,
         size: size.id,
-      });
+      })
       if (!data.success) {
         // @TODO: notify user about errors occurred during add to cart
         console.error(data.error)
