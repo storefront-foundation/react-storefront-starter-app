@@ -30,7 +30,7 @@ import { useAmp } from 'next/amp'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
 import getAPIURL from 'react-storefront/api/getAPIURL'
-import LazyHydrate from 'react-storefront/LazyHydrate'
+// import LazyHydrate from 'react-storefront/LazyHydrate'
 
 const styles = theme => ({
   carousel: {
@@ -178,7 +178,7 @@ const Product = React.memo(lazyProps => {
               <Hidden implementation="css" smUp>
                 {header}
               </Hidden>
-              <LazyHydrate id="carousel" on="touch">
+              {/* <LazyHydrate> */}
                 <MediaCarousel
                   className={classes.carousel}
                   lightboxClassName={classes.lightboxCarousel}
@@ -188,10 +188,10 @@ const Product = React.memo(lazyProps => {
                     media: ['color.media', 'product.media'],
                   }}
                 />
-              </LazyHydrate>
+              {/* </LazyHydrate> */}
             </Grid>
             <Grid item xs={12} sm={6} md={7}>
-              <LazyHydrate id="options">
+              {/* <LazyHydrate id="options"> */}
                 <Grid container spacing={4}>
                   <Grid item xs={12}>
                     <Hidden implementation="css" xsDown>
@@ -294,10 +294,10 @@ const Product = React.memo(lazyProps => {
                     />
                   </Grid>
                 </Grid>
-              </LazyHydrate>
+              {/* </LazyHydrate> */}
             </Grid>
           </Grid>
-          <LazyHydrate id="info" on="fui">
+          {/* <LazyHydrate id="info" on="fui"> */}
             <>
               <Grid item xs={12}>
                 <TabPanel>
@@ -313,7 +313,7 @@ const Product = React.memo(lazyProps => {
                 </Grid>
               )}
             </>
-          </LazyHydrate>
+          {/* </LazyHydrate> */}
         </form>
       </Container>
     </DataBindingProvider>
@@ -322,5 +322,5 @@ const Product = React.memo(lazyProps => {
 
 Product.getInitialProps = createLazyProps(fetchFromAPI)
 
-export default Product
 export const config = { amp: 'hybrid' }
+export default Product
