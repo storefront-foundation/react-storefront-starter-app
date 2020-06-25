@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'react-storefront/link/Link'
 import { Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import useLazyState from 'react-storefront/hooks/useLazyState'
@@ -21,9 +20,6 @@ const useStyles = makeStyles(theme => ({
   heading: {
     textAlign: 'center',
     marginTop: 50,
-  },
-  link: {
-    textDecoration: 'none',
   },
 }))
 
@@ -48,9 +44,9 @@ export default function Index(lazyProps) {
               Home
             </Typography>
             <div className={classes.main}>
-              <Link as="/account" href="/account" className={classes.link}>
-                Account
-              </Link>
+              <Typography variant="body1">
+                Hello =)
+              </Typography>
             </div>
           </>
         )}

@@ -37,6 +37,13 @@ const useStyles = makeStyles(theme => ({
       padding: 5,
     },
   },
+  accountLink: {
+    display: 'block',
+    padding: 16,
+    color: '#000',
+    textTransform: 'uppercase',
+    textDecoration: 'none',
+  },
 }))
 
 export default function Header({ menu }) {
@@ -74,7 +81,16 @@ export default function Header({ menu }) {
           // renderItem={item => <div>{item.text} (custom)</div>}
           // renderItemContent={item => <div>{item.text} (custom content)</div>}
           // renderBack={item => <div>{item.text} back</div>}
-          // renderHeader={item => <div>{item.text} header</div>}
+          renderHeader={() => (
+            <Link
+              as="/account"
+              href="/account"
+              onClick={() => setMenuOpen(false)}
+              className={classes.accountLink}
+            >
+              Account
+            </Link>
+          )}
           // renderFooter={item => <div>{item.text} footer</div>}
         />
       </LazyHydrate>
