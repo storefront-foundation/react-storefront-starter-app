@@ -81,16 +81,19 @@ export default function Header({ menu }) {
           // renderItem={item => <div>{item.text} (custom)</div>}
           // renderItemContent={item => <div>{item.text} (custom content)</div>}
           // renderBack={item => <div>{item.text} back</div>}
-          renderHeader={() => (
-            <Link
-              as="/account"
-              href="/account"
-              onClick={() => setMenuOpen(false)}
-              className={classes.accountLink}
-            >
-              Account
-            </Link>
-          )}
+          renderHeader={item => {
+            if (!item.root) return null;
+            return (
+              <Link
+                as="/account"
+                href="/account"
+                onClick={() => setMenuOpen(false)}
+                className={classes.accountLink}
+              >
+                Account
+              </Link>
+            );
+          }}
           // renderFooter={item => <div>{item.text} footer</div>}
         />
       </LazyHydrate>
