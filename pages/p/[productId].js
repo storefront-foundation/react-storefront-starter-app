@@ -171,9 +171,15 @@ const Product = React.memo(lazyProps => {
       {!loading && <TrackPageView />}
       <Breadcrumbs items={!loading && state.pageData.breadcrumbs} />
       <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
-        <form onSubmit={handleSubmit} method="post" action-xhr="/api/cart">
+        <form
+          encType="application/x-www-form-urlencoded"
+          onSubmit={handleSubmit}
+          method="post" action-xhr={useAmp() ? '/api/addToCartFromAmp' : '/api/cart'}
+        >
           <Grid container spacing={4}>
             <HiddenInput name="id" bind="product.id" />
+            <HiddenInput name="sku" bind="product.sku" />
+            <HiddenInput name="isConfigurableProduct" bind="product.isConfigurableProduct" />
             <Grid item xs={12} sm={6} md={5}>
               <Hidden implementation="css" smUp>
                 {header}
