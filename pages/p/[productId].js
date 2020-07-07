@@ -72,6 +72,14 @@ const styles = theme => ({
       boxShadow: 'none',
     },
   },
+  test: {
+    position: 'relative',
+  },
+  portal: {
+    position: 'absolute',
+    left: '100%',
+    zIndex: 11,
+  },
 })
 
 const useStyles = makeStyles(styles)
@@ -170,15 +178,22 @@ const Product = React.memo(lazyProps => {
                 {header}
               </Hidden>
               <LazyHydrate id="carousel" on="touch">
-                <MediaCarousel
-                  className={classes.carousel}
-                  lightboxClassName={classes.lightboxCarousel}
-                  thumbnail={thumbnail.current}
-                  height="100%"
-                  bind={{
-                    media: ['color.media', 'product.media'],
-                  }}
-                />
+                <div className={classes.test}>
+                  <div id="portal" className={classes.portal} />
+                  <MediaCarousel
+                    className={classes.carousel}
+                    lightboxClassName={classes.lightboxCarousel}
+                    thumbnail={thumbnail.current}
+                    height="100%"
+                    bind={{
+                      media: ['color.media', 'product.media'],
+                    }}
+                    magnifyProps={{
+                      enlargedImagePortalId: 'portal',
+                      enlargedImagePosition: 'beside',
+                    }}
+                  />
+                </div>
               </LazyHydrate>
             </Grid>
             <Grid item xs={12} sm={6} md={7}>
