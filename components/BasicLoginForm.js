@@ -64,11 +64,13 @@ export default function BasicLoginForm() {
     setSignInError('')
     const email = signInEmail
     const password = signInPassword
-    const response = await actions.signIn({ email, password })
-    if (!response.success) {
-      setSignInError(get(response, 'error.message', 'Sign in error, please check your credentials'))
+    try {
+      await actions.signIn({ email, password })
+    } catch (error) {
+      setSignInError(get(error, 'message', 'Sign in error, please check your credentials'))
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   const signOut = async () => {
@@ -84,21 +86,18 @@ export default function BasicLoginForm() {
     const lastName = signUpLastName
     const email = signUpEmail
     const password = signUpPassword
-    const response1 = await actions.signUp({
-      firstName,
-      lastName,
-      email,
-      password,
-    })
-    if (!response1.success) {
-      setSignUpError(response1.error)
-      return
+    try {
+      await actions.signUp({
+        firstName,
+        lastName,
+        email,
+        password,
+      })
+    } catch (error) {
+      setSignUpError(get(error, 'message', 'An error occurred during sign up'))
+    } finally {
+      setLoading(false)
     }
-    const response2 = await actions.signIn({ email, password })
-    if (!response2.success) {
-      setSignUpError(response2.error)
-    }
-    setLoading(false)
   }
 
   return (

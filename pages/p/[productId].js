@@ -112,16 +112,15 @@ const Product = React.memo(lazyProps => {
       }
 
       // send the data to the server
-      const data = await actions.addToCart({
-        product,
-        quantity,
-        color: color.id,
-        size: size.id,
-      })
-      if (!data.success) {
-        console.error(data.error)
-        setErrorBoxMessage(data.error.message)
-        return
+      try {
+        await actions.addToCart({
+          product,
+          quantity,
+          color: color.id,
+          size: size.id,
+        })
+      } catch (error) {
+        setErrorBoxMessage(error.message)
       }
 
       // open the confirmation dialog
