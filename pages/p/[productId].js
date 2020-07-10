@@ -14,6 +14,7 @@ import { Hbox } from 'react-storefront/Box'
 import Label from 'react-storefront/Label'
 import Rating from 'react-storefront/Rating'
 import get from 'lodash/get'
+import isEmpty from 'lodash/isEmpty'
 import HiddenInput from 'react-storefront-amp/HiddenInput'
 import fetch from 'react-storefront/fetch'
 import SessionContext from 'react-storefront/session/SessionContext'
@@ -88,6 +89,8 @@ const Product = React.memo(lazyProps => {
   const product = get(state, 'pageData.product') || {}
   const color = get(state, 'pageData.color') || {}
   const size = get(state, 'pageData.size') || {}
+  const hasColors = !isEmpty(product.colors)
+  const hasSizes = !isEmpty(product.sizes)  
   const quantity = get(state, 'pageData.quantity')
   const { actions } = useContext(SessionContext)
   const { loading } = state
@@ -209,7 +212,7 @@ const Product = React.memo(lazyProps => {
                             <Typography color="error">{errorBoxMessage}</Typography>
                           </Hbox>
                         )}
-                        {product.hasColors && (
+                        {hasColors && (
                           <>
                             <Hbox style={{ marginBottom: 10 }}>
                               <Label>COLOR: </Label>
@@ -242,7 +245,7 @@ const Product = React.memo(lazyProps => {
                   <Grid item xs={12}>
                     {product ? (
                       <>
-                        {product.hasSizes && (
+                        {hasSizes && (
                           <>
                             <Hbox style={{ marginBottom: 10 }}>
                               <Label>SIZE: </Label>
