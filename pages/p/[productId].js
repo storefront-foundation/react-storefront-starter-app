@@ -177,7 +177,7 @@ const Product = React.memo(lazyProps => {
           encType="application/x-www-form-urlencoded"
           onSubmit={handleSubmit}
           method="post"
-          action-xhr={useAmp() ? '/api/addToCartFromAmp' : '/api/cart'}
+          action-xhr="/api/cart/add"
         >
           <Grid container spacing={4}>
             <HiddenInput name="id" bind="product.id" />

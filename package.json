@@ -45,7 +45,7 @@
     "qs": "^6.9.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-storefront": "file:.yalc/react-storefront",
+    "react-storefront": "^8.11.1",
     "react-storefront-amp": "^1.2.5",
     "react-storefront-analytics": "^1.1.2",
     "typeface-roboto": "0.0.75"
