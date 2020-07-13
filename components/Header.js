@@ -39,7 +39,6 @@ const useStyles = makeStyles(theme => ({
   },
   accountLink: {
     display: 'block',
-    padding: 16,
     color: '#000',
     textTransform: 'uppercase',
     textDecoration: 'none',

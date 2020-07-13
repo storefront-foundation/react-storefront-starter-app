@@ -17,13 +17,7 @@ const theme = createTheme({
       default: '#fff',
     },
   },
-  overrides: {
-    RSFMenuHeader: {
-      root: {
-        padding: 0,
-      },
-    },
-  },
+  overrides: {},
 })
 
 export default theme

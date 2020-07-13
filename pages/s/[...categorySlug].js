@@ -51,7 +51,6 @@ const Subcategory = lazyProps => {
     return (
       <>
         <Breadcrumbs items={!loading && pageData.breadcrumbs} />
-        {/* <SubcategoryNav data={pageData.subcategoryNav} currentSubcategoryTitle={pageData.title} /> */}
         <Grid item xs={12}>
           {!loading ? (
             <Typography
