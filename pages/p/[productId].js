@@ -16,10 +16,9 @@ import Rating from 'react-storefront/Rating'
 import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
 import HiddenInput from 'react-storefront-amp/HiddenInput'
-import fetch from 'react-storefront/fetch'
 import SessionContext from 'react-storefront/session/SessionContext'
 import AddToCartConfirmation from '../../components/product/AddToCartConfirmation'
-// import SuggestedProducts from '../../components/product/SuggestedProducts'
+import SuggestedProducts from '../../components/product/SuggestedProducts'
 import Lazy from 'react-storefront/Lazy'
 import TabPanel from 'react-storefront-amp/AmpTabPanel'
 import Text from 'react-storefront-amp/Text'
@@ -31,7 +30,7 @@ import { useAmp } from 'next/amp'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
 import getAPIURL from 'react-storefront/api/getAPIURL'
-// import LazyHydrate from 'react-storefront/LazyHydrate'
+import LazyHydrate from 'react-storefront/LazyHydrate'
 
 const styles = theme => ({
   carousel: {
@@ -187,142 +186,142 @@ const Product = React.memo(lazyProps => {
               <Hidden implementation="css" smUp>
                 {header}
               </Hidden>
-              {/* <LazyHydrate> */}
-              <MediaCarousel
-                className={classes.carousel}
-                lightboxClassName={classes.lightboxCarousel}
-                thumbnail={thumbnail.current}
-                height="100%"
-                bind={{
-                  media: ['color.media', 'product.media'],
-                }}
-              />
-              {/* </LazyHydrate> */}
+              <LazyHydrate id="carousel" on="touch">
+                <MediaCarousel
+                  className={classes.carousel}
+                  lightboxClassName={classes.lightboxCarousel}
+                  thumbnail={thumbnail.current}
+                  height="100%"
+                  bind={{
+                    media: ['color.media', 'product.media'],
+                  }}
+                />
+              </LazyHydrate>
             </Grid>
             <Grid item xs={12} sm={6} md={7}>
-              {/* <LazyHydrate id="options"> */}
-              <Grid container spacing={4}>
-                <Grid item xs={12}>
-                  <Hidden implementation="css" xsDown>
-                    <div style={{ paddingBottom: theme.spacing(1) }}>{header}</div>
-                  </Hidden>
-                  {product ? (
-                    <>
-                      {errorBoxMessage && (
-                        <Hbox style={{ marginBottom: 10 }}>
-                          <Typography color="error">{errorBoxMessage}</Typography>
+              <LazyHydrate id="options">
+                <Grid container spacing={4}>
+                  <Grid item xs={12}>
+                    <Hidden implementation="css" xsDown>
+                      <div style={{ paddingBottom: theme.spacing(1) }}>{header}</div>
+                    </Hidden>
+                    {product ? (
+                      <>
+                        {errorBoxMessage && (
+                          <Hbox style={{ marginBottom: 10 }}>
+                            <Typography color="error">{errorBoxMessage}</Typography>
+                          </Hbox>
+                        )}
+                        {hasColors && (
+                          <>
+                            <Hbox style={{ marginBottom: 10 }}>
+                              <Label>COLOR: </Label>
+                              <Typography>
+                                <HiddenInput name="color" bind="color.id" />
+                                <Text bind="color.text" />
+                              </Typography>
+                            </Hbox>
+                            <ProductOptionSelector
+                              optionProps={{
+                                showLabel: false,
+                              }}
+                              strikeThroughDisabled
+                              bind={{ value: 'color', options: 'product.colors' }}
+                            />
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <div>
+                        <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
+                        <Hbox>
+                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
                         </Hbox>
-                      )}
-                      {hasColors && (
-                        <>
-                          <Hbox style={{ marginBottom: 10 }}>
-                            <Label>COLOR: </Label>
-                            <Typography>
-                              <HiddenInput name="color" bind="color.id" />
-                              <Text bind="color.text" />
-                            </Typography>
-                          </Hbox>
-                          <ProductOptionSelector
-                            optionProps={{
-                              showLabel: false,
-                            }}
-                            strikeThroughDisabled
-                            bind={{ value: 'color', options: 'product.colors' }}
-                          />
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    <div>
-                      <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
-                      <Hbox>
-                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                      </Hbox>
-                    </div>
-                  )}
+                      </div>
+                    )}
+                  </Grid>
+                  <Grid item xs={12}>
+                    {product ? (
+                      <>
+                        {hasSizes && (
+                          <>
+                            <Hbox style={{ marginBottom: 10 }}>
+                              <Label>SIZE: </Label>
+                              <Typography>
+                                <HiddenInput name="size" bind="size.id" />
+                                <Text bind="size.text" />
+                              </Typography>
+                            </Hbox>
+                            <ProductOptionSelector
+                              strikeThroughDisabled
+                              bind={{ value: 'size', options: 'product.sizes' }}
+                            />
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <div>
+                        <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
+                        <Hbox>
+                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                          <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
+                        </Hbox>
+                      </div>
+                    )}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Hbox>
+                      <Label>QTY:</Label>
+                      <QuantitySelector bind="quantity" />
+                    </Hbox>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      key="button"
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      data-th="add-to-cart"
+                      className={clsx(classes.docked, classes.noShadow)}
+                      disabled={addToCartInProgress}
+                    >
+                      Add to Cart
+                    </Button>
+                    <AddToCartConfirmation
+                      open={confirmationOpen}
+                      setOpen={setConfirmationOpen}
+                      product={product}
+                      color={color}
+                      size={size}
+                      quantity={quantity}
+                      price={product.priceText}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  {product ? (
-                    <>
-                      {hasSizes && (
-                        <>
-                          <Hbox style={{ marginBottom: 10 }}>
-                            <Label>SIZE: </Label>
-                            <Typography>
-                              <HiddenInput name="size" bind="size.id" />
-                              <Text bind="size.text" />
-                            </Typography>
-                          </Hbox>
-                          <ProductOptionSelector
-                            strikeThroughDisabled
-                            bind={{ value: 'size', options: 'product.sizes' }}
-                          />
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    <div>
-                      <Skeleton style={{ height: 14, marginBottom: theme.spacing(2) }}></Skeleton>
-                      <Hbox>
-                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                        <Skeleton style={{ height: 48, width: 48, marginRight: 10 }}></Skeleton>
-                      </Hbox>
-                    </div>
-                  )}
-                </Grid>
-                <Grid item xs={12}>
-                  <Hbox>
-                    <Label>QTY:</Label>
-                    <QuantitySelector bind="quantity" />
-                  </Hbox>
-                </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    key="button"
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    data-th="add-to-cart"
-                    className={clsx(classes.docked, classes.noShadow)}
-                    disabled={addToCartInProgress}
-                  >
-                    Add to Cart
-                  </Button>
-                  <AddToCartConfirmation
-                    open={confirmationOpen}
-                    setOpen={setConfirmationOpen}
-                    product={product}
-                    color={color}
-                    size={size}
-                    quantity={quantity}
-                    price={product.priceText}
-                  />
-                </Grid>
-              </Grid>
-              {/* </LazyHydrate> */}
+              </LazyHydrate>
             </Grid>
           </Grid>
-          {/* <LazyHydrate id="info" on="fui"> */}
-          <>
-            <Grid item xs={12}>
-              <TabPanel>
-                <CmsSlot label="Description">{product.description}</CmsSlot>
-                <CmsSlot label="Specs">{product.specs}</CmsSlot>
-              </TabPanel>
-            </Grid>
-            {!useAmp() && (
+          <LazyHydrate id="info" on="fui">
+            <>
               <Grid item xs={12}>
-                <Lazy style={{ minHeight: 285 }}>
-                  {/* <SuggestedProducts product={product} /> */}
-                </Lazy>
+                <TabPanel>
+                  <CmsSlot label="Description">{product.description}</CmsSlot>
+                  <CmsSlot label="Specs">{product.specs}</CmsSlot>
+                </TabPanel>
               </Grid>
-            )}
-          </>
-          {/* </LazyHydrate> */}
+              {!useAmp() && (
+                <Grid item xs={12}>
+                  <Lazy style={{ minHeight: 285 }}>
+                    <SuggestedProducts product={product} />
+                  </Lazy>
+                </Grid>
+              )}
+            </>
+          </LazyHydrate>
         </form>
       </Container>
     </DataBindingProvider>
