@@ -82,7 +82,7 @@ export default function Header({ menu }) {
           // renderItemContent={item => <div>{item.text} (custom content)</div>}
           // renderBack={item => <div>{item.text} back</div>}
           renderHeader={item => {
-            if (!item.root) return null;
+            if (!item.root) return null
             return (
               <Link
                 as="/account"
@@ -92,7 +92,7 @@ export default function Header({ menu }) {
               >
                 Account
               </Link>
-            );
+            )
           }}
           // renderFooter={item => <div>{item.text} footer</div>}
         />

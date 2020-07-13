@@ -32,7 +32,7 @@
     "@material-ui/styles": "4.5.2",
     "@svgr/webpack": "^4.3.3",
     "@xdn/core": "^1.35.1",
-    "@xdn/next": "file:.yalc/@xdn/next",
+    "@xdn/next": "^1.35.1",
     "@xdn/prefetch": "^1.35.1",
     "clsx": "^1.0.4",
     "cross-env": "^5.2.0",
@@ -45,10 +45,9 @@
     "qs": "^6.9.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-storefront": "file:.yalc/react-storefront",
+    "react-storefront": "^8.11.1",
     "react-storefront-amp": "^1.2.4",
     "react-storefront-analytics": "^1.1.2",
-    "react-storefront-magento2-connector": "file:.yalc/react-storefront-magento2-connector",
     "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
