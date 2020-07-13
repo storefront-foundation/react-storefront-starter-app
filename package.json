@@ -32,7 +32,7 @@
     "@material-ui/styles": "4.5.2",
     "@svgr/webpack": "^4.3.3",
     "@xdn/core": "^1.35.1",
-    "@xdn/next": "^1.35.1",
+    "@xdn/next": "file:.yalc/@xdn/next",
     "@xdn/prefetch": "^1.35.1",
     "clsx": "^1.0.4",
     "cross-env": "^5.2.0",
