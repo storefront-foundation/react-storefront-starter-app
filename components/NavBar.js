@@ -23,8 +23,6 @@ const useStyles = makeStyles(theme => ({
 function NavBar({ tabs }) {
   const classes = useStyles()
 
-  console.log('tabs', tabs)
-
   return (
     <Paper square elevation={2}>
       <Container maxWidth="lg" className={classes.container}>

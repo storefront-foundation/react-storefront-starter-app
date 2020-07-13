@@ -90,7 +90,7 @@ export default function Header({ menu }) {
                 onClick={() => setMenuOpen(false)}
                 className={classes.accountLink}
               >
-                Account
+                My Account
               </Link>
             )
           }}
