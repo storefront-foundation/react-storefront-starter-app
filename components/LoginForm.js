@@ -41,7 +41,7 @@ const Loader = React.memo(({ active }) => {
   )
 })
 
-export default function BasicLoginForm() {
+export default function LoginForm() {
   const classes = useStyles()
 
   const { actions, session } = useContext(SessionContext)

@@ -6,7 +6,7 @@ import Head from 'next/head'
 import createLazyProps from 'react-storefront/props/createLazyProps'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import get from 'lodash/get'
-import BasicLoginForm from '../components/BasicLoginForm'
+import LoginForm from '../components/LoginForm'
 import { TrackPageView } from 'react-storefront-analytics'
 
 const useStyles = makeStyles(theme => ({
@@ -40,7 +40,7 @@ export default function Index(lazyProps) {
         </Typography>
         <TrackPageView />
         <div className={classes.main}>
-          <BasicLoginForm />
+          <LoginForm />
         </div>
       </Container>
     </>
