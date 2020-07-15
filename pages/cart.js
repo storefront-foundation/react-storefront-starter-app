@@ -58,15 +58,14 @@ export default function Cart() {
 
   const handleUpdateQuantity = (product, quantity) => {
     actions.updateCart({
-      ...session.cart,
-      items: items.map(item => (item.id === product.id ? { ...product, quantity } : item)),
+      item: product,
+      quantity,
     })
   }
 
   const handleRemove = product => {
-    actions.updateCart({
-      ...session.cart,
-      items: items.filter(item => item.id !== product.id),
+    actions.removeCartItem({
+      item: product,
     })
   }
 

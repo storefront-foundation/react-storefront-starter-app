@@ -1,9 +1,9 @@
-import { updateCart } from 'react-storefront-connector'
+import { removeCartItem } from 'react-storefront-connector'
 import withAmpFormParser from 'react-storefront/middlewares/withAmpFormParser'
 
 async function handler(req, res) {
-  const { item, quantity } = req.body
-  res.json(await updateCart(item, quantity, req, res))
+  const { item } = req.body
+  res.json(await removeCartItem(item, req, res))
 }
 
 export const config = {
