@@ -1,5 +1,12 @@
 import { signIn } from 'react-storefront-connector'
 
 export default function(req, res) {
-  return signIn(req, res)
+  const { email, password } = req.body
+  return signIn(email, password, req, res)
+}
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
 }
