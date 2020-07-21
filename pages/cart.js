@@ -48,7 +48,7 @@ const useStyles = makeStyles(styles)
 
 export default function Cart(props) {
   const [state, updateState] = useLazyState(props)
-  const { items } = state.pageData
+  const { items = [] } = state.pageData
   const classes = useStyles()
   const { session } = useContext(SessionContext)
 
