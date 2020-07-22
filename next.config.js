@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const webpack = require('webpack')
 const withReactStorefront = require('react-storefront/plugins/withReactStorefront')
 const { PREFETCH_QUERY_PARAM } = require('@xdn/prefetch/constants')

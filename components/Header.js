@@ -9,7 +9,7 @@ import Menu from 'react-storefront-amp/menu/AmpMenu'
 import MenuButton from 'react-storefront/menu/MenuButton'
 import Link from 'react-storefront/link/Link'
 import SessionContext from 'react-storefront/session/SessionContext'
-import get from 'lodash/get'
+import useCartTotal from 'react-storefront/hooks/useCartTotal'
 import LazyHydrate from 'react-storefront/LazyHydrate'
 
 const useStyles = makeStyles(theme => ({
@@ -37,6 +37,12 @@ const useStyles = makeStyles(theme => ({
       padding: 5,
     },
   },
+  accountLink: {
+    display: 'block',
+    color: '#000',
+    textTransform: 'uppercase',
+    textDecoration: 'none',
+  },
 }))
 
 export default function Header({ menu }) {
@@ -49,6 +55,7 @@ export default function Header({ menu }) {
     setHydrateMenu(true)
   }, [])
   const { session } = useContext(SessionContext)
+  const cartTotal = useCartTotal()
 
   return (
     <>
@@ -60,7 +67,7 @@ export default function Header({ menu }) {
             </a>
           </Link>
           <Search />
-          <CartButton quantity={get(session, 'itemsInCart')} />
+          <CartButton quantity={cartTotal} />
           <MenuButton open={menuOpen} onClick={handleMenuButtonClick} />
         </Container>
       </AppBar>
@@ -73,7 +80,19 @@ export default function Header({ menu }) {
           // renderItem={item => <div>{item.text} (custom)</div>}
           // renderItemContent={item => <div>{item.text} (custom content)</div>}
           // renderBack={item => <div>{item.text} back</div>}
-          // renderHeader={item => <div>{item.text} header</div>}
+          renderHeader={item => {
+            if (!item.root) return null
+            return (
+              <Link
+                as="/account"
+                href="/account"
+                onClick={() => setMenuOpen(false)}
+                className={classes.accountLink}
+              >
+                My Account
+              </Link>
+            )
+          }}
           // renderFooter={item => <div>{item.text} footer</div>}
         />
       </LazyHydrate>
