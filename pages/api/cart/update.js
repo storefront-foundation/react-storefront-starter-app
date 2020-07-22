@@ -1,4 +1,4 @@
-import { updateCart } from 'react-storefront-connector'
+import { updateCartItem } from 'react-storefront-connector'
 
 export async function handler(req, res) {
   const { item, quantity } = req.body
