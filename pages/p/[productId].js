@@ -121,12 +121,11 @@ const Product = React.memo(lazyProps => {
           color: color.id,
           size: size.id,
         })
+        // open the confirmation dialog on success
+        setConfirmationOpen(true)
       } catch (error) {
         setErrorBoxMessage(error.message)
       }
-
-      // open the confirmation dialog
-      setConfirmationOpen(true)
     } finally {
       // re-enable the add to cart button
       setAddToCartInProgress(false)
