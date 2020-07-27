@@ -49,7 +49,7 @@
     "react-storefront": "^8.11.1",
     "react-storefront-amp": "^1.2.5",
     "react-storefront-analytics": "^1.1.2",
-    "react-storefront-commerce-connector": "file:.yalc/react-storefront-commerce-connector",
+    "salesforce-commerce-cloud-connector": "file:.yalc/salesforce-commerce-cloud-connector",
     "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
