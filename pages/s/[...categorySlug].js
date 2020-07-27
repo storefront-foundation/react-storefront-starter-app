@@ -21,6 +21,7 @@ import Fill from 'react-storefront/Fill'
 import { TrackPageView } from 'react-storefront-analytics'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
+import LandingCmsSlots from '../../components/LandingCmsSlots'
 
 const useStyles = makeStyles(theme => ({
   sideBar: {
@@ -35,6 +36,9 @@ const useStyles = makeStyles(theme => ({
   total: {
     marginTop: theme.spacing(1),
   },
+  landingTitleSpacing: {
+    margin: '50px 0',
+  },
 }))
 
 const Subcategory = lazyProps => {
@@ -42,6 +46,30 @@ const Subcategory = lazyProps => {
   const classes = useStyles()
   const theme = useTheme()
   let { pageData, loading } = store
+
+  if (pageData.isLanding) {
+    return (
+      <>
+        <Breadcrumbs items={!loading && pageData.breadcrumbs} />
+        <Grid item xs={12}>
+          {!loading ? (
+            <Typography
+              component="h1"
+              variant="h4"
+              gutterBottom
+              align="center"
+              className={classes.landingTitleSpacing}
+            >
+              {pageData.name}
+            </Typography>
+          ) : (
+            <Skeleton height={32} style={{ marginBottom: theme.spacing(1) }} />
+          )}
+        </Grid>
+        {!loading && <LandingCmsSlots cmsBlocks={pageData.cmsBlocks} />}
+      </>
+    )
+  }
 
   return (
     <DataBindingProvider store={store} updateStore={updateStore}>

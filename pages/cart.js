@@ -10,13 +10,17 @@ import { price } from 'react-storefront/utils/format'
 import Spacer from 'react-storefront/Spacer'
 import Link from 'react-storefront/link/Link'
 import { Hbox } from 'react-storefront/Box'
-import useLazyState from 'react-storefront/hooks/useLazyState'
 import SessionContext from 'react-storefront/session/SessionContext'
 import get from 'lodash/get'
+import useCartTotal from 'react-storefront/hooks/useCartTotal'
+import LoadMask from 'react-storefront/LoadMask'
 
 const styles = theme => ({
   root: {
     paddingBottom: '64px',
+  },
+  heading: {
+    marginTop: theme.spacing(2),
   },
   checkoutPanel: {
     backgroundColor: theme.palette.grey['200'],
@@ -46,101 +50,91 @@ const styles = theme => ({
 
 const useStyles = makeStyles(styles)
 
-export default function Cart(props) {
-  const [state, updateState] = useLazyState(props)
-  const { items = [] } = state.pageData
+export default function Cart() {
   const classes = useStyles()
-  const { session } = useContext(SessionContext)
+  const { session, actions } = useContext(SessionContext)
+  const total = useCartTotal()
+  const items = get(session, 'cart.items')
 
-  const updateProduct = product => {
-    updateState({
-      ...state,
-      pageData: {
-        ...state.pageData,
-        items: items.map(item => {
-          if (item.id === product.id) return product
-
-          return item
-        }),
-      },
+  const handleUpdateQuantity = (product, quantity) => {
+    actions.updateCart({
+      item: product,
+      quantity,
     })
   }
 
-  const removeProduct = product => {
-    const newItems = items.filter(item => item.id !== product.id)
-    updateState({
-      ...state,
-      pageData: {
-        ...state.pageData,
-        items: newItems,
-      },
+  const handleRemove = product => {
+    actions.removeCartItem({
+      item: product,
     })
   }
-
-  if (state.loading) return null
 
   return (
     <Container className={classes.root}>
       <Row>
-        <Typography variant="h6">
-          My Cart ({items.length} {items.length === 1 ? 'item' : 'items'})
+        <Typography variant="h6" className={classes.heading}>
+          My Cart ({total} {total === 1 ? 'item' : 'items'})
         </Typography>
       </Row>
-      <Row>
-        <Grid container spacing={4}>
-          <Grid item xs={12} sm={8}>
-            {items.length ? (
-              items.map((product, i) => (
-                <CartItem
-                  key={product.id}
-                  updateCart={updateProduct}
-                  remove={removeProduct}
-                  product={product}
-                />
-              ))
-            ) : (
-              <Typography variant="body1">There are no items in your cart.</Typography>
+      {!session.cart ? (
+        <LoadMask />
+      ) : (
+        <Row>
+          <Grid container spacing={4}>
+            <Grid item xs={12} sm={8}>
+              {items.length ? (
+                items.map((product, i) => (
+                  <CartItem
+                    key={product.id}
+                    updateQuantity={handleUpdateQuantity}
+                    remove={handleRemove}
+                    product={product}
+                  />
+                ))
+              ) : (
+                <Typography variant="body1">There are no items in your cart.</Typography>
+              )}
+            </Grid>
+            {items.length === 0 ? null : (
+              <Grid item xs={12} sm={4}>
+                <div className={classes.checkoutPanel}>
+                  <Hbox alignItems="flex-start">
+                    <div>
+                      <Typography variant="subtitle2" className={classes.total}>
+                        Estimated Total
+                      </Typography>
+                      <Typography variant="caption">Tax calculated in checkout</Typography>
+                    </div>
+                    <Spacer />
+                    <Typography variant="subtitle2" className={classes.total}>
+                      {price(
+                        items.reduce((a, b) => a + b.quantity * parseFloat(b.price), 0),
+                        { currency: get(session, 'currency') }
+                      )}
+                    </Typography>
+                  </Hbox>
+                  <Hidden xsDown implementation="css">
+                    <Row>
+                      <Divider />
+                    </Row>
+                  </Hidden>
+                  {items.length === 0 ? null : (
+                    <Link href="/checkout">
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        className={clsx(classes.checkoutButton, classes.docked)}
+                      >
+                        Checkout
+                      </Button>
+                    </Link>
+                  )}
+                </div>
+              </Grid>
             )}
           </Grid>
-          {items.length === 0 ? null : (
-            <Grid item xs={12} sm={4}>
-              <div className={classes.checkoutPanel}>
-                <Hbox alignItems="flex-start">
-                  <div>
-                    <Typography variant="subtitle2" className={classes.total}>
-                      Estimated Total
-                    </Typography>
-                    <Typography variant="caption">Tax calculated in checkout</Typography>
-                  </div>
-                  <Spacer />
-                  <Typography variant="subtitle2" className={classes.total}>
-                    {price(
-                      items.reduce((a, b) => a + b.quantity * parseFloat(b.price), 0),
-                      { currency: get(session, 'currency') }
-                    )}
-                  </Typography>
-                </Hbox>
-                <Hidden xsDown implementation="css">
-                  <Row>
-                    <Divider />
-                  </Row>
-                </Hidden>
-                {items.length === 0 ? null : (
-                  <Link href="/checkout">
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      className={clsx(classes.checkoutButton, classes.docked)}
-                    >
-                      Checkout
-                    </Button>
-                  </Link>
-                )}
-              </div>
-            </Grid>
-          )}
-        </Grid>
-      </Row>
+        </Row>
+      )}
     </Container>
   )
 }

@@ -30,14 +30,9 @@ function NavBar({ tabs }) {
           {tabs.map(tab => (
             <NavTab key={tab.as} href={tab.href} as={tab.as} label={tab.text} prefetch="visible">
               <div style={{ padding: 20 }}>
-                {tab.subcategories.map(subcategory => (
-                  <Link
-                    href={subcategory.href}
-                    key={subcategory.as}
-                    as={subcategory.as}
-                    className={classes.link}
-                  >
-                    {subcategory.text}
+                {tab.items.map(item => (
+                  <Link href={item.href} key={item.as} as={item.as} className={classes.link}>
+                    {item.text}
                   </Link>
                 ))}
               </div>

@@ -14,8 +14,8 @@ import { Hbox } from 'react-storefront/Box'
 import Label from 'react-storefront/Label'
 import Rating from 'react-storefront/Rating'
 import get from 'lodash/get'
+import isEmpty from 'lodash/isEmpty'
 import HiddenInput from 'react-storefront-amp/HiddenInput'
-import fetch from 'react-storefront/fetch'
 import SessionContext from 'react-storefront/session/SessionContext'
 import AddToCartConfirmation from '../../components/product/AddToCartConfirmation'
 import SuggestedProducts from '../../components/product/SuggestedProducts'
@@ -80,6 +80,7 @@ const Product = React.memo(lazyProps => {
   const theme = useTheme()
   const [confirmationOpen, setConfirmationOpen] = useState(false)
   const [addToCartInProgress, setAddToCartInProgress] = useState(false)
+  const [errorBoxMessage, setErrorBoxMessage] = useState(null)
   const [state, updateState] = useLazyState(lazyProps, {
     pageData: { quantity: 1, carousel: { index: 0 } },
   })
@@ -87,6 +88,8 @@ const Product = React.memo(lazyProps => {
   const product = get(state, 'pageData.product') || {}
   const color = get(state, 'pageData.color') || {}
   const size = get(state, 'pageData.size') || {}
+  const hasColors = !isEmpty(product.colors)
+  const hasSizes = !isEmpty(product.sizes)
   const quantity = get(state, 'pageData.quantity')
   const { actions } = useContext(SessionContext)
   const { loading } = state
@@ -98,25 +101,32 @@ const Product = React.memo(lazyProps => {
   const handleSubmit = async event => {
     event.preventDefault() // prevent the page location from changing
     setAddToCartInProgress(true) // disable the add to cart button until the request is finished
+    setErrorBoxMessage(null)
 
     try {
+      if (!color.id && product.hasColors) {
+        setErrorBoxMessage('Please select color')
+        return
+      }
+      if (!size.id && product.hasSizes) {
+        setErrorBoxMessage('Please select size')
+        return
+      }
+
       // send the data to the server
-      const { cartCount } = await fetch('/api/cart', {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id: product.id,
+      try {
+        await actions.addToCart({
+          product,
+          quantity,
           color: color.id,
           size: size.id,
-          quantity,
-        }),
-      }).then(res => res.json())
+        })
+      } catch (error) {
+        setErrorBoxMessage(error.message)
+      }
 
       // open the confirmation dialog
       setConfirmationOpen(true)
-
-      // update the number of items in the cart in the header
-      actions.updateCartCount(cartCount)
     } finally {
       // re-enable the add to cart button
       setAddToCartInProgress(false)
@@ -162,9 +172,16 @@ const Product = React.memo(lazyProps => {
       {!loading && <TrackPageView />}
       <Breadcrumbs items={!loading && state.pageData.breadcrumbs} />
       <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
-        <form onSubmit={handleSubmit} method="post" action-xhr="/api/cart">
+        <form
+          encType="application/x-www-form-urlencoded"
+          onSubmit={handleSubmit}
+          method="post"
+          action-xhr="/api/cart/add"
+        >
           <Grid container spacing={4}>
             <HiddenInput name="id" bind="product.id" />
+            <HiddenInput name="sku" bind="product.sku" />
+            <HiddenInput name="isConfigurableProduct" bind="product.isConfigurableProduct" />
             <Grid item xs={12} sm={6} md={5}>
               <Hidden implementation="css" smUp>
                 {header}
@@ -190,20 +207,29 @@ const Product = React.memo(lazyProps => {
                     </Hidden>
                     {product ? (
                       <>
-                        <Hbox style={{ marginBottom: 10 }}>
-                          <Label>COLOR: </Label>
-                          <Typography>
-                            <HiddenInput name="color" bind="color.id" />
-                            <Text bind="color.text" />
-                          </Typography>
-                        </Hbox>
-                        <ProductOptionSelector
-                          optionProps={{
-                            showLabel: false,
-                          }}
-                          strikeThroughDisabled
-                          bind={{ value: 'color', options: 'product.colors' }}
-                        />
+                        {errorBoxMessage && (
+                          <Hbox style={{ marginBottom: 10 }}>
+                            <Typography color="error">{errorBoxMessage}</Typography>
+                          </Hbox>
+                        )}
+                        {hasColors && (
+                          <>
+                            <Hbox style={{ marginBottom: 10 }}>
+                              <Label>COLOR: </Label>
+                              <Typography>
+                                <HiddenInput name="color" bind="color.id" />
+                                <Text bind="color.text" />
+                              </Typography>
+                            </Hbox>
+                            <ProductOptionSelector
+                              optionProps={{
+                                showLabel: false,
+                              }}
+                              strikeThroughDisabled
+                              bind={{ value: 'color', options: 'product.colors' }}
+                            />
+                          </>
+                        )}
                       </>
                     ) : (
                       <div>
@@ -219,17 +245,21 @@ const Product = React.memo(lazyProps => {
                   <Grid item xs={12}>
                     {product ? (
                       <>
-                        <Hbox style={{ marginBottom: 10 }}>
-                          <Label>SIZE: </Label>
-                          <Typography>
-                            <HiddenInput name="size" bind="size.id" />
-                            <Text bind="size.text" />
-                          </Typography>
-                        </Hbox>
-                        <ProductOptionSelector
-                          strikeThroughDisabled
-                          bind={{ value: 'size', options: 'product.sizes' }}
-                        />
+                        {hasSizes && (
+                          <>
+                            <Hbox style={{ marginBottom: 10 }}>
+                              <Label>SIZE: </Label>
+                              <Typography>
+                                <HiddenInput name="size" bind="size.id" />
+                                <Text bind="size.text" />
+                              </Typography>
+                            </Hbox>
+                            <ProductOptionSelector
+                              strikeThroughDisabled
+                              bind={{ value: 'size', options: 'product.sizes' }}
+                            />
+                          </>
+                        )}
                       </>
                     ) : (
                       <div>
@@ -300,5 +330,5 @@ const Product = React.memo(lazyProps => {
 
 Product.getInitialProps = createLazyProps(fetchFromAPI)
 
-export default Product
 export const config = { amp: 'hybrid' }
+export default Product
