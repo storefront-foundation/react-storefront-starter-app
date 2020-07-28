@@ -115,6 +115,7 @@ const Product = React.memo(lazyProps => {
 
       // send the data to the server
       try {
+        console.log('add color', color)
         await actions.addToCart({
           product,
           quantity,

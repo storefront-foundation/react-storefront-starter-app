@@ -77,7 +77,7 @@ function ProductItem({ product, index, classes, className, colorSelector }) {
                 bind={{ value: 'color', options: 'colors' }}
                 optionProps={{
                   size: 'small',
-                  showLabel: true,
+                  showLabel: false,
                 }}
               />
             )}
