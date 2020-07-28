@@ -12,6 +12,12 @@ const useStyles = makeStyles(theme => ({
       margin: 'auto',
     },
   },
+  '@font-face': {
+    fontFamily: 'Luma-Icons',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    src: `local('Luma-Icons'), local('luma-icons'), url("/Luma-Icons.woff2") format('woff2')`,
+  },
 }))
 
 const CSS = `
@@ -1531,7 +1537,7 @@ const CSS = `
   }
   .product-item-actions .actions-secondary {
     display: inline-block;
-    font-size: 1.4em;
+    /* font-size: 1.4em; */
     vertical-align: middle;
   }
 `
@@ -1541,11 +1547,11 @@ const LandingCmsSlots = ({ cmsBlocks }) => {
 
   return (
     <>
-      <link
+      {/* <link
         href="//db.onlinewebfonts.com/c/68590d1f06ad625cb73b5c34f85b4a1b?family=Luma-Icons"
         rel="stylesheet"
         type="text/css"
-      />
+      /> */}
       <style>{CSS}</style>
       {cmsBlocks.map(cmsBlock => (
         <CmsSlot key={cmsBlock.identifier} className={classes.cmsBlock}>
