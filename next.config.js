@@ -9,7 +9,7 @@ module.exports = withXDN(
   withReactStorefront({
     target: 'serverless',
     prefetchQueryParam: PREFETCH_QUERY_PARAM,
-    connector: 'salesforce-commerce-cloud-connector',
+    connector: 'react-storefront/mock-connector',
     webpack: (config, options) => {
       if (!options.isServer) {
         config.plugins.push(

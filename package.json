@@ -12,7 +12,7 @@
     "build": "xdn build",
     "prod": "xdn run --production",
     "test": "jest",
-    "deploy": "xdn deploy --branch sfcc",
+    "deploy": "xdn deploy react-storefront",
     "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.xdn,.next,.yalc}/**\"",
     "rsf:link": "rm -rf node_modules/react-storefront node_modules/react-storefront-analytics node_modules/react-storefront-amp && yalc add react-storefront react-storefront-analytics react-storefront-amp && npm i --prefer-offline",
     "xdn:link": "rm -rf node_modules/@xdn/core node_modules/@xdn/next && yalc add @xdn/next @xdn/core @xdn/cli @xdn/prefetch",
@@ -35,7 +35,6 @@
     "@xdn/next": "^1.42.1",
     "@xdn/prefetch": "^1.42.1",
     "clsx": "^1.0.4",
-    "commerce-sdk": "^1.4.5-beta.0",
     "cross-env": "^5.2.0",
     "isomorphic-unfetch": "^3.0.0",
     "lorem-ipsum": "^2.0.3",
@@ -49,7 +48,6 @@
     "react-storefront": "^8.13.0",
     "react-storefront-amp": "^1.2.5",
     "react-storefront-analytics": "^1.1.2",
-    "salesforce-commerce-cloud-connector": "file:.yalc/salesforce-commerce-cloud-connector",
     "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
