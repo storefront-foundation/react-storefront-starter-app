@@ -27,22 +27,23 @@ function NavBar({ tabs }) {
     <Paper square elevation={2}>
       <Container maxWidth="lg" className={classes.container}>
         <NavTabs>
-          {tabs.map(tab => (
-            <NavTab key={tab.as} href={tab.href} as={tab.as} label={tab.text} prefetch="visible">
-              <div style={{ padding: 20 }}>
-                {tab.subcategories.map(subcategory => (
-                  <Link
-                    href={subcategory.href}
-                    key={subcategory.as}
-                    as={subcategory.as}
-                    className={classes.link}
-                  >
-                    {subcategory.text}
-                  </Link>
-                ))}
-              </div>
-            </NavTab>
-          ))}
+          {tabs &&
+            tabs.map(tab => (
+              <NavTab key={tab.as} href={tab.href} as={tab.as} label={tab.text} prefetch="visible">
+                <div style={{ padding: 20 }}>
+                  {tab.items.map(subcategory => (
+                    <Link
+                      href={subcategory.href}
+                      key={subcategory.as}
+                      as={subcategory.as}
+                      className={classes.link}
+                    >
+                      {subcategory.text}
+                    </Link>
+                  ))}
+                </div>
+              </NavTab>
+            ))}
         </NavTabs>
       </Container>
     </Paper>
