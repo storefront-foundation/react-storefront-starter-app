@@ -30,18 +30,20 @@ function NavBar({ tabs }) {
           {tabs &&
             tabs.map(tab => (
               <NavTab key={tab.as} href={tab.href} as={tab.as} label={tab.text} prefetch="visible">
-                <div style={{ padding: 20 }}>
-                  {tab.items.map(subcategory => (
-                    <Link
-                      href={subcategory.href}
-                      key={subcategory.as}
-                      as={subcategory.as}
-                      className={classes.link}
-                    >
-                      {subcategory.text}
-                    </Link>
-                  ))}
-                </div>
+                {tab.items && (
+                  <div style={{ padding: 20 }}>
+                    {tab.items.map(subcategory => (
+                      <Link
+                        href={subcategory.href}
+                        key={subcategory.as}
+                        as={subcategory.as}
+                        className={classes.link}
+                      >
+                        {subcategory.text}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </NavTab>
             ))}
         </NavTabs>
