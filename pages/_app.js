@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import React, { useEffect } from 'react'
 import theme from '../components/theme'
 import Header from '../components/Header'
@@ -39,6 +40,13 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <PWA errorReporter={reportError}>
+      <Head>
+        {/* <meta
+          key="viewport"
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+        /> */}
+      </Head>
       <AmpProvider>
         <SessionProvider url="/api/session">
           <MuiThemeProvider theme={theme}>
