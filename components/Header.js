@@ -62,7 +62,7 @@ export default function Header({ menu }) {
       <AppBar>
         <Container maxWidth="lg" className={classes.container}>
           <Link href="/">
-            <a>
+            <a aria-label="logo">
               <Logo style={{ width: 120, height: 48 }} className={classes.logo} />
             </a>
           </Link>
