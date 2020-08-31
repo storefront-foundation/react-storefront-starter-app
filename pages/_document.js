@@ -4,6 +4,7 @@ import NextScript from 'react-storefront/NextScript'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import theme from '../components/theme'
 import renderAmp from 'react-storefront-amp/renderAmp'
+import minifyStyles from 'react-storefront/utils/minifyStyles'
 import { LazyStyles } from 'react-storefront/LazyHydrate'
 
 class MyDocument extends Document {
@@ -83,7 +84,7 @@ MyDocument.getInitialProps = async ctx => {
       return (
         <>
           {initialProps.styles}
-          {sheets.getStyleElement()}
+          <style dangerouslySetInnerHTML={{ __html: minifyStyles(sheets.toString()) }} />
         </>
       )
     }
