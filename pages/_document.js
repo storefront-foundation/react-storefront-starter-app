@@ -13,11 +13,6 @@ class MyDocument extends Document {
       <html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          {/* <meta
-            key="viewport"
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-          /> */}
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="preconnect" href="https://opt.moovweb.net" crossOrigin="true" />
@@ -68,7 +63,7 @@ MyDocument.getInitialProps = async ctx => {
       enhanceApp: App => props => sheets.collect(<App {...props} />),
     })
 
-    return isAmp ? await renderAmp(document, sheets) : document
+    return isAmp ? await renderAmp(document, sheets, ctx.req.url) : document
   }
 
   const initialProps = await Document.getInitialProps(ctx)
