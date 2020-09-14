@@ -33,7 +33,6 @@
     "@material-ui/styles": "4.5.2",
     "@svgr/webpack": "^4.3.3",
     "@xdn/core": "^2.0.0",
-    "@xdn/devtools": "file:.yalc/@xdn/devtools",
     "@xdn/next": "^2.0.0",
     "@xdn/prefetch": "^2.0.0",
     "clsx": "^1.0.4",
