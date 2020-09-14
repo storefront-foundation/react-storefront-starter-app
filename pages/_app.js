@@ -15,6 +15,7 @@ import AmpProvider from 'react-storefront-amp/AmpProvider'
 import useAppStore from 'react-storefront/hooks/useAppStore'
 import 'typeface-roboto'
 import Router from 'next/router'
+import XDNDevtools from '../components/XDNDevtools'
 
 installAmpOverrides()
 
@@ -61,6 +62,7 @@ export default function MyApp({ Component, pageProps }) {
           </MuiThemeProvider>
         </SessionProvider>
       </AmpProvider>
+      <XDNDevtools />
     </PWA>
   )
 }

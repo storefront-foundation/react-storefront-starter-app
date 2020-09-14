@@ -6,6 +6,9 @@ module.exports = new Router()
   .match('/service-worker.js', ({ serviceWorker }) => {
     serviceWorker('.next/static/service-worker.js')
   })
+  .get('/xdn-devtools.:ext', ({ serveStatic }) => {
+    serveStatic('node_modules/@xdn/devtools/xdn-devtools.:ext')
+  })
   .match('/', cacheResponse(SSR))
   .match('/api/', cacheResponse(API))
   .match('/s/:categorySlug*', cacheResponse(SSR))
