@@ -1,6 +1,5 @@
 import React from 'react'
-import Document, { Head, Main } from 'next/document'
-import NextScript from 'react-storefront/NextScript'
+import Document, { Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import theme from '../components/theme'
 import renderAmp from 'react-storefront-amp/renderAmp'
