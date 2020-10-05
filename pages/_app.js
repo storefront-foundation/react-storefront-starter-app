@@ -15,8 +15,9 @@ import AmpProvider from 'react-storefront-amp/AmpProvider'
 import useAppStore from 'react-storefront/hooks/useAppStore'
 import 'typeface-roboto'
 import Router from 'next/router'
-import XDNDevtools from '../components/XDNDevtools'
+import installDevtools from '@xdn/devtools/install'
 
+installDevtools()
 installAmpOverrides()
 
 const styles = theme => ({
@@ -62,7 +63,6 @@ export default function MyApp({ Component, pageProps }) {
           </MuiThemeProvider>
         </SessionProvider>
       </AmpProvider>
-      <XDNDevtools />
     </PWA>
   )
 }
