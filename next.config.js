@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const webpack = require('webpack')
 const withReactStorefront = require('react-storefront/plugins/withReactStorefront')
-const { PREFETCH_QUERY_PARAM } = require('@xdn/prefetch/constants')
+const { PREFETCH_QUERY_PARAM } = require('@xdn/core/constants')
 const withXDN = require('@xdn/next/withXDN')
 
 module.exports = withXDN(
