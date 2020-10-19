@@ -6,6 +6,4 @@ skipWaiting()
 clientsClaim()
 precacheAndRoute(self.__WB_MANIFEST || [])
 
-console.log('Devtools enabled')
-
 new Prefetcher({ devtools: true }).route()
