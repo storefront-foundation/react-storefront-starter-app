@@ -2,9 +2,11 @@ const { Router } = require('@xdn/core/router')
 const { nextRoutes } = require('@xdn/next')
 const { API, SSR, cacheResponse } = require('./cache')
 const DevtoolsRoutesPlugin = require('@xdn/devtools/DevtoolsRoutesPlugin')
+const prerenderRequests = require('./xdn/prerenderRequests')
 
 module.exports = new Router()
   .use(new DevtoolsRoutesPlugin())
+  .prerender(prerenderRequests)
   .match('/service-worker.js', ({ serviceWorker }) => {
     serviceWorker('.next/static/service-worker.js')
   })
