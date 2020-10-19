@@ -4,6 +4,7 @@ const { API, SSR, cacheResponse } = require('./cache')
 const DevtoolsRoutesPlugin = require('@xdn/devtools/DevtoolsRoutesPlugin')
 
 module.exports = new Router()
+  .use(new DevtoolsRoutesPlugin())
   .match('/service-worker.js', ({ serviceWorker }) => {
     serviceWorker('.next/static/service-worker.js')
   })
