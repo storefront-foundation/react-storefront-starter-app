@@ -15,9 +15,7 @@ import AmpProvider from 'react-storefront-amp/AmpProvider'
 import useAppStore from 'react-storefront/hooks/useAppStore'
 import 'typeface-roboto'
 import Router from 'next/router'
-import installDevtools from '@xdn/devtools/install'
 
-installDevtools()
 installAmpOverrides()
 
 const styles = theme => ({
