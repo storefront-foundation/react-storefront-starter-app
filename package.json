@@ -43,7 +43,7 @@
     "qs": "^6.9.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-storefront": "^8.17.1",
+    "react-storefront": "^8.17.2",
     "react-storefront-amp": "^1.2.9",
     "react-storefront-analytics": "^1.1.2",
     "typeface-roboto": "0.0.75"
