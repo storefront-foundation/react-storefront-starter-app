@@ -40,8 +40,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-storefront": "^8.11.0",
-    "react-visibility-sensor": "^5.1.1",
-    "webpack-clear-require-cache-plugin": "0.0.4"
+    "react-visibility-sensor": "^5.1.1"
   },
   "devDependencies": {
     "babel-plugin-transform-imports": "^2.0.0",
