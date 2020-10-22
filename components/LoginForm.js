@@ -111,6 +111,7 @@ export default function LoginForm() {
             </div>
             <div className={classes.spacingBlock}>
               <TextField
+                type="email"
                 value={signInEmail}
                 label="Email"
                 onChange={event => setSignInEmail(event.target.value)}
@@ -154,6 +155,7 @@ export default function LoginForm() {
             </div>
             <div className={classes.spacingBlock}>
               <TextField
+                type="email"
                 value={signUpEmail}
                 label="Email"
                 onChange={event => setSignUpEmail(event.target.value)}

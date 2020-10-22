@@ -1,9 +1,9 @@
 import React from 'react'
-import Document, { Head, Main } from 'next/document'
-import NextScript from 'react-storefront/NextScript'
+import Document, { Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import theme from '../components/theme'
 import renderAmp from 'react-storefront-amp/renderAmp'
+import minifyStyles from 'react-storefront/utils/minifyStyles'
 import { LazyStyles } from 'react-storefront/LazyHydrate'
 
 class MyDocument extends Document {
@@ -12,11 +12,6 @@ class MyDocument extends Document {
       <html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          {/* <meta
-            key="viewport"
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-          /> */}
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="preconnect" href="https://opt.moovweb.net" crossOrigin="true" />
@@ -67,7 +62,7 @@ MyDocument.getInitialProps = async ctx => {
       enhanceApp: App => props => sheets.collect(<App {...props} />),
     })
 
-    return isAmp ? await renderAmp(document, sheets) : document
+    return isAmp ? await renderAmp(document, sheets, ctx.req.url) : document
   }
 
   const initialProps = await Document.getInitialProps(ctx)
@@ -88,7 +83,7 @@ MyDocument.getInitialProps = async ctx => {
       return (
         <>
           {initialProps.styles}
-          {sheets.getStyleElement()}
+          <style dangerouslySetInnerHTML={{ __html: minifyStyles(sheets.toString()) }} />
         </>
       )
     }
