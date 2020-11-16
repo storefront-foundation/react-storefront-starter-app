@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useRef } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import clsx from 'clsx'
 import qs from 'qs'
 import useLazyState from 'react-storefront/hooks/useLazyState'
