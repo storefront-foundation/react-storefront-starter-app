@@ -35,20 +35,9 @@ const styles = theme => ({
 })
 const useStyles = makeStyles(styles)
 
-export default function CartItem({ product: prod, updateCart, remove }) {
-  const [product, updateProduct] = useState(prod)
+export default function CartItem({ product, updateQuantity, remove }) {
   const [open, setOpen] = React.useState(false)
   const classes = useStyles()
-  const { actions, session } = useContext(SessionContext)
-
-  const handleRemove = product => {
-    remove(product)
-    actions.updateCartCount(session.itemsInCart - 1)
-  }
-
-  useEffect(() => {
-    updateCart(product)
-  }, [product.quantity])
 
   return (
     <>
@@ -74,9 +63,7 @@ export default function CartItem({ product: prod, updateCart, remove }) {
               <Typography>Quantity:</Typography>
               <QuantitySelector
                 value={product.quantity}
-                onChange={value => {
-                  updateProduct({ ...product, quantity: value })
-                }}
+                onChange={quantity => updateQuantity(product, quantity)}
               />
             </Row>
           </div>
@@ -89,7 +76,7 @@ export default function CartItem({ product: prod, updateCart, remove }) {
         open={open}
         setOpen={setOpen}
         name={product.name}
-        action={() => handleRemove(product)}
+        action={() => remove(product)}
       />
     </>
   )
