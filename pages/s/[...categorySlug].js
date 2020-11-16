@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Typography, Grid, Container, Hidden } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import ResponsiveTiles from 'react-storefront/ResponsiveTiles'
@@ -71,11 +71,51 @@ const Subcategory = lazyProps => {
     )
   }
 
+  // Here is an example of how you can customize the URL scheme for filtering and sorting - /s/1?color=red,blue=sort=pop
+  // Note that if you change this, you also need to change pages/api/[...categorySlug].js to correctly handle the query parameters
+  // you send it.
+  const queryForState = useCallback(state => {
+    const { filters, page, sort } = state
+    const query = {}
+
+    for (let filter of filters) {
+      const [name, value] = filter.split(':')
+
+      console.log(name, value)
+
+      if (query[name]) {
+        query[name] = `${query[name]},${value}`
+      } else {
+        query[name] = value
+      }
+    }
+
+    if (query.more) {
+      delete query.more
+    }
+
+    if (page > 0) {
+      query.page = page
+    } else {
+      delete query.page
+    }
+
+    if (sort) {
+      query.sort = sort
+    } else {
+      delete query.sort
+    }
+
+    console.log('query', query)
+
+    return query
+  }, [])
+
   return (
     <DataBindingProvider store={store} updateStore={updateStore}>
       {!loading && <TrackPageView id={pageData.id} />}
       <Breadcrumbs items={!loading && pageData.breadcrumbs} />
-      <SearchResultsProvider store={store} updateStore={updateStore}>
+      <SearchResultsProvider store={store} updateStore={updateStore} queryForState={queryForState}>
         <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
           <Head>{loading ? null : <title>{pageData.title}</title>}</Head>
           <BackToTop />

@@ -27,19 +27,20 @@ function NavBar({ tabs }) {
     <Paper square elevation={2}>
       <Container maxWidth="lg" className={classes.container}>
         <NavTabs>
-          {tabs.map(tab => (
-            <NavTab key={tab.as} href={tab.href} as={tab.as} label={tab.text} prefetch="visible">
-              {tab.items && (
-                <div style={{ padding: 20 }}>
-                  {tab.items.map(item => (
-                    <Link href={item.href} key={item.as} as={item.as} className={classes.link}>
-                      {item.text}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </NavTab>
-          ))}
+          {tabs &&
+            tabs.map(tab => (
+              <NavTab key={tab.as} href={tab.href} as={tab.as} label={tab.text} prefetch="visible">
+                {tab.items && (
+                  <div style={{ padding: 20 }}>
+                    {tab.items.map(item => (
+                      <Link href={item.href} key={item.as} as={item.as} className={classes.link}>
+                        {item.text}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </NavTab>
+            ))}
         </NavTabs>
       </Container>
     </Paper>

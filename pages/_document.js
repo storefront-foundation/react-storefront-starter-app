@@ -1,5 +1,5 @@
 import React from 'react'
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import theme from '../components/theme'
 import renderAmp from 'react-storefront-amp/renderAmp'
@@ -9,7 +9,7 @@ import { LazyStyles } from 'react-storefront/LazyHydrate'
 class MyDocument extends Document {
   render() {
     return (
-      <html lang="en">
+      <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
           {/* PWA primary color */}
@@ -21,7 +21,7 @@ class MyDocument extends Document {
           <Main />
           <NextScript mode="defer" />
         </body>
-      </html>
+      </Html>
     )
   }
 }
