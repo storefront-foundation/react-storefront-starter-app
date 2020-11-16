@@ -10,7 +10,6 @@ import { price } from 'react-storefront/utils/format'
 import Spacer from 'react-storefront/Spacer'
 import Link from 'react-storefront/link/Link'
 import { Hbox } from 'react-storefront/Box'
-import useLazyState from 'react-storefront/hooks/useLazyState'
 import SessionContext from 'react-storefront/session/SessionContext'
 import get from 'lodash/get'
 
@@ -47,37 +46,22 @@ const styles = theme => ({
 const useStyles = makeStyles(styles)
 
 export default function Cart(props) {
-  const [state, updateState] = useLazyState(props)
-  const { items } = state.pageData
   const classes = useStyles()
-  const { session } = useContext(SessionContext)
+  const { session, actions } = useContext(SessionContext)
+  const items = get(session, 'cart.items')
 
-  const updateProduct = product => {
-    updateState({
-      ...state,
-      pageData: {
-        ...state.pageData,
-        items: items.map(item => {
-          if (item.id === product.id) return product
-
-          return item
-        }),
-      },
+  const handleUpdateQuantity = (product, quantity) => {
+    actions.updateCart({
+      item: product,
+      quantity,
     })
   }
 
-  const removeProduct = product => {
-    const newItems = items.filter(item => item.id !== product.id)
-    updateState({
-      ...state,
-      pageData: {
-        ...state.pageData,
-        items: newItems,
-      },
+  const handleRemove = product => {
+    actions.removeCartItem({
+      item: product,
     })
   }
-
-  if (state.loading) return null
 
   return (
     <Container className={classes.root}>
@@ -93,8 +77,8 @@ export default function Cart(props) {
               items.map((product, i) => (
                 <CartItem
                   key={product.id}
-                  updateCart={updateProduct}
-                  remove={removeProduct}
+                  updateQuantity={handleUpdateQuantity}
+                  remove={handleRemove}
                   product={product}
                 />
               ))

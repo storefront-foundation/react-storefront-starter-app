@@ -32,16 +32,15 @@
     "isomorphic-unfetch": "^3.0.0",
     "lorem-ipsum": "^2.0.3",
     "module-alias": "^2.2.1",
-    "next": "^9.3.6",
+    "next": "^10.0.1",
     "preact": "10.1.0",
     "preact-render-to-string": "^5.1.2",
     "preact-ssr-prepass": "^1.0.0",
     "qs": "^6.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-storefront": "^8.11.0",
-    "react-visibility-sensor": "^5.1.1",
-    "webpack-clear-require-cache-plugin": "0.0.4"
+    "react-storefront": "^8.17.2",
+    "react-visibility-sensor": "^5.1.1"
   },
   "devDependencies": {
     "babel-plugin-transform-imports": "^2.0.0",
