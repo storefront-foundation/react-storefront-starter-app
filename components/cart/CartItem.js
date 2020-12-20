@@ -36,7 +36,7 @@ const styles = theme => ({
 const useStyles = makeStyles(styles)
 
 export default function CartItem({ product, updateQuantity, remove }) {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
   const classes = useStyles()
 
   return (
