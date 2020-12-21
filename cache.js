@@ -34,13 +34,13 @@ module.exports = {
    * The cache config for all server side rendered pages
    */
   SSR: {
+    key,
     browser: {
       maxAgeSeconds: 0,
     },
     edge: {
       maxAgeSeconds: PAGE_TTL,
       staleWhileRevalidateSeconds: PAGE_TTL,
-      key,
     },
   },
 
@@ -48,6 +48,7 @@ module.exports = {
    * The cache config for all server side rendered pages
    */
   API: {
+    key,
     browser: {
       maxAgeSeconds: 0,
       serviceWorkerSeconds: PAGE_TTL,
@@ -55,7 +56,6 @@ module.exports = {
     edge: {
       maxAgeSeconds: PAGE_TTL,
       staleWhileRevalidateSeconds: PAGE_TTL,
-      key,
     },
   },
 
