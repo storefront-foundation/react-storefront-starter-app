@@ -9,7 +9,7 @@
   "scripts": {
     "xdn": "xdn",
     "next": "next",
-    "start": "SERVICE_WORKER=true xdn run --cache",
+    "start": "cross-env SERVICE_WORKER=true xdn run --cache",
     "build": "xdn build",
     "prod": "xdn run --production",
     "test": "jest",
