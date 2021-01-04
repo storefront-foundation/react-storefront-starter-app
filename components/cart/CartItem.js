@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Paper, IconButton, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Close as CloseIcon } from '@material-ui/icons'
@@ -36,7 +36,7 @@ const styles = theme => ({
 const useStyles = makeStyles(styles)
 
 export default function CartItem({ product, updateQuantity, remove }) {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
   const classes = useStyles()
 
   return (
