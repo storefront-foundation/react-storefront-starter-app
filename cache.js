@@ -22,7 +22,8 @@ const key = new CustomCacheKey().excludeAllQueryParametersExcept(
   'filters',
   'color',
   'size',
-  'amp'
+  'amp',
+  'page'
 )
 
 module.exports = {
