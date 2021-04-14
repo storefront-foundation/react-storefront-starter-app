@@ -1,4 +1,4 @@
-name: Deploy to XDN
+name: Deploy to Layer0
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - commercial
 
 jobs:
-  deploy-to-xdn:
+  deploy-to-layer0:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -15,7 +15,7 @@ jobs:
           node-version: 12
           registry-url: https://npm-proxy.fury.io/moovweb/
       - run: npm ci
-      - run: npm run deploy -- --branch=commercial --token=$XDN_DEPLOY_TOKEN --environment=production
+      - run: npm run deploy -- --branch=commercial --token=$Layer0_DEPLOY_TOKEN --environment=production
         env:
-          XDN_DEPLOY_TOKEN: ${{secrets.XDN_DEPLOY_TOKEN}}
+          Layer0_DEPLOY_TOKEN: ${{secrets.Layer0_DEPLOY_TOKEN}}
           FIREBASE_CONFIG: $${{secrets.FIREBASE_CONFIG}}

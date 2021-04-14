@@ -14,6 +14,7 @@ import AmpProvider from 'react-storefront-amp/AmpProvider'
 import useAppStore from 'react-storefront/hooks/useAppStore'
 import 'typeface-roboto'
 import Router from 'next/router'
+import '../components/rum'
 
 installAmpOverrides()
 
