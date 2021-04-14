@@ -2,7 +2,7 @@ require('dotenv').config()
 const { join } = require('path')
 
 module.exports = {
-  connector: '@xdn/next',
+  connector: '@layer0/next',
   prerenderConcurrency: 200,
   includeFiles: {
     [join('.next', 'BUILD_ID')]: true,

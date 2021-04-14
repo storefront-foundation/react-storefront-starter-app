@@ -1,7 +1,7 @@
-const { Router } = require('@xdn/core/router')
-const { nextRoutes } = require('@xdn/next')
+const { Router } = require('@layer0/core/router')
+const { nextRoutes } = require('@layer0/next')
 const { API, SSR, cacheResponse } = require('./cache')
-const prerenderRequests = require('./xdn/prerenderRequests')
+const prerenderRequests = require('./layer0/prerenderRequests')
 
 module.exports = new Router()
   .prerender(prerenderRequests)
