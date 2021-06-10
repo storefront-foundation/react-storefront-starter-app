@@ -11,7 +11,7 @@
     "dev": "cross-env NODE_ENV=development nodemon server.js",
     "prod": "cross-env NODE_ENV=production node server.js",
     "build": "next build",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "deploy": "npm run build && xdn deploy",
     "rsf:link": "yalc add react-storefront",
     "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\"",
