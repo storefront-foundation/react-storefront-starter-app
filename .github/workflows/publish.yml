@@ -1,0 +1,57 @@
+name: Publish to NPM
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - name: Publish to npm
+        run: |
+          npm ci
+          OUTPUT=$(npm run release)
+          VERSION=v$(echo $OUTPUT | rev | cut -d'@' -f 1 | rev)
+          echo "::set-env name=VERSION::${VERSION}"
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          repository: storefront-foundation/storefront-foundation.github.io
+          token: ${{ secrets.MOOVWEB_GITHUB_TOKEN }}
+          path: pages-repo
+      - uses: actions/checkout@v2
+        with:
+          repository: moovweb/react-storefront-docs
+          token: ${{ secrets.MOOVWEB_GITHUB_TOKEN }}
+          path: docs-repo
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - name: Push API docs to GitHub Pages
+        run: |
+          npm ci
+          npm run docs
+          npm run build-storybook
+          VERSION=${{ env.VERSION }}
+          cd pages-repo
+          mkdir ${VERSION}
+          mv ../.storybook/build ${VERSION}/storybook
+          cp ../docs/build/modules.json ${VERSION}
+          cp -r ../docs-repo/guides ${VERSION}
+          mv ${VERSION}/guides/guides.json ${VERSION}
+          sed -i "$ s/$/,\n${VERSION}/" versions.csv
+          git add -A
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -am "Docs for version ${VERSION}"
+          git push -u origin
