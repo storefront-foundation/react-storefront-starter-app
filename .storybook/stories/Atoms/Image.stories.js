@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image } from 'react-storefront'
 
-export default { title: 'Image' }
+export default { title: 'Design System/Atoms/Image' }
 
 const styles = {
   display: 'flex',

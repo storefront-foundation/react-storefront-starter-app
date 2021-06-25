@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { AutoScrollToNewChildren } from 'react-storefront'
 
-export default { title: 'AutoScrollToNewChildren' }
+export default { title: 'Design System/Molecules/AutoScrollToNewChildren' }
 
 const styles = {
   background: '#7f8fa6',

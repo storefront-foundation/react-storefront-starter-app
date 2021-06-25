@@ -1,7 +1,7 @@
 import React from 'react'
 import {ResponsiveTiles} from 'react-storefront'
 
-export default { title: 'ResponsiveTiles' }
+export default { title: 'Design System/Atoms/ResponsiveTiles' }
 
 const data = [
   { color: 'red', textColor: 'white', label: 'Tile 1' },

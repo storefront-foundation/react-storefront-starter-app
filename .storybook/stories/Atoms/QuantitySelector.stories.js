@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ArrowDownward, ArrowUpward } from '@material-ui/icons'
 import {QuantitySelector} from 'react-storefront'
 
-export default { title: 'QuantitySelector' }
+export default { title: 'Design System/Atoms/QuantitySelector' }
 
 export const plain = () => {
   const [count, setCount] = useState(0)

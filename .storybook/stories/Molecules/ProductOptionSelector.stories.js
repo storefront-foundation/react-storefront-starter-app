@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ProductOptionSelector } from 'react-storefront/option'
 import { SwatchProductOption } from 'react-storefront/option'
 
-export default { title: 'ProductOptionSelector' }
+export default { title: 'Design System/Molecules/ProductOptionSelector' }
 
 const colors = [
   {

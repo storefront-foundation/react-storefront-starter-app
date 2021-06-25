@@ -51,7 +51,7 @@ export default function Header({ menu }) {
         <Container maxWidth="lg" className={classes.container}>
           <Link href="/">
             <a>
-              <Logo style={{ width: 120, height: 48 }} className={classes.logo} />
+              <Logo style={{ width: 120, height: 48 }} />
             </a>
           </Link>
           <Search />

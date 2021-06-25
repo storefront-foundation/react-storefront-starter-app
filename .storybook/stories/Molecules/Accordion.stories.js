@@ -2,7 +2,7 @@ import React from 'react'
 import { ExpandableSection } from 'react-storefront'
 import { Accordion } from 'react-storefront'
 
-export default { title: 'Accordion' }
+export default { title: 'Design System/Molecules/Accordion' }
 
 export const defaults = () => (
   <Accordion>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavTab } from 'react-storefront/nav'
 
-export default { title: 'NavTabs' }
+export default { title: 'Design System/Molecules/NavTabs' }
 
 export const defaults = () => (
   <div>

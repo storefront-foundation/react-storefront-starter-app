@@ -3,6 +3,7 @@ const withReactStorefront = require('react-storefront/plugins/withReactStorefron
 require('dotenv').config()
 
 module.exports = withReactStorefront({
+
   target: 'serverless',
   connector: 'react-storefront/mock-connector',
   webpack: config => {
