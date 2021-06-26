@@ -16,4 +16,9 @@ module.exports = {
     "storybook-addon-pseudo-states",
     "@storybook/addon-actions"
   ],
+  "webpackFinal": async (config, { configType }) => {
+    const svgRule = config.module.rules.find((rule) => 'test.svg'.match(rule.test));
+    svgRule.test = RegExp(svgRule.test.source.replace('svg|', ''))
+    return config;
+  }
 }
