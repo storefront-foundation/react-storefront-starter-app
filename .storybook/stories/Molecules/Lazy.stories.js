@@ -2,7 +2,7 @@ import React from 'react'
 import { Lazy } from 'react-storefront'
 import { PWAContext } from 'react-storefront'
 
-export default { title: 'Lazy' }
+export default { title: 'Design System/Molecules/Lazy' }
 
 const styles = {
   display: 'flex',

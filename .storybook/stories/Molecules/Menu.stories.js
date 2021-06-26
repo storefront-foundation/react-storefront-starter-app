@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu } from 'react-storefront/menu'
 
-export default { title: 'Menu' }
+export default { title: 'Design System/Molecules/Menu' }
 
 const root = {
   text: 'category',

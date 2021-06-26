@@ -1,9 +1,14 @@
 import React from 'react'
 import { Breadcrumbs } from 'react-storefront'
 
-export default { title: 'Breadcrumbs' }
 
-export const defaults = () => (
+export default {
+  Breadcrumbs,
+  title: 'Design System/Atoms/Breadcrumbs',
+  decorators: []
+}
+
+const Template = (args) => (
   <Breadcrumbs
     items={[
       { text: 'one', href: '/one' },
@@ -13,3 +18,4 @@ export const defaults = () => (
     ]}
   />
 )
+export const defaults = Template.bind({});

@@ -2,7 +2,7 @@ import React from 'react'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import { MediaCarousel } from 'react-storefront/carousel'
 
-export default { title: 'MediaCarousel' }
+export default { title: 'Design System/Molecules/MediaCarousel' }
 
 const theme = createMuiTheme({
   margins: {

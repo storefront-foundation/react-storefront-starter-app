@@ -16,3 +16,10 @@ You can get a better sense of the speed of React Storefront by running a product
 ```
 npm run build && npm run prod
 ```
+
+## Storybook
+
+Start storybook which is the component repository
+```shell
+npm run storybook
+```

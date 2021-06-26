@@ -46,18 +46,27 @@
     "react-visibility-sensor": "^5.1.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.5",
+    "@next/plugin-storybook": "^10.2.3",
+    "@storybook/addon-a11y": "^6.2.9",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-jest": "^6.2.9",
+    "@storybook/addon-measure": "^1.2.3",
+    "@storybook/addon-toolbars": "^6.2.9",
+    "@storybook/addon-viewport": "^6.2.9",
+    "@storybook/react": "^6.2.9",
     "babel-loader": "^8.0.6",
+    "babel-plugin-inline-react-svg": "^2.0.1",
     "babel-plugin-rewire": "^1.2.0",
     "babel-plugin-transform-imports": "^2.0.0",
     "dotenv": "^10.0.0",
-    "nodemon": "^2.0.7",
-    "prettier": "^2.3.1",
-    "@storybook/addon-knobs": "^6.2.9",
-    "@storybook/react": "6.2.9",
-    "@next/plugin-storybook": "^10.2.3",
     "jest": "^27.0.4",
     "jest-enzyme": "^7.1.2",
-    "jest-fetch-mock": "^3.0.3"
+    "jest-fetch-mock": "^3.0.3",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.1",
+    "storybook-addon-pseudo-states": "^1.0.0"
   },
   "lint-staged": {
     "*.js": [
