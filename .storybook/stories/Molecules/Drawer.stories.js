@@ -6,7 +6,6 @@ const argTypes = {
   open: {
     name: 'Open',
     type: { name: 'boolean', required: true },
-    defaultValue: false,
     description: 'Open Drawer',
     control: {
       type: 'boolean'
@@ -15,7 +14,6 @@ const argTypes = {
   fullscreen: {
     name: 'Full Screen',
     type: { name: 'boolean', required: true },
-    defaultValue: false,
     description: 'Open Drawer',
     control: {
       type: 'boolean'
@@ -24,7 +22,6 @@ const argTypes = {
   anchor: {
     name: 'Anchor',
     options: ['top', 'bottom', 'left', 'right'],
-    defaultValue: 'left',
     control: {
       type: 'select'
     }
@@ -32,12 +29,10 @@ const argTypes = {
   title: {
     name: 'Title',
     type: { name: 'String', required: true },
-    defaultValue: 'Title',
   },
   showCloseButton: {
     name: 'Show Close Button',
     type: {name: 'boolean', required: false},
-    defaultValue: true
   }
 }
 

@@ -5,7 +5,6 @@ const argTypes = {
   show: {
     name: 'Show',
     type: { name: 'boolean', required: true },
-    defaultValue: true,
     control: {
       type: 'boolean'
     }
@@ -13,7 +12,6 @@ const argTypes = {
   transparent: {
     name: 'Transparent',
     type: { name: 'boolean', required: true },
-    defaultValue: true,
     control: {
       type: 'boolean'
     }
@@ -21,7 +19,6 @@ const argTypes = {
   align: {
     name: 'Align',
     options: ['center', 'top'],
-    defaultValue: 'center',
     control: {
       type: 'select'
     }

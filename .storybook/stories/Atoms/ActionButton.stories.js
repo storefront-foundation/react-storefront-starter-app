@@ -1,11 +1,9 @@
-import React from 'react'
 import {ActionButton} from 'react-storefront'
 
 const argTypes = {
   label: {
     name: 'Label',
     type: { name: 'string', required: true },
-    defaultValue: 'Sort',
     control: {
       type: 'text'
     }
@@ -13,7 +11,6 @@ const argTypes = {
   value: {
     name: 'Value',
     type: { name: 'string', required: true },
-    defaultValue: 'Lowest Price',
     control: {
       type: 'text'
     }

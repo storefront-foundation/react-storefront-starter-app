@@ -5,11 +5,9 @@ const argTypes = {
   label: {
     name: 'label',
     type: { name: 'string', required: true },
-    defaultValue: 'Button',
     description: 'Text for the Button',
     table: {
       type: { summary: 'string' },
-      defaultValue: { summary: 'Button' },
     },
     control: {
       type: 'text'
@@ -18,7 +16,6 @@ const argTypes = {
   variant: {
     name: 'variant',
     options: ['outlined', 'contained'],
-    defaultValue: 'contained',
     description: 'Button Variants',
     control: {
       type: 'select'
@@ -26,10 +23,9 @@ const argTypes = {
   },
   color: {
     name: 'color',
+    type: {name: "select", value: "select"},
     options: ['primary','secondary'],
-    control: {
-      type: 'select'
-    }
+    control: { type: 'radio' }
   },
   href: {
     name: 'href',

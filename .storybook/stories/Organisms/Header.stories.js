@@ -7,9 +7,15 @@ const argTypes = {
   offline: {
     name: 'Offline',
     type: { name: 'boolean', required: true },
-    defaultValue: 'false',
     control: {
       type: 'boolean'
+    }
+  },
+  cartCount: {
+    name: 'Cart Count',
+    type: { name: 'number', required: true },
+    control: {
+      type: 'number'
     }
   }
 }
@@ -22,7 +28,7 @@ export default {
 }
 
 const Template = (args) => (
-  <SessionContext.Provider value={{session:{itemsInCart:3}}}>
+  <SessionContext.Provider value={{session:{itemsInCart:args.cartCount}}}>
     <PWAContext.Provider value={{offline: args.offline}}>
       <Header></Header>
     </PWAContext.Provider>
@@ -31,4 +37,7 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 
-Default.args = {offline: false}
+Default.args = {
+  offline: false,
+  cartCount: 1
+}

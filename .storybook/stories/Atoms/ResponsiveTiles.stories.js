@@ -1,7 +1,15 @@
 import React from 'react'
 import {ResponsiveTiles} from 'react-storefront'
 
-export default { title: 'Design System/Atoms/ResponsiveTiles' }
+const argTypes = {
+
+}
+export default {
+  component: ResponsiveTiles,
+  title: 'Design System/Molecules/ResponsiveTiles',
+  argTypes: argTypes,
+  decorators: []
+}
 
 const data = [
   { color: 'red', textColor: 'white', label: 'Tile 1' },
@@ -18,9 +26,9 @@ const data = [
   { color: 'indigo', textColor: 'white', label: 'Tile 12' },
 ]
 
-export const defaults = () => (
+const Template = (args) => (
   <ResponsiveTiles>
-    {data.map(item => (
+    {args.tiles.map(item => (
       <div
         key={item.label}
         style={{
@@ -38,3 +46,9 @@ export const defaults = () => (
     ))}
   </ResponsiveTiles>
 )
+
+export const Default = Template.bind({});
+
+Default.args = {
+  tiles: data
+}

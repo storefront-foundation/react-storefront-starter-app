@@ -6,7 +6,6 @@ const argTypes = {
   heading: {
     name: 'heading',
     type: { name: 'string', required: true },
-    defaultValue: 'heading',
     description: 'heading for offline',
     control: {
       type: 'text'
@@ -15,7 +14,6 @@ const argTypes = {
   message: {
     name: 'message',
     type: { name: 'string', required: true },
-    defaultValue: 'heading',
     description: 'heading for offline',
     control: {
       type: 'text'

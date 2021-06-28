@@ -5,7 +5,6 @@ const argTypes = {
     scrollable: {
         name: 'Scrollable',
         type: { name: 'boolean', required: false },
-        defaultValue: false,
         control: {
             type: 'boolean'
         }

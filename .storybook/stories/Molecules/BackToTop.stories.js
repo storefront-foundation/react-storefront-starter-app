@@ -6,7 +6,6 @@ const argTypes = {
   size: {
     name: 'Size',
     type: { name: 'string', required: true },
-    defaultValue: 'medium',
     options: ['small','medium','large'],
     control: {
       type: 'select'

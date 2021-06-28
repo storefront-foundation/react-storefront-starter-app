@@ -1,6 +1,28 @@
 import React from 'react'
 import { CartButton } from 'react-storefront'
 
-export default { title: 'Design System/Atoms/CartButton' }
+const argTypes = {
+  cartCount: {
+    name: 'Cart Count',
+    type: { name: 'number', required: true },
+    control: {
+      type: 'number'
+    }
+  }
+}
 
-export const defaults = () => <CartButton href="/cart" quantity={1} />
+export default {
+  component: CartButton,
+  title: 'Design System/Atoms/CartButton',
+  decorators: [],
+  argTypes: argTypes
+}
+
+const Template = (args) => (
+  <CartButton href="/cart" quantity={args.cartCount} />
+)
+
+
+export const Default = Template.bind({});
+
+Default.args = {cartCount: 0}

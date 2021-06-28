@@ -3,39 +3,36 @@ import { Carousel } from 'react-storefront/carousel'
 
 const argTypes = {
   indicators: {
-    name: 'Indicators',
+    name: 'Carousel Indicators',
     type: { name: 'boolean', required: false },
-    defaultValue: true,
     control: {
       type: 'boolean'
     }
   },
   autoplay: {
-    name: 'Autoplay',
+    name: 'Carousel Autoplay',
     type: { name: 'boolean', required: false },
-    defaultValue: true,
     control: {
       type: 'boolean'
     }
   },
   interval: {
-    name: 'Interval',
+    name: 'Carousel Interval',
     type: { name: 'number', required: false },
-    defaultValue: 1000,
     control: {
       type: 'number'
     }
   },
   arrows: {
-    name: 'Arrow',
+    name: 'Carousel Arrow',
     type: { name: 'number', required: false },
-    defaultValue: 1000,
     options: [false, 'desktop', 'all'],
     control: {
       type: 'select'
     }
   }
 }
+
 export default { title: 'Design System/Molecules/Carousel',
   component: Carousel,
   argTypes: argTypes,
@@ -54,13 +51,14 @@ const slideStyle = {
 }
 
 const slides = [
-  <div style={{ ...slideStyle, background: '#eb3b5a' }}>Red</div>,
-  <div style={{ ...slideStyle, background: '#2d98da' }}>Blue</div>,
-  <div style={{ ...slideStyle, background: '#26de81' }}>Green</div>,
+  <div style={{ ...slideStyle, background: '#eb3b5a' }} key="Red">Red</div>,
+  <div style={{ ...slideStyle, background: '#2d98da' }} key="Blue">Blue</div>,
+  <div style={{ ...slideStyle, background: '#26de81' }} key="Green">Green</div>,
 ]
+
 const Template = (args) =>
   <Carousel {...args}>
-    {slides}
+    {args.slides}
   </Carousel>
 
 export const Default = Template.bind({});
@@ -69,5 +67,6 @@ Default.args = {
   indicators: true,
   autoplay: true,
   interval: 1000,
-  arrows: 'all'
+  arrows: 'all',
+  slides: slides
 }
