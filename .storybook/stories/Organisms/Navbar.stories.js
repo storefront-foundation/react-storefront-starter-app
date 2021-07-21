@@ -1,6 +1,6 @@
 
 import NavBar from '../../../components/NavBar'
-import { withNextRouter } from 'storybook-addon-next-router';
+import { withNextRouter } from '@gogaille/storybook-addon-next-router';
 import React from 'react'
 
 const argTypes = {

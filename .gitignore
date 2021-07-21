@@ -35,3 +35,6 @@ yarn-error.log*
 # yalc
 .yalc
 yalc.lock
+
+#storybook
+.storybook/build

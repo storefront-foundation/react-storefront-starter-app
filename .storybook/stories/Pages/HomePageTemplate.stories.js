@@ -4,7 +4,7 @@ import { default as CarouselStory, Default as CarouselDefault } from '../Molecul
 import { default as NavbarStory, Default as NavbarDefault } from '../Organisms/Navbar.stories'
 import { default as ResponsiveTilesStory, Default as ResponsiveTilesStoryDefault} from '../Atoms/ResponsiveTiles.stories'
 import SessionContext from 'react-storefront/session/SessionContext'
-import { withNextRouter } from 'storybook-addon-next-router'
+import { withNextRouter } from '@gogaille/storybook-addon-next-router'
 
 const argTypes = {
   offline: {
