@@ -16,8 +16,8 @@
     "rsf:link": "yalc add react-storefront",
     "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\"",
     "storybook": "start-storybook -c ./.storybook",
-    "storybook-docs": "mkdir -p .storybook/build && PRESERVE_MARKDOWN=true NODE_ENV=docs babel-node .storybook/createMetadata d.js",
-    "build-storybook": "build-storybook -c .storybook -o .storybook/build && npm run storybook-docs"
+    "build-storybook": "build-storybook -c .storybook -o .storybook/build",
+    "chromatic": "npx chromatic --project-token=011529e3a8e2"
   },
   "husky": {
     "hooks": {
