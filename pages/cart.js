@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
+import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography'
 import Row from 'react-storefront/Row'
 import clsx from 'clsx'
 import CartItem from '../components/cart/CartItem'
 import { createLazyProps, fetchFromAPI } from 'react-storefront/props'
-import makeStyles from '@mui/styles/makeStyles';
 import { Grid, Hidden, Divider, Container, Button } from '@mui/material'
 import { price } from 'react-storefront/utils/format'
 import Spacer from 'react-storefront/Spacer'
@@ -13,22 +13,40 @@ import { Hbox } from 'react-storefront/Box'
 import SessionContext from 'react-storefront/session/SessionContext'
 import get from 'lodash/get'
 
-const styles = theme => ({
-  root: {
+const PREFIX = 'cart';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  checkoutPanel: `${PREFIX}-checkoutPanel`,
+  total: `${PREFIX}-total`,
+  checkoutButton: `${PREFIX}-checkoutButton`,
+  docked: `${PREFIX}-docked`
+};
+
+const StyledContainer = styled(Container)((
+  {
+    theme
+  }
+) => ({
+  [`&.${classes.root}`]: {
     paddingBottom: '64px',
   },
-  checkoutPanel: {
+
+  [`& .${classes.checkoutPanel}`]: {
     backgroundColor: theme.palette.grey['200'],
     borderRadius: theme.shape.borderRadius,
     padding: theme.spacing(2),
   },
-  total: {
+
+  [`& .${classes.total}`]: {
     fontWeight: 'bold',
   },
-  checkoutButton: {
+
+  [`& .${classes.checkoutButton}`]: {
     width: '100%',
   },
-  docked: {
+
+  [`& .${classes.docked}`]: {
     [theme.breakpoints.down('sm')]: {
       fontSize: theme.typography.subtitle1.fontSize,
       padding: theme.spacing(2),
@@ -40,13 +58,11 @@ const styles = theme => ({
       borderRadius: '0',
       boxShadow: 'none',
     },
-  },
-})
-
-const useStyles = makeStyles(styles)
+  }
+}));
 
 export default function Cart(props) {
-  const classes = useStyles()
+
   const { session, actions } = useContext(SessionContext)
   const items = get(session, 'cart.items')
 
@@ -64,7 +80,7 @@ export default function Cart(props) {
   }
 
   return (
-    <Container className={classes.root}>
+    <StyledContainer className={classes.root}>
       <Row>
         <Typography variant="h6">
           My Cart ({items.length} {items.length === 1 ? 'item' : 'items'})
@@ -125,7 +141,7 @@ export default function Cart(props) {
           )}
         </Grid>
       </Row>
-    </Container>
+    </StyledContainer>
   );
 }
 

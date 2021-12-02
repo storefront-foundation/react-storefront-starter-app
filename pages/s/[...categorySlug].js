@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
+import { styled } from '@mui/material/styles';
 import { Typography, Grid, Container, Hidden } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-import makeStyles from '@mui/styles/makeStyles'
 import ResponsiveTiles from 'react-storefront/ResponsiveTiles'
 import ProductItem from '../../components/product/ProductItem'
 import ShowMore from 'react-storefront/plp/ShowMore'
@@ -21,30 +21,45 @@ import Fill from 'react-storefront/Fill'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
 
-const useStyles = makeStyles(theme => ({
-  sideBar: {
+const PREFIX = 'Subcategory';
+
+const classes = {
+  sideBar: `${PREFIX}-sideBar`,
+  sortButton: `${PREFIX}-sortButton`,
+  total: `${PREFIX}-total`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.sideBar}`]: {
     margin: theme.spacing(0, 4, 0, 0),
     width: 275,
   },
-  sortButton: {
+
+  [`& .${classes.sortButton}`]: {
     [theme.breakpoints.down('sm')]: {
       flex: 1,
     },
   },
-  total: {
+
+  [`& .${classes.total}`]: {
     marginTop: theme.spacing(1),
-  },
-}))
+  }
+}));
 
 const Subcategory = lazyProps => {
   const [store, updateStore] = useSearchResultsStore(lazyProps)
-  const classes = useStyles()
+
   const theme = useTheme()
   let { pageData, loading } = store
 
   if (pageData.isLanding) {
     return (
-      <>
+      (<Root>
         <Breadcrumbs items={!loading && pageData.breadcrumbs} />
         <Grid item xs={12}>
           {!loading ? (
@@ -62,8 +77,8 @@ const Subcategory = lazyProps => {
           )}
         </Grid>
         {!loading && <LandingCmsSlots cmsBlocks={pageData.cmsBlocks} />}
-      </>
-    )
+      </Root>)
+    );
   }
 
   // Here is an example of how you can customize the URL scheme for filtering and sorting - /s/1?color=red,blue=sort=pop

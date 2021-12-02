@@ -1,10 +1,10 @@
 import Head from 'next/head'
+import { styled } from '@mui/material/styles';
 import React from 'react'
 import theme from '../components/theme'
 import Header from '../components/Header'
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
-import makeStyles from '@mui/styles/makeStyles'
 import PWA from 'react-storefront/PWA'
 import NavBar from '../components/NavBar'
 import reportError from '../components/reportError'
@@ -12,21 +12,29 @@ import useJssStyles from 'react-storefront/hooks/useJssStyles'
 import SessionProvider from 'react-storefront/session/SessionProvider'
 import useAppStore from 'react-storefront/hooks/useAppStore'
 
-const styles = theme => ({
-  main: {
-    paddingTop: 3,
-  },
-})
+const PREFIX = '_app';
 
-const useStyles = makeStyles(styles)
+const classes = {
+  main: `${PREFIX}-main`
+};
+
+const StyledThemeProvider = styled(ThemeProvider)((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.main}`]: {
+    paddingTop: 3,
+  }
+}));
 
 export default function MyApp({ Component, pageProps }) {
   useJssStyles()
-  const classes = useStyles()
+
   const [appData] = useAppStore(pageProps || {})
 
   return (
-    <ThemeProvider theme={theme}>
+    <StyledThemeProvider theme={theme}>
       <PWA errorReporter={reportError}>
         <Head>
           {/* <meta
@@ -46,8 +54,8 @@ export default function MyApp({ Component, pageProps }) {
           </StyledEngineProvider>
         </SessionProvider>
       </PWA>
-    </ThemeProvider>
-  )
+    </StyledThemeProvider>
+  );
 }
 
 MyApp.getInitialProps = async function({ Component, ctx }) {
