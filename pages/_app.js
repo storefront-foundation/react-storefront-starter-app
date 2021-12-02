@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
+import { styled } from '@mui/material/styles'
+import React from 'react'
 import theme from '../components/theme'
 import Header from '../components/Header'
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
-import makeStyles from '@mui/styles/makeStyles'
 import PWA from 'react-storefront/PWA'
 import NavBar from '../components/NavBar'
 import reportError from '../components/reportError'
@@ -19,17 +20,21 @@ import '../components/rum'
 
 installAmpOverrides()
 
-const styles = theme => ({
-  main: {
+const PREFIX = '_app'
+
+const classes = {
+  main: `${PREFIX}-main`,
+}
+
+const StyledThemeProvider = styled(ThemeProvider)(({ theme }) => ({
+  [`& .${classes.main}`]: {
     paddingTop: 3,
   },
-})
-
-const useStyles = makeStyles(styles)
+}))
 
 export default function MyApp({ Component, pageProps }) {
   useJssStyles()
-  const classes = useStyles()
+
   const [appData] = useAppStore(pageProps || {})
 
   // Setting global clientDidNavigate which is used by RSF LazyHydrate
@@ -40,7 +45,7 @@ export default function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-    <ThemeProvider theme={theme}>
+    <StyledThemeProvider theme={theme}>
       <PWA errorReporter={reportError}>
         <AmpProvider>
           <SessionProvider url="/api/session">
@@ -57,7 +62,7 @@ export default function MyApp({ Component, pageProps }) {
           </SessionProvider>
         </AmpProvider>
       </PWA>
-    </ThemeProvider>
+    </StyledThemeProvider>
   )
 }
 

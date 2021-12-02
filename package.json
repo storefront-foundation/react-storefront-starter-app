@@ -32,7 +32,6 @@
     "@mui/icons-material": "^5.2.0",
     "@mui/lab": "^5.0.0-alpha.58",
     "@mui/material": "^5.2.2",
-    "@mui/styles": "^5.2.2",
     "@svgr/webpack": "^4.3.3",
     "clsx": "^1.0.4",
     "cross-env": "^5.2.0",

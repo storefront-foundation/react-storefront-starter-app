@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useContext } from 'react'
-import makeStyles from '@mui/styles/makeStyles'
+import { styled } from '@mui/material/styles'
 import AppBar from 'react-storefront/AppBar'
 import CartButton from 'react-storefront/CartButton'
 import Search from './search/Search'
@@ -12,9 +12,21 @@ import SessionContext from 'react-storefront/session/SessionContext'
 import useCartTotal from 'react-storefront/hooks/useCartTotal'
 import LazyHydrate from 'react-storefront/LazyHydrate'
 
-const useStyles = makeStyles(theme => ({
-  title: {},
-  logo: {
+const PREFIX = 'Header'
+
+const classes = {
+  title: `${PREFIX}-title`,
+  logo: `${PREFIX}-logo`,
+  toolbar: `${PREFIX}-toolbar`,
+  container: `${PREFIX}-container`,
+  accountLink: `${PREFIX}-accountLink`,
+}
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.title}`]: {},
+
+  [`& .${classes.logo}`]: {
     position: 'absolute',
     left: 10,
     top: 0,
@@ -24,11 +36,13 @@ const useStyles = makeStyles(theme => ({
       marginLeft: -60,
     },
   },
-  toolbar: {
+
+  [`& .${classes.toolbar}`]: {
     padding: 0,
     margin: 0,
   },
-  container: {
+
+  [`& .${classes.container}`]: {
     display: 'flex',
     alignItems: 'center',
     position: 'relative',
@@ -37,7 +51,7 @@ const useStyles = makeStyles(theme => ({
       padding: 5,
     },
   },
-  accountLink: {
+  [`& .${classes.accountLink}`]: {
     display: 'block',
     color: '#000',
     textTransform: 'uppercase',
@@ -46,7 +60,6 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function Header({ menu }) {
-  const classes = useStyles()
   const [menuOpen, setMenuOpen] = useState(false)
   const [hydrateMenu, setHydrateMenu] = useState(false)
   const handleMenuClose = useCallback(() => setMenuOpen(false), [])
@@ -58,7 +71,7 @@ export default function Header({ menu }) {
   const cartTotal = useCartTotal()
 
   return (
-    <>
+    <Root>
       <AppBar>
         <Container maxWidth="lg" className={classes.container}>
           <Link href="/">
@@ -96,6 +109,6 @@ export default function Header({ menu }) {
           // renderFooter={item => <div>{item.text} footer</div>}
         />
       </LazyHydrate>
-    </>
+    </Root>
   )
 }
