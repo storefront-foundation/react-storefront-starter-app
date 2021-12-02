@@ -1,45 +1,67 @@
 import React, { memo, useState } from 'react'
+import { styled } from '@mui/material/styles';
 import Link from 'react-storefront/link/Link'
 import { Vbox } from 'react-storefront/Box'
-import { Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Typography } from '@mui/material'
 import Rating from 'react-storefront/Rating'
 import ForwardThumbnail from 'react-storefront/ForwardThumbnail'
 import Image from 'react-storefront/Image'
 import clsx from 'clsx'
 import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    padding: `${theme.spacing(2)}px 0`,
+const PREFIX = 'ProductItem';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  thumbnail: `${PREFIX}-thumbnail`,
+  link: `${PREFIX}-link`,
+  price: `${PREFIX}-price`,
+  reviews: `${PREFIX}-reviews`,
+  reviewCount: `${PREFIX}-reviewCount`,
+  info: `${PREFIX}-info`
+};
+
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`&.${classes.root}`]: {
+    padding: `${theme.spacing(2)} 0`,
   },
-  thumbnail: {
+
+  [`& .${classes.thumbnail}`]: {
     marginBottom: theme.spacing(1),
   },
-  link: {
+
+  [`& .${classes.link}`]: {
     textDecoration: 'none',
     color: 'inherit',
   },
-  price: {
+
+  [`& .${classes.price}`]: {
     marginTop: '5px',
   },
-  reviews: {
+
+  [`& .${classes.reviews}`]: {
     marginTop: '5px',
   },
-  reviewCount: {
+
+  [`& .${classes.reviewCount}`]: {
     marginLeft: '2px',
   },
-  info: {
-    margin: '0',
-  },
-}))
 
-function ProductItem({ product, index, classes, className, colorSelector }) {
-  classes = useStyles({ classes })
+  [`& .${classes.info}`]: {
+    margin: '0',
+  }
+}));
+
+function ProductItem({ product, index,  className, colorSelector }) {
+
   const [store, updateStore] = useState(product)
 
   return (
-    <div id={`item-${index}`} className={clsx(className, classes.root)}>
+    <Root id={`item-${index}`} className={clsx(className, classes.root)}>
       <Vbox alignItems="stretch">
         <ForwardThumbnail>
           <Link
@@ -86,8 +108,8 @@ function ProductItem({ product, index, classes, className, colorSelector }) {
           <Typography className={classes.price}>{product.price}</Typography>
         </div>
       </Vbox>
-    </div>
-  )
+    </Root>
+  );
 }
 
 ProductItem.defaultProps = {

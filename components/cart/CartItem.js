@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
-import { Paper, IconButton, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { Close as CloseIcon } from '@material-ui/icons'
+import { styled } from '@mui/material/styles';
+import { Paper, IconButton, Typography } from '@mui/material'
+import { Close as CloseIcon } from '@mui/icons-material'
 import Row from 'react-storefront/Row'
 import Link from 'react-storefront/link/Link'
 import QuantitySelector from 'react-storefront/QuantitySelector'
@@ -10,37 +10,53 @@ import Image from 'react-storefront/Image'
 import SessionContext from 'react-storefront/session/SessionContext'
 import RemoveDialog from './RemoveDialog'
 
-const styles = theme => ({
-  root: {
+const PREFIX = 'CartItem';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  thumb: `${PREFIX}-thumb`,
+  label: `${PREFIX}-label`,
+  remove: `${PREFIX}-remove`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.root}`]: {
     flex: 1,
     padding: theme.spacing(2, 5, 2, 2),
     marginBottom: theme.spacing(2),
     position: 'relative',
   },
-  thumb: {
+
+  [`& .${classes.thumb}`]: {
     marginRight: theme.spacing(2),
     width: 200,
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       width: 100,
     },
   },
-  label: {
+
+  [`& .${classes.label}`]: {
     marginRight: theme.spacing(0.6),
   },
-  remove: {
+
+  [`& .${classes.remove}`]: {
     position: 'absolute',
     top: 0,
     right: 0,
-  },
-})
-const useStyles = makeStyles(styles)
+  }
+}));
 
 export default function CartItem({ product, updateQuantity, remove }) {
   const [open, setOpen] = useState(false)
-  const classes = useStyles()
+
 
   return (
-    <>
+    (<Root>
       <Paper className={classes.root} elevation={3}>
         <Hbox alignItems="flex-start">
           <div className={classes.thumb}>
@@ -68,7 +84,7 @@ export default function CartItem({ product, updateQuantity, remove }) {
             </Row>
           </div>
         </Hbox>
-        <IconButton className={classes.remove} onClick={() => setOpen(true)}>
+        <IconButton className={classes.remove} onClick={() => setOpen(true)} size="large">
           <CloseIcon />
         </IconButton>
       </Paper>
@@ -78,6 +94,6 @@ export default function CartItem({ product, updateQuantity, remove }) {
         name={product.name}
         action={() => remove(product)}
       />
-    </>
-  )
+    </Root>)
+  );
 }

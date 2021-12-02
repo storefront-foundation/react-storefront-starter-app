@@ -1,23 +1,25 @@
 import createTheme from 'react-storefront/theme/createTheme'
-import { red } from '@material-ui/core/colors'
+import { red } from '@mui/material/colors'
+import { adaptV4Theme } from '@mui/material/styles'
 
-// Create a theme instance.
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#556cd6',
+const theme = createTheme(
+  adaptV4Theme({
+    palette: {
+      primary: {
+        main: '#556cd6',
+      },
+      secondary: {
+        main: '#19857b',
+      },
+      error: {
+        main: red.A400,
+      },
+      background: {
+        default: '#fff',
+      },
     },
-    secondary: {
-      main: '#19857b',
-    },
-    error: {
-      main: red.A400,
-    },
-    background: {
-      default: '#fff',
-    },
-  },
-  overrides: {},
-})
+    overrides: {},
+  })
+)
 
 export default theme

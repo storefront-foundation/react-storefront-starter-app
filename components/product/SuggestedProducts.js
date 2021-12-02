@@ -8,39 +8,54 @@
  */
 
 import React, { useState, useEffect } from 'react'
-import makeStyles from '@material-ui/core/styles/makeStyles'
+import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types'
 import fetch from 'react-storefront/fetch'
 import ProductItem from './ProductItem'
-import { Typography } from '@material-ui/core'
+import { Typography } from '@mui/material'
 import LoadMask from 'react-storefront/LoadMask'
 
-export const styles = theme => ({
-  products: {
+const PREFIX = 'RSFSuggestedProducts';
+
+const classes = {
+  products: `${PREFIX}-products`,
+  wrap: `${PREFIX}-wrap`,
+  product: `${PREFIX}-product`
+};
+
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.products}`]: {
     minHeight: 250,
     position: 'relative',
     margin: theme.spacing(0, -2),
     overflowX: 'auto',
     maxWidth: '100%',
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       maxWidth: '100vw',
     },
   },
-  wrap: {
+
+  [`& .${classes.wrap}`]: {
     padding: theme.spacing(0, 0, 0, 2),
     display: 'flex',
     flexDirection: 'row',
     width: 'max-content',
   },
-  product: {
+
+  [`& .${classes.product}`]: {
     margin: theme.spacing(0, 2, 0, 0),
     minWidth: 150,
-  },
-})
-const useStyles = makeStyles(styles, { name: 'RSFSuggestedProducts' })
+  }
+}));
+
+export {};
 
 export default function SuggestedProducts({ product }) {
-  const classes = useStyles()
+
   const [suggestedProducts, setSuggestedProducts] = useState(null)
 
   // Fetch suggested products when the product page is mounted
@@ -51,7 +66,7 @@ export default function SuggestedProducts({ product }) {
   }, [])
 
   return (
-    <div>
+    <Root>
       <Typography variant="h6" component="h3">
         Suggested Products
       </Typography>
@@ -70,8 +85,8 @@ export default function SuggestedProducts({ product }) {
             ))}
         </div>
       </div>
-    </div>
-  )
+    </Root>
+  );
 }
 
 SuggestedProducts.propTypes = {

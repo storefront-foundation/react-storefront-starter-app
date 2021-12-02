@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx'
 import qs from 'qs'
 import useLazyState from 'react-storefront/hooks/useLazyState'
@@ -6,9 +7,9 @@ import Breadcrumbs from 'react-storefront/Breadcrumbs'
 import CmsSlot from 'react-storefront/CmsSlot'
 import MediaCarousel from 'react-storefront/carousel/MediaCarousel'
 import PWAContext from 'react-storefront/PWAContext'
-import { Container, Grid, Typography, Hidden, Button } from '@material-ui/core'
-import { Skeleton } from '@material-ui/lab'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { Container, Grid, Typography, Hidden, Button } from '@mui/material'
+import { Skeleton } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 import Row from 'react-storefront/Row'
 import { Hbox } from 'react-storefront/Box'
 import Label from 'react-storefront/Label'
@@ -26,6 +27,69 @@ import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
 
+const PREFIX = 'Product';
+
+const classes = {
+  carousel: `${PREFIX}-carousel`,
+  lightboxCarousel: `${PREFIX}-lightboxCarousel`,
+  confirmation: `${PREFIX}-confirmation`,
+  dockedSnack: `${PREFIX}-dockedSnack`,
+  docked: `${PREFIX}-docked`,
+  noShadow: `${PREFIX}-noShadow`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.carousel}`]: {
+    [theme.breakpoints.down('sm')]: {
+      margin: theme.spacing(0, -2),
+      width: '100vw',
+    },
+  },
+
+  [`& .${classes.lightboxCarousel}`]: {
+    [theme.breakpoints.down('sm')]: {
+      margin: 0,
+      width: '100%',
+    },
+  },
+
+  [`& .${classes.confirmation}`]: {
+    padding: '2px 0',
+  },
+
+  [`& .${classes.dockedSnack}`]: {
+    [theme.breakpoints.down('sm')]: {
+      left: '0',
+      bottom: '0',
+      right: '0',
+    },
+  },
+
+  [`& .${classes.docked}`]: {
+    [theme.breakpoints.down('sm')]: {
+      fontSize: theme.typography.subtitle1.fontSize,
+      padding: theme.spacing(2),
+      position: 'fixed',
+      left: 0,
+      bottom: 0,
+      width: '100%',
+      zIndex: 10,
+      borderRadius: '0',
+    },
+  },
+
+  [`& .${classes.noShadow}`]: {
+    [theme.breakpoints.down('sm')]: {
+      boxShadow: 'none',
+    },
+  }
+}));
+
 const fetchVariant = fetchLatest(fetch)
 
 const useDidMountEffect = (func, deps) => {
@@ -39,50 +103,6 @@ const useDidMountEffect = (func, deps) => {
   }, deps)
 }
 
-const styles = theme => ({
-  carousel: {
-    [theme.breakpoints.down('xs')]: {
-      margin: theme.spacing(0, -2),
-      width: '100vw',
-    },
-  },
-  lightboxCarousel: {
-    [theme.breakpoints.down('xs')]: {
-      margin: 0,
-      width: '100%',
-    },
-  },
-  confirmation: {
-    padding: '2px 0',
-  },
-  dockedSnack: {
-    [theme.breakpoints.down('xs')]: {
-      left: '0',
-      bottom: '0',
-      right: '0',
-    },
-  },
-  docked: {
-    [theme.breakpoints.down('xs')]: {
-      fontSize: theme.typography.subtitle1.fontSize,
-      padding: `${theme.spacing(2)}px`,
-      position: 'fixed',
-      left: 0,
-      bottom: 0,
-      width: '100%',
-      zIndex: 10,
-      borderRadius: '0',
-    },
-  },
-  noShadow: {
-    [theme.breakpoints.down('xs')]: {
-      boxShadow: 'none',
-    },
-  },
-})
-
-const useStyles = makeStyles(styles)
-
 const Product = React.memo(lazyProps => {
   const theme = useTheme()
   const [confirmationOpen, setConfirmationOpen] = useState(false)
@@ -90,7 +110,7 @@ const Product = React.memo(lazyProps => {
   const [state, updateState] = useLazyState(lazyProps, {
     pageData: { quantity: 1, carousel: { index: 0 } },
   })
-  const classes = useStyles()
+
   const product = get(state, 'pageData.product') || {}
   const color = get(state, 'pageData.color') || {}
   const size = get(state, 'pageData.size') || {}
@@ -151,7 +171,7 @@ const Product = React.memo(lazyProps => {
   }, [color.id, size.id])
 
   return (
-    <>
+    (<Root>
       <Breadcrumbs items={!loading && state.pageData.breadcrumbs} />
       <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
         <form onSubmit={handleSubmit} method="post" action-xhr="/api/cart">
@@ -171,7 +191,7 @@ const Product = React.memo(lazyProps => {
             <Grid item xs={12} sm={6} md={7}>
               <Grid container spacing={4}>
                 <Grid item xs={12}>
-                  <Hidden implementation="css" xsDown>
+                  <Hidden implementation="css" smDown>
                     <div style={{ paddingBottom: theme.spacing(1) }}>{header}</div>
                   </Hidden>
                   {product ? (
@@ -280,8 +300,8 @@ const Product = React.memo(lazyProps => {
           </Grid>
         </form>
       </Container>
-    </>
-  )
+    </Root>)
+  );
 })
 
 Product.getInitialProps = createLazyProps(fetchFromAPI)

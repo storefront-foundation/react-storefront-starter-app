@@ -1,12 +1,13 @@
 import React, { useCallback } from 'react'
-import { Typography, Grid, Container, Hidden } from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { styled } from '@mui/material/styles';
+import { Typography, Grid, Container, Hidden } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 import ResponsiveTiles from 'react-storefront/ResponsiveTiles'
 import ProductItem from '../../components/product/ProductItem'
 import ShowMore from 'react-storefront/plp/ShowMore'
 import Head from 'next/head'
 import BackToTop from 'react-storefront/BackToTop'
-import { Skeleton } from '@material-ui/lab'
+import { Skeleton } from '@mui/material'
 import { Hbox } from 'react-storefront/Box'
 import Breadcrumbs from 'react-storefront/Breadcrumbs'
 import LoadMask from 'react-storefront/LoadMask'
@@ -20,30 +21,45 @@ import Fill from 'react-storefront/Fill'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
 
-const useStyles = makeStyles(theme => ({
-  sideBar: {
+const PREFIX = 'Subcategory';
+
+const classes = {
+  sideBar: `${PREFIX}-sideBar`,
+  sortButton: `${PREFIX}-sortButton`,
+  total: `${PREFIX}-total`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.sideBar}`]: {
     margin: theme.spacing(0, 4, 0, 0),
     width: 275,
   },
-  sortButton: {
-    [theme.breakpoints.down('xs')]: {
+
+  [`& .${classes.sortButton}`]: {
+    [theme.breakpoints.down('sm')]: {
       flex: 1,
     },
   },
-  total: {
+
+  [`& .${classes.total}`]: {
     marginTop: theme.spacing(1),
-  },
-}))
+  }
+}));
 
 const Subcategory = lazyProps => {
   const [store, updateStore] = useSearchResultsStore(lazyProps)
-  const classes = useStyles()
+
   const theme = useTheme()
   let { pageData, loading } = store
 
   if (pageData.isLanding) {
     return (
-      <>
+      (<Root>
         <Breadcrumbs items={!loading && pageData.breadcrumbs} />
         <Grid item xs={12}>
           {!loading ? (
@@ -61,8 +77,8 @@ const Subcategory = lazyProps => {
           )}
         </Grid>
         {!loading && <LandingCmsSlots cmsBlocks={pageData.cmsBlocks} />}
-      </>
-    )
+      </Root>)
+    );
   }
 
   // Here is an example of how you can customize the URL scheme for filtering and sorting - /s/1?color=red,blue=sort=pop
@@ -113,9 +129,9 @@ const Subcategory = lazyProps => {
           <Head>{loading ? null : <title>{pageData.title}</title>}</Head>
           <BackToTop />
           <Hbox align="flex-start">
-            <Hidden implementation="css" xsDown>
+            <Hidden implementation="css" smDown>
               <div className={classes.sideBar}>
-                <Hidden xsDown>
+                <Hidden smDown>
                   {/* Display the filters for desktop screen sizes */}
                   <Filter classes={{ root: classes.sideBar }} expandAll submitOnChange />
                 </Hidden>
@@ -177,7 +193,7 @@ const Subcategory = lazyProps => {
                             style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2) }}
                           >
                             <Fill height="100%" style={{ marginBottom: theme.spacing(1) }}>
-                              <Skeleton variant="rect" />
+                              <Skeleton variant="rectangular" />
                             </Fill>
                             <Skeleton height={26} />
                             <ProductOptionSelector

@@ -6,50 +6,76 @@ import {
   DialogTitle,
   Typography,
   IconButton,
-} from '@material-ui/core'
+} from '@mui/material'
+import { styled } from '@mui/material/styles';
 import get from 'lodash/get'
-import { Close as CloseIcon } from '@material-ui/icons'
-import { makeStyles } from '@material-ui/core/styles'
+import { Close as CloseIcon } from '@mui/icons-material'
 import Image from 'react-storefront/Image'
 import Link from 'react-storefront/link/Link'
 import { Hbox } from 'react-storefront/Box'
 
-const useStyles = makeStyles(theme => ({
-  root: {},
-  image: {
+const PREFIX = 'AddToCartConfirmation';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  image: `${PREFIX}-image`,
+  price: `${PREFIX}-price`,
+  name: `${PREFIX}-name`,
+  info: `${PREFIX}-info`,
+  viewCart: `${PREFIX}-viewCart`,
+  actions: `${PREFIX}-actions`,
+  continue: `${PREFIX}-continue`,
+  closeButton: `${PREFIX}-closeButton`
+};
+
+const StyledDialog = styled(Dialog)((
+  {
+    theme
+  }
+) => ({
+  [`& .${classes.root}`]: {},
+
+  [`& .${classes.image}`]: {
     height: 150,
     width: 150,
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       width: 100,
       height: 100,
     },
   },
-  price: {
+
+  [`& .${classes.price}`]: {
     fontWeight: theme.typography.fontWeightBold,
   },
-  name: {
+
+  [`& .${classes.name}`]: {
     fontWeight: theme.typography.fontWeightBold,
   },
-  info: {
+
+  [`& .${classes.info}`]: {
     flex: 1,
     marginLeft: theme.spacing(2),
   },
-  viewCart: {
+
+  [`& .${classes.viewCart}`]: {
     width: '100%',
   },
-  actions: {
+
+  [`& .${classes.actions}`]: {
     flexDirection: 'column',
     margin: theme.spacing(1, 2, 0, 2),
   },
-  continue: {
+
+  [`& .${classes.continue}`]: {
     margin: theme.spacing(2, 0, 1, 0),
   },
-  closeButton: {
+
+  [`& .${classes.closeButton}`]: {
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-  },
-}))
+  }
+}));
 
 export default function AddToCartConfirmation({
   open,
@@ -60,11 +86,11 @@ export default function AddToCartConfirmation({
   quantity,
   product,
 }) {
-  const classes = useStyles()
+
 
   return (
-    <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="xs">
-      <DialogTitle disableTypography>
+    <StyledDialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="xs">
+      <DialogTitle>
         <Typography component="h2" variant="h6">
           Item added to cart
         </Typography>
@@ -72,6 +98,7 @@ export default function AddToCartConfirmation({
           aria-label="close"
           className={classes.closeButton}
           onClick={() => setOpen(false)}
+          size="large"
         >
           <CloseIcon />
         </IconButton>
@@ -104,6 +131,6 @@ export default function AddToCartConfirmation({
           Continue Shopping
         </a>
       </DialogActions>
-    </Dialog>
-  )
+    </StyledDialog>
+  );
 }
