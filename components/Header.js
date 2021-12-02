@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useContext } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import AppBar from 'react-storefront-amp/AmpAppBar'
+import makeStyles from '@mui/styles/makeStyles'
+import AppBar from 'react-storefront/AppBar'
 import CartButton from 'react-storefront/CartButton'
 import Search from './search/Search'
 import Logo from '../components/assets/react-storefront-logo.svg'
-import { Container } from '@material-ui/core'
-import Menu from 'react-storefront-amp/menu/AmpMenu'
+import { Container } from '@mui/material'
+import Menu from 'react-storefront/menu/Menu'
 import MenuButton from 'react-storefront/menu/MenuButton'
 import Link from 'react-storefront/link/Link'
 import SessionContext from 'react-storefront/session/SessionContext'
@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     left: 10,
     top: 0,
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       left: '50%',
       top: 6,
       marginLeft: -60,
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     position: 'relative',
 
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       padding: 5,
     },
   },

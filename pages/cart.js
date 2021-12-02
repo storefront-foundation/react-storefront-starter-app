@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import Typography from '@material-ui/core/Typography'
+import Typography from '@mui/material/Typography'
 import Row from 'react-storefront/Row'
 import clsx from 'clsx'
 import CartItem from '../components/cart/CartItem'
 import { createLazyProps, fetchFromAPI } from 'react-storefront/props'
-import { makeStyles } from '@material-ui/core/styles'
-import { Grid, Hidden, Divider, Container, Button } from '@material-ui/core'
+import makeStyles from '@mui/styles/makeStyles'
+import { Grid, Hidden, Divider, Container, Button } from '@mui/material'
 import { price } from 'react-storefront/utils/format'
 import Spacer from 'react-storefront/Spacer'
 import Link from 'react-storefront/link/Link'
@@ -25,7 +25,7 @@ const styles = theme => ({
   checkoutPanel: {
     backgroundColor: theme.palette.grey['200'],
     borderRadius: theme.shape.borderRadius,
-    padding: `${theme.spacing(2)}px`,
+    padding: theme.spacing(2),
   },
   total: {
     fontWeight: 'bold',
@@ -34,9 +34,9 @@ const styles = theme => ({
     width: '100%',
   },
   docked: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       fontSize: theme.typography.subtitle1.fontSize,
-      padding: `${theme.spacing(2)}px`,
+      padding: theme.spacing(2),
       position: 'fixed',
       left: 0,
       bottom: 0,
@@ -113,7 +113,7 @@ export default function Cart() {
                       )}
                     </Typography>
                   </Hbox>
-                  <Hidden xsDown implementation="css">
+                  <Hidden smDown implementation="css">
                     <Row>
                       <Divider />
                     </Row>

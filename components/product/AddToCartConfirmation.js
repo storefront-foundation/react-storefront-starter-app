@@ -6,10 +6,10 @@ import {
   DialogTitle,
   Typography,
   IconButton,
-} from '@material-ui/core'
+} from '@mui/material'
 import get from 'lodash/get'
-import { Close as CloseIcon } from '@material-ui/icons'
-import { makeStyles } from '@material-ui/core/styles'
+import { Close as CloseIcon } from '@mui/icons-material'
+import makeStyles from '@mui/styles/makeStyles'
 import Image from 'react-storefront/Image'
 import Link from 'react-storefront/link/Link'
 import { Hbox } from 'react-storefront/Box'
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   image: {
     height: 150,
     width: 150,
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       width: 100,
       height: 100,
     },
@@ -64,7 +64,7 @@ export default function AddToCartConfirmation({
 
   return (
     <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="xs">
-      <DialogTitle disableTypography>
+      <DialogTitle>
         <Typography component="h2" variant="h6">
           Item added to cart
         </Typography>
@@ -72,6 +72,7 @@ export default function AddToCartConfirmation({
           aria-label="close"
           className={classes.closeButton}
           onClick={() => setOpen(false)}
+          size="large"
         >
           <CloseIcon />
         </IconButton>

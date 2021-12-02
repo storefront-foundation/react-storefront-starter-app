@@ -1,6 +1,6 @@
 import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import { ServerStyleSheets } from '@material-ui/core/styles'
+import ServerStyleSheets from '@mui/styles/ServerStyleSheets'
 import theme from '../components/theme'
 import renderAmp from 'react-storefront-amp/renderAmp'
 import minifyStyles from 'react-storefront/utils/minifyStyles'
