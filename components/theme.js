@@ -1,5 +1,5 @@
 import createTheme from 'react-storefront/theme/createTheme'
-import { red } from '@material-ui/core/colors'
+import { red } from '@mui/material/colors'
 
 // Create a theme instance.
 const theme = createTheme({

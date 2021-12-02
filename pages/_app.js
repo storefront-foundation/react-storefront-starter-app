@@ -2,8 +2,9 @@ import Head from 'next/head'
 import React from 'react'
 import theme from '../components/theme'
 import Header from '../components/Header'
-import { CssBaseline } from '@material-ui/core'
-import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles'
+import { CssBaseline } from '@mui/material'
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
 import PWA from 'react-storefront/PWA'
 import NavBar from '../components/NavBar'
 import reportError from '../components/reportError'
@@ -25,25 +26,27 @@ export default function MyApp({ Component, pageProps }) {
   const [appData] = useAppStore(pageProps || {})
 
   return (
-    <PWA errorReporter={reportError}>
-      <Head>
-        {/* <meta
+    <ThemeProvider theme={theme}>
+      <PWA errorReporter={reportError}>
+        <Head>
+          {/* <meta
           key="viewport"
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
         /> */}
-      </Head>
-      <SessionProvider url="/api/session">
-        <MuiThemeProvider theme={theme}>
-          <CssBaseline />
-          <Header menu={appData && appData.menu} />
-          <NavBar tabs={appData && appData.tabs} />
-          <main className={classes.main}>
-            <Component {...pageProps} />
-          </main>
-        </MuiThemeProvider>
-      </SessionProvider>
-    </PWA>
+        </Head>
+        <SessionProvider url="/api/session">
+          <StyledEngineProvider injectFirst>
+            <CssBaseline />
+            <Header menu={appData && appData.menu} />
+            <NavBar tabs={appData && appData.tabs} />
+            <main className={classes.main}>
+              <Component {...pageProps} />
+            </main>
+          </StyledEngineProvider>
+        </SessionProvider>
+      </PWA>
+    </ThemeProvider>
   )
 }
 

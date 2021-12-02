@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
-import { Paper, IconButton, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { Close as CloseIcon } from '@material-ui/icons'
+import { Paper, IconButton, Typography } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import { Close as CloseIcon } from '@mui/icons-material'
 import Row from 'react-storefront/Row'
 import Link from 'react-storefront/link/Link'
 import QuantitySelector from 'react-storefront/QuantitySelector'
@@ -20,7 +20,7 @@ const styles = theme => ({
   thumb: {
     marginRight: theme.spacing(2),
     width: 200,
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       width: 100,
     },
   },
@@ -68,7 +68,7 @@ export default function CartItem({ product, updateQuantity, remove }) {
             </Row>
           </div>
         </Hbox>
-        <IconButton className={classes.remove} onClick={() => setOpen(true)}>
+        <IconButton className={classes.remove} onClick={() => setOpen(true)} size="large">
           <CloseIcon />
         </IconButton>
       </Paper>

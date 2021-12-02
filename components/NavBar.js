@@ -2,12 +2,12 @@ import React, { memo } from 'react'
 import NavTab from 'react-storefront/nav/NavTab'
 import NavTabs from 'react-storefront/nav/NavTabs'
 import Link from 'react-storefront/link/Link'
-import { Container, Paper } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Container, Paper } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       padding: 0,
     },
   },

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Container, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Container, Typography } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles';
 import useLazyState from 'react-storefront/hooks/useLazyState'
 import CmsSlot from 'react-storefront/CmsSlot'
 import LoadMask from 'react-storefront/LoadMask'

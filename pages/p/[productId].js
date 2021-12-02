@@ -6,9 +6,10 @@ import Breadcrumbs from 'react-storefront/Breadcrumbs'
 import CmsSlot from 'react-storefront/CmsSlot'
 import MediaCarousel from 'react-storefront/carousel/MediaCarousel'
 import PWAContext from 'react-storefront/PWAContext'
-import { Container, Grid, Typography, Hidden, Button } from '@material-ui/core'
-import { Skeleton } from '@material-ui/lab'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { Container, Grid, Typography, Hidden, Button } from '@mui/material'
+import { Skeleton } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
 import Row from 'react-storefront/Row'
 import { Hbox } from 'react-storefront/Box'
 import Label from 'react-storefront/Label'
@@ -41,13 +42,13 @@ const useDidMountEffect = (func, deps) => {
 
 const styles = theme => ({
   carousel: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       margin: theme.spacing(0, -2),
       width: '100vw',
     },
   },
   lightboxCarousel: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       margin: 0,
       width: '100%',
     },
@@ -56,16 +57,16 @@ const styles = theme => ({
     padding: '2px 0',
   },
   dockedSnack: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       left: '0',
       bottom: '0',
       right: '0',
     },
   },
   docked: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       fontSize: theme.typography.subtitle1.fontSize,
-      padding: `${theme.spacing(2)}px`,
+      padding: theme.spacing(2),
       position: 'fixed',
       left: 0,
       bottom: 0,
@@ -75,7 +76,7 @@ const styles = theme => ({
     },
   },
   noShadow: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       boxShadow: 'none',
     },
   },
@@ -171,7 +172,7 @@ const Product = React.memo(lazyProps => {
             <Grid item xs={12} sm={6} md={7}>
               <Grid container spacing={4}>
                 <Grid item xs={12}>
-                  <Hidden implementation="css" xsDown>
+                  <Hidden implementation="css" smDown>
                     <div style={{ paddingBottom: theme.spacing(1) }}>{header}</div>
                   </Hidden>
                   {product ? (

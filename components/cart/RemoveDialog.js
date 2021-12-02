@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from '@material-ui/core'
+} from '@mui/material'
 
 export default function RemoveDialog({ open, setOpen, name, action }) {
   return (

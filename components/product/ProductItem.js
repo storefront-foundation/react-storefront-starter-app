@@ -1,8 +1,8 @@
 import React, { memo, useState } from 'react'
 import Link from 'react-storefront/link/Link'
 import { Vbox } from 'react-storefront/Box'
-import { Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Typography } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import Rating from 'react-storefront/Rating'
 import ForwardThumbnail from 'react-storefront/ForwardThumbnail'
 import Image from 'react-storefront/Image'
@@ -11,7 +11,7 @@ import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: `${theme.spacing(2)}px 0`,
+    padding: `${theme.spacing(2)} 0`,
   },
   thumbnail: {
     marginBottom: theme.spacing(1),

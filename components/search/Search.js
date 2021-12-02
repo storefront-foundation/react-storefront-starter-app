@@ -1,8 +1,8 @@
 import React from 'react'
 import SearchDesktop from './SearchDesktop'
 import SearchMobile from './SearchMobile'
-import { useMediaQuery } from '@material-ui/core'
-import { useTheme } from '@material-ui/core/styles'
+import { useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 import Spacer from 'react-storefront/Spacer'
 import { useAmp } from 'next/amp'
 
