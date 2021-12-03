@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { styled } from '@mui/material/styles'
+import Head from 'next/head'
 import React from 'react'
 import theme from '../components/theme'
 import Header from '../components/Header'
@@ -26,15 +27,13 @@ const classes = {
   main: `${PREFIX}-main`,
 }
 
-const StyledThemeProvider = styled(ThemeProvider)(({ theme }) => ({
-  [`& .${classes.main}`]: {
+const Main = styled('main')(({ theme }) => ({
+  [`&.${classes.main}`]: {
     paddingTop: 3,
   },
 }))
-
 export default function MyApp({ Component, pageProps }) {
   useJssStyles()
-
   const [appData] = useAppStore(pageProps || {})
 
   // Setting global clientDidNavigate which is used by RSF LazyHydrate
@@ -45,7 +44,7 @@ export default function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-    <StyledThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <PWA errorReporter={reportError}>
         <AmpProvider>
           <SessionProvider url="/api/session">
@@ -54,15 +53,15 @@ export default function MyApp({ Component, pageProps }) {
                 <CssBaseline />
                 <Header menu={appData && appData.menu} />
                 <NavBar tabs={appData && appData.tabs} />
-                <main className={classes.main}>
+                <Main className={classes.main}>
                   <Component {...pageProps} />
-                </main>
+                </Main>
               </Analytics>
             </MuiThemeProvider>
           </SessionProvider>
         </AmpProvider>
       </PWA>
-    </StyledThemeProvider>
+    </ThemeProvider>
   )
 }
 
