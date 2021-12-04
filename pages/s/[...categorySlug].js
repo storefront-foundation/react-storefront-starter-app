@@ -26,7 +26,7 @@ import LandingCmsSlots from '../../components/LandingCmsSlots'
 
 const PREFIX = 'Subcategory'
 
-const classes = {
+const defaultClasses = {
   sideBar: `${PREFIX}-sideBar`,
   sortButton: `${PREFIX}-sortButton`,
   total: `${PREFIX}-total`,
@@ -35,21 +35,21 @@ const classes = {
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')(({ theme }) => ({
-  [`& .${classes.sideBar}`]: {
+  [`& .${defaultClasses.sideBar}`]: {
     margin: theme.spacing(0, 4, 0, 0),
     width: 275,
   },
 
-  [`& .${classes.sortButton}`]: {
+  [`& .${defaultClasses.sortButton}`]: {
     [theme.breakpoints.down('sm')]: {
       flex: 1,
     },
   },
 
-  [`& .${classes.total}`]: {
+  [`& .${defaultClasses.total}`]: {
     marginTop: theme.spacing(1),
   },
-  [`& .${classes.landingTitleSpacing}`]: {
+  [`& .${defaultClasses.landingTitleSpacing}`]: {
     margin: '50px 0',
   },
 }))
@@ -59,6 +59,8 @@ const Subcategory = lazyProps => {
 
   const theme = useTheme()
   let { pageData, loading } = store
+
+  const classes = { ...defaultClasses }
 
   if (pageData.isLanding) {
     return (

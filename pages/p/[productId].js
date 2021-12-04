@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
-import { styled } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 import clsx from 'clsx'
 import Head from 'next/head'
 import useLazyState from 'react-storefront/hooks/useLazyState'
@@ -7,9 +7,7 @@ import Breadcrumbs from 'react-storefront/Breadcrumbs'
 import CmsSlot from 'react-storefront/CmsSlot'
 import MediaCarousel from 'react-storefront-amp/carousel/AmpMediaCarousel'
 import PWAContext from 'react-storefront/PWAContext'
-import { Container, Grid, Typography, Hidden, Button } from '@mui/material'
-import { Skeleton } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
+import { Container, Grid, Typography, Hidden, Button, Skeleton } from '@mui/material'
 import Row from 'react-storefront/Row'
 import { Hbox } from 'react-storefront/Box'
 import Label from 'react-storefront/Label'
@@ -35,7 +33,7 @@ import LazyHydrate from 'react-storefront/LazyHydrate'
 
 const PREFIX = 'Product'
 
-const classes = {
+const defaultClasses = {
   carousel: `${PREFIX}-carousel`,
   lightboxCarousel: `${PREFIX}-lightboxCarousel`,
   confirmation: `${PREFIX}-confirmation`,
@@ -46,25 +44,25 @@ const classes = {
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')(({ theme }) => ({
-  [`& .${classes.carousel}`]: {
+  [`& .${defaultClasses.carousel}`]: {
     [theme.breakpoints.down('sm')]: {
       margin: theme.spacing(0, -2),
       width: '100vw',
     },
   },
 
-  [`& .${classes.lightboxCarousel}`]: {
+  [`& .${defaultClasses.lightboxCarousel}`]: {
     [theme.breakpoints.down('sm')]: {
       margin: 0,
       width: '100%',
     },
   },
 
-  [`& .${classes.confirmation}`]: {
+  [`& .${defaultClasses.confirmation}`]: {
     padding: '2px 0',
   },
 
-  [`& .${classes.dockedSnack}`]: {
+  [`& .${defaultClasses.dockedSnack}`]: {
     [theme.breakpoints.down('sm')]: {
       left: '0',
       bottom: '0',
@@ -72,7 +70,7 @@ const Root = styled('div')(({ theme }) => ({
     },
   },
 
-  [`& .${classes.docked}`]: {
+  [`& .${defaultClasses.docked}`]: {
     [theme.breakpoints.down('sm')]: {
       fontSize: theme.typography.subtitle1.fontSize,
       padding: theme.spacing(2),
@@ -85,7 +83,7 @@ const Root = styled('div')(({ theme }) => ({
     },
   },
 
-  [`& .${classes.noShadow}`]: {
+  [`& .${defaultClasses.noShadow}`]: {
     [theme.breakpoints.down('sm')]: {
       boxShadow: 'none',
     },
@@ -175,6 +173,23 @@ const Product = React.memo(lazyProps => {
       </Hbox>
     </Row>
   )
+
+  // Fetch variant data upon changing color or size options
+  useDidMountEffect(() => {
+    const query = qs.stringify({ color: color.id, size: size.id }, { addQueryPrefix: true })
+    fetchVariant(`/api/p/${product.id}${query}`)
+      .then(res => res.json())
+      .then(data => {
+        return updateState({ ...state, pageData: { ...state.pageData, ...data.pageData } })
+      })
+      .catch(e => {
+        if (!StaleResponseError.is(e)) {
+          throw e
+        }
+      })
+  }, [color.id, size.id])
+
+  const classes = { ...defaultClasses }
 
   return (
     <DataBindingProvider
