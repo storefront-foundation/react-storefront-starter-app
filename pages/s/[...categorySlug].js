@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles'
 import { Typography, Grid, Container, Hidden } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import ResponsiveTiles from 'react-storefront/ResponsiveTiles'
@@ -21,9 +21,9 @@ import Fill from 'react-storefront/Fill'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
 
-const PREFIX = 'Subcategory';
+const PREFIX = 'Subcategory'
 
-const classes = {
+const defaultClasses = {
   sideBar: `${PREFIX}-sideBar`,
   sortButton: `${PREFIX}-sortButton`,
   total: `${PREFIX}-total`
@@ -35,18 +35,18 @@ const Root = styled('div')((
     theme
   }
 ) => ({
-  [`& .${classes.sideBar}`]: {
+  [`& .${defaultClasses.sideBar}`]: {
     margin: theme.spacing(0, 4, 0, 0),
     width: 275,
   },
 
-  [`& .${classes.sortButton}`]: {
+  [`& .${defaultClasses.sortButton}`]: {
     [theme.breakpoints.down('sm')]: {
       flex: 1,
     },
   },
 
-  [`& .${classes.total}`]: {
+  [`& .${defaultClasses.total}`]: {
     marginTop: theme.spacing(1),
   }
 }));
@@ -56,6 +56,8 @@ const Subcategory = lazyProps => {
 
   const theme = useTheme()
   let { pageData, loading } = store
+
+  const classes = { ...defaultClasses }
 
   if (pageData.isLanding) {
     return (

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles'
 import clsx from 'clsx'
 import qs from 'qs'
 import useLazyState from 'react-storefront/hooks/useLazyState'
@@ -27,9 +27,9 @@ import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
 
-const PREFIX = 'Product';
+const PREFIX = 'Product'
 
-const classes = {
+const defaultClasses = {
   carousel: `${PREFIX}-carousel`,
   lightboxCarousel: `${PREFIX}-lightboxCarousel`,
   confirmation: `${PREFIX}-confirmation`,
@@ -39,30 +39,26 @@ const classes = {
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-  {
-    theme
-  }
-) => ({
-  [`& .${classes.carousel}`]: {
+const Root = styled('div')(({ theme }) => ({
+  [`& .${defaultClasses.carousel}`]: {
     [theme.breakpoints.down('sm')]: {
       margin: theme.spacing(0, -2),
       width: '100vw',
     },
   },
 
-  [`& .${classes.lightboxCarousel}`]: {
+  [`& .${defaultClasses.lightboxCarousel}`]: {
     [theme.breakpoints.down('sm')]: {
       margin: 0,
       width: '100%',
     },
   },
 
-  [`& .${classes.confirmation}`]: {
+  [`& .${defaultClasses.confirmation}`]: {
     padding: '2px 0',
   },
 
-  [`& .${classes.dockedSnack}`]: {
+  [`& .${defaultClasses.dockedSnack}`]: {
     [theme.breakpoints.down('sm')]: {
       left: '0',
       bottom: '0',
@@ -70,7 +66,7 @@ const Root = styled('div')((
     },
   },
 
-  [`& .${classes.docked}`]: {
+  [`& .${defaultClasses.docked}`]: {
     [theme.breakpoints.down('sm')]: {
       fontSize: theme.typography.subtitle1.fontSize,
       padding: theme.spacing(2),
@@ -83,7 +79,7 @@ const Root = styled('div')((
     },
   },
 
-  [`& .${classes.noShadow}`]: {
+  [`& .${defaultClasses.noShadow}`]: {
     [theme.breakpoints.down('sm')]: {
       boxShadow: 'none',
     },
@@ -169,6 +165,8 @@ const Product = React.memo(lazyProps => {
         }
       })
   }, [color.id, size.id])
+
+  const classes = { ...defaultClasses }
 
   return (
     (<Root>
