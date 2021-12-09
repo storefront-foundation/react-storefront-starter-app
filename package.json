@@ -14,7 +14,9 @@
     "test": "jest",
     "deploy": "npm run build && xdn deploy",
     "rsf:link": "yalc add react-storefront",
-    "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\""
+    "prettier": "prettier --write \"**/*.js\" \"!{node_modules,.next,.yalc}/**\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "husky": {
     "hooks": {
@@ -49,7 +51,12 @@
     "babel-plugin-transform-imports": "^2.0.0",
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0"
   },
   "lint-staged": {
     "*.js": [

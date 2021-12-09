@@ -8,26 +8,22 @@
  */
 
 import React, { useState, useEffect } from 'react'
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles'
 import PropTypes from 'prop-types'
 import fetch from 'react-storefront/fetch'
 import ProductItem from './ProductItem'
 import { Typography } from '@mui/material'
 import LoadMask from 'react-storefront/LoadMask'
 
-const PREFIX = 'RSFSuggestedProducts';
+const PREFIX = 'RSFSuggestedProducts'
 
 const classes = {
   products: `${PREFIX}-products`,
   wrap: `${PREFIX}-wrap`,
-  product: `${PREFIX}-product`
-};
+  product: `${PREFIX}-product`,
+}
 
-const Root = styled('div')((
-  {
-    theme
-  }
-) => ({
+const Root = styled('div')(({ theme }) => ({
   [`& .${classes.products}`]: {
     minHeight: 250,
     position: 'relative',
@@ -49,13 +45,12 @@ const Root = styled('div')((
   [`& .${classes.product}`]: {
     margin: theme.spacing(0, 2, 0, 0),
     minWidth: 150,
-  }
-}));
+  },
+}))
 
-export {};
+export {}
 
 export default function SuggestedProducts({ product }) {
-
   const [suggestedProducts, setSuggestedProducts] = useState(null)
 
   // Fetch suggested products when the product page is mounted
@@ -86,7 +81,7 @@ export default function SuggestedProducts({ product }) {
         </div>
       </div>
     </Root>
-  );
+  )
 }
 
 SuggestedProducts.propTypes = {

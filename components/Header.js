@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useContext } from 'react'
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles'
 import AppBar from 'react-storefront/AppBar'
 import CartButton from 'react-storefront/CartButton'
 import Search from './search/Search'
@@ -10,22 +10,19 @@ import MenuButton from 'react-storefront/menu/MenuButton'
 import Link from 'react-storefront/link/Link'
 import SessionContext from 'react-storefront/session/SessionContext'
 import get from 'lodash/get'
+import PropTypes from 'prop-types'
 
-const PREFIX = 'Header';
+const PREFIX = 'Header'
 
 const classes = {
   title: `${PREFIX}-title`,
   logo: `${PREFIX}-logo`,
   toolbar: `${PREFIX}-toolbar`,
-  container: `${PREFIX}-container`
-};
+  container: `${PREFIX}-container`,
+}
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-  {
-    theme
-  }
-) => ({
+const Root = styled('div')(({ theme }) => ({
   [`& .${classes.title}`]: {},
 
   [`& .${classes.logo}`]: {
@@ -52,18 +49,17 @@ const Root = styled('div')((
     [theme.breakpoints.down('sm')]: {
       padding: 5,
     },
-  }
-}));
+  },
+}))
 
 export default function Header({ menu }) {
-
   const [menuOpen, setMenuOpen] = useState(false)
   const handleMenuClose = useCallback(() => setMenuOpen(false), [])
   const handleMenuButtonClick = useCallback(() => setMenuOpen(menuOpen => !menuOpen), [])
   const { session } = useContext(SessionContext)
 
   return (
-    (<Root>
+    <Root>
       <AppBar>
         <Container maxWidth="lg" className={classes.container}>
           <Link href="/">
@@ -87,6 +83,10 @@ export default function Header({ menu }) {
         // renderHeader={item => <div>{item.text} header</div>}
         // renderFooter={item => <div>{item.text} footer</div>}
       />
-    </Root>)
-  );
+    </Root>
+  )
+}
+
+Header.propTypes = {
+  menu: PropTypes.object,
 }

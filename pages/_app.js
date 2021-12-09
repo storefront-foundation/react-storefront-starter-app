@@ -10,6 +10,7 @@ import reportError from '../components/reportError'
 import useJssStyles from 'react-storefront/hooks/useJssStyles'
 import SessionProvider from 'react-storefront/session/SessionProvider'
 import useAppStore from 'react-storefront/hooks/useAppStore'
+import PropTypes from 'prop-types'
 import { styled } from '@mui/material/styles'
 
 const PREFIX = '_app-main'
@@ -18,7 +19,7 @@ const classes = {
   main: `${PREFIX}-main`,
 }
 
-const Main = styled('main')(({ theme }) => ({
+const Main = styled('main')(() => ({
   [`&.${classes.main}`]: {
     paddingTop: 3,
   },
@@ -50,6 +51,11 @@ export default function MyApp({ Component, pageProps }) {
       </PWA>
     </ThemeProvider>
   )
+}
+
+MyApp.propTypes = {
+  Component: PropTypes.any,
+  pageProps: PropTypes.object,
 }
 
 MyApp.getInitialProps = async function({ Component, ctx }) {

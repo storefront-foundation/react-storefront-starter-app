@@ -19,22 +19,17 @@ import FilterButton from 'react-storefront/plp/FilterButton'
 import SortButton from 'react-storefront/plp/SortButton'
 import Fill from 'react-storefront/Fill'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
-import createLazyProps from 'react-storefront/props/createLazyProps'
 
 const PREFIX = 'Subcategory'
 
 const defaultClasses = {
   sideBar: `${PREFIX}-sideBar`,
   sortButton: `${PREFIX}-sortButton`,
-  total: `${PREFIX}-total`
-};
+  total: `${PREFIX}-total`,
+}
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-  {
-    theme
-  }
-) => ({
+const Root = styled('div')(({ theme }) => ({
   [`& .${defaultClasses.sideBar}`]: {
     margin: theme.spacing(0, 4, 0, 0),
     width: 275,
@@ -48,8 +43,8 @@ const Root = styled('div')((
 
   [`& .${defaultClasses.total}`]: {
     marginTop: theme.spacing(1),
-  }
-}));
+  },
+}))
 
 const Subcategory = lazyProps => {
   const [store, updateStore] = useSearchResultsStore(lazyProps)
@@ -58,30 +53,6 @@ const Subcategory = lazyProps => {
   let { pageData, loading } = store
 
   const classes = { ...defaultClasses }
-
-  if (pageData.isLanding) {
-    return (
-      (<Root>
-        <Breadcrumbs items={!loading && pageData.breadcrumbs} />
-        <Grid item xs={12}>
-          {!loading ? (
-            <Typography
-              component="h1"
-              variant="h4"
-              gutterBottom
-              align="center"
-              className={classes.landingTitleSpacing}
-            >
-              {pageData.name}
-            </Typography>
-          ) : (
-            <Skeleton height={32} style={{ marginBottom: theme.spacing(1) }} />
-          )}
-        </Grid>
-        {!loading && <LandingCmsSlots cmsBlocks={pageData.cmsBlocks} />}
-      </Root>)
-    );
-  }
 
   // Here is an example of how you can customize the URL scheme for filtering and sorting - /s/1?color=red,blue=sort=pop
   // Note that if you change this, you also need to change pages/api/[...categorySlug].js to correctly handle the query parameters
@@ -122,6 +93,30 @@ const Subcategory = lazyProps => {
 
     return query
   }, [])
+
+  if (pageData.isLanding) {
+    return (
+      <Root>
+        <Breadcrumbs items={!loading && pageData.breadcrumbs} />
+        <Grid item xs={12}>
+          {!loading ? (
+            <Typography
+              component="h1"
+              variant="h4"
+              gutterBottom
+              align="center"
+              className={classes.landingTitleSpacing}
+            >
+              {pageData.name}
+            </Typography>
+          ) : (
+            <Skeleton height={32} style={{ marginBottom: theme.spacing(1) }} />
+          )}
+        </Grid>
+        {/* {!loading && <LandingCmsSlots cmsBlocks={pageData.cmsBlocks} />} */}
+      </Root>
+    )
+  }
 
   return (
     <>
@@ -228,10 +223,10 @@ const Subcategory = lazyProps => {
   )
 }
 
-Subcategory.getInitialProps = createLazyProps(opts => {
+export const getServerSideProps = opts => {
   const { res } = opts
   if (res) res.setHeader('Cache-Control', 'max-age=99999')
   return fetchFromAPI(opts)
-})
+}
 
 export default Subcategory

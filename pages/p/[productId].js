@@ -25,7 +25,6 @@ import TabPanel from 'react-storefront/TabPanel'
 import QuantitySelector from 'react-storefront/QuantitySelector'
 import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
-import createLazyProps from 'react-storefront/props/createLazyProps'
 
 const PREFIX = 'Product'
 
@@ -35,8 +34,8 @@ const defaultClasses = {
   confirmation: `${PREFIX}-confirmation`,
   dockedSnack: `${PREFIX}-dockedSnack`,
   docked: `${PREFIX}-docked`,
-  noShadow: `${PREFIX}-noShadow`
-};
+  noShadow: `${PREFIX}-noShadow`,
+}
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')(({ theme }) => ({
@@ -83,8 +82,8 @@ const Root = styled('div')(({ theme }) => ({
     [theme.breakpoints.down('sm')]: {
       boxShadow: 'none',
     },
-  }
-}));
+  },
+}))
 
 const fetchVariant = fetchLatest(fetch)
 
@@ -169,7 +168,7 @@ const Product = React.memo(lazyProps => {
   const classes = { ...defaultClasses }
 
   return (
-    (<Root>
+    <Root>
       <Breadcrumbs items={!loading && state.pageData.breadcrumbs} />
       <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
         <form onSubmit={handleSubmit} method="post" action-xhr="/api/cart">
@@ -298,10 +297,12 @@ const Product = React.memo(lazyProps => {
           </Grid>
         </form>
       </Container>
-    </Root>)
-  );
+    </Root>
+  )
 })
 
-Product.getInitialProps = createLazyProps(fetchFromAPI)
+export async function getServerSideProps(opts) {
+  return fetchFromAPI(opts)
+}
 
 export default Product

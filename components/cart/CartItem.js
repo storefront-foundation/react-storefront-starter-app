@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles'
 import { Paper, IconButton, Typography } from '@mui/material'
 import { Close as CloseIcon } from '@mui/icons-material'
 import Row from 'react-storefront/Row'
@@ -10,21 +10,17 @@ import Image from 'react-storefront/Image'
 import SessionContext from 'react-storefront/session/SessionContext'
 import RemoveDialog from './RemoveDialog'
 
-const PREFIX = 'CartItem';
+const PREFIX = 'CartItem'
 
 const classes = {
   root: `${PREFIX}-root`,
   thumb: `${PREFIX}-thumb`,
   label: `${PREFIX}-label`,
-  remove: `${PREFIX}-remove`
-};
+  remove: `${PREFIX}-remove`,
+}
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-  {
-    theme
-  }
-) => ({
+const Root = styled('div')(({ theme }) => ({
   [`& .${classes.root}`]: {
     flex: 1,
     padding: theme.spacing(2, 5, 2, 2),
@@ -48,15 +44,14 @@ const Root = styled('div')((
     position: 'absolute',
     top: 0,
     right: 0,
-  }
-}));
+  },
+}))
 
 export default function CartItem({ product, updateQuantity, remove }) {
   const [open, setOpen] = useState(false)
 
-
   return (
-    (<Root>
+    <Root>
       <Paper className={classes.root} elevation={3}>
         <Hbox alignItems="flex-start">
           <div className={classes.thumb}>
@@ -94,6 +89,6 @@ export default function CartItem({ product, updateQuantity, remove }) {
         name={product.name}
         action={() => remove(product)}
       />
-    </Root>)
-  );
+    </Root>
+  )
 }

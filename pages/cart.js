@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import Row from 'react-storefront/Row'
 import clsx from 'clsx'
 import CartItem from '../components/cart/CartItem'
-import { createLazyProps, fetchFromAPI } from 'react-storefront/props'
+import { fetchFromAPI } from 'react-storefront/props'
 import { Grid, Hidden, Divider, Container, Button } from '@mui/material'
 import { price } from 'react-storefront/utils/format'
 import Spacer from 'react-storefront/Spacer'
@@ -13,21 +13,17 @@ import { Hbox } from 'react-storefront/Box'
 import SessionContext from 'react-storefront/session/SessionContext'
 import get from 'lodash/get'
 
-const PREFIX = 'cart';
+const PREFIX = 'cart'
 
 const classes = {
   root: `${PREFIX}-root`,
   checkoutPanel: `${PREFIX}-checkoutPanel`,
   total: `${PREFIX}-total`,
   checkoutButton: `${PREFIX}-checkoutButton`,
-  docked: `${PREFIX}-docked`
-};
+  docked: `${PREFIX}-docked`,
+}
 
-const StyledContainer = styled(Container)((
-  {
-    theme
-  }
-) => ({
+const StyledContainer = styled(Container)(({ theme }) => ({
   [`&.${classes.root}`]: {
     paddingBottom: '64px',
   },
@@ -58,11 +54,10 @@ const StyledContainer = styled(Container)((
       borderRadius: '0',
       boxShadow: 'none',
     },
-  }
-}));
+  },
+}))
 
-export default function Cart(props) {
-
+export default function Cart() {
   const { session, actions } = useContext(SessionContext)
   const items = get(session, 'cart.items')
 
@@ -90,7 +85,7 @@ export default function Cart(props) {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={8}>
             {items.length ? (
-              items.map((product, i) => (
+              items.map(product => (
                 <CartItem
                   key={product.id}
                   updateQuantity={handleUpdateQuantity}
@@ -142,7 +137,7 @@ export default function Cart(props) {
         </Grid>
       </Row>
     </StyledContainer>
-  );
+  )
 }
 
-Cart.getInitialProps = createLazyProps(fetchFromAPI)
+export const getServerSideProps = fetchFromAPI

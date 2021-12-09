@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react'
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles'
 import Link from 'react-storefront/link/Link'
 import { Vbox } from 'react-storefront/Box'
 import { Typography } from '@mui/material'
@@ -9,7 +9,7 @@ import Image from 'react-storefront/Image'
 import clsx from 'clsx'
 import ProductOptionSelector from 'react-storefront/option/ProductOptionSelector'
 
-const PREFIX = 'ProductItem';
+const PREFIX = 'ProductItem'
 
 const classes = {
   root: `${PREFIX}-root`,
@@ -18,14 +18,10 @@ const classes = {
   price: `${PREFIX}-price`,
   reviews: `${PREFIX}-reviews`,
   reviewCount: `${PREFIX}-reviewCount`,
-  info: `${PREFIX}-info`
-};
+  info: `${PREFIX}-info`,
+}
 
-const Root = styled('div')((
-  {
-    theme
-  }
-) => ({
+const Root = styled('div')(({ theme }) => ({
   [`&.${classes.root}`]: {
     padding: `${theme.spacing(2)} 0`,
   },
@@ -53,11 +49,10 @@ const Root = styled('div')((
 
   [`& .${classes.info}`]: {
     margin: '0',
-  }
-}));
+  },
+}))
 
-function ProductItem({ product, index,  className, colorSelector }) {
-
+function ProductItem({ product, index, className, colorSelector }) {
   const [store, updateStore] = useState(product)
 
   return (
@@ -109,7 +104,7 @@ function ProductItem({ product, index,  className, colorSelector }) {
         </div>
       </Vbox>
     </Root>
-  );
+  )
 }
 
 ProductItem.defaultProps = {
