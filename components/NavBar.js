@@ -1,21 +1,18 @@
 import React, { memo } from 'react'
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles'
 import NavTab from 'react-storefront/nav/NavTab'
 import NavTabs from 'react-storefront/nav/NavTabs'
 import Link from 'react-storefront/link/Link'
 import { Container, Paper } from '@mui/material'
-const PREFIX = 'NavBar';
+import { PropTypes } from 'prop-types'
+const PREFIX = 'NavBar'
 
 const classes = {
   container: `${PREFIX}-container`,
-  link: `${PREFIX}-link`
-};
+  link: `${PREFIX}-link`,
+}
 
-const StyledPaper = styled(Paper)((
-  {
-    theme
-  }
-) => ({
+const StyledPaper = styled(Paper)(({ theme }) => ({
   [`& .${classes.container}`]: {
     [theme.breakpoints.down('sm')]: {
       padding: 0,
@@ -28,12 +25,10 @@ const StyledPaper = styled(Paper)((
     '&:first-child': {
       marginTop: 0,
     },
-  }
-}));
+  },
+}))
 
 function NavBar({ tabs }) {
-
-
   return (
     <StyledPaper square elevation={2}>
       <Container maxWidth="lg" className={classes.container}>
@@ -55,9 +50,12 @@ function NavBar({ tabs }) {
         </NavTabs>
       </Container>
     </StyledPaper>
-  );
+  )
 }
 
+NavBar.propTypes = {
+  tabs: PropTypes.array,
+}
 NavBar.defaultProps = {
   tabs: [],
 }

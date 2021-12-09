@@ -7,14 +7,14 @@ import {
   Typography,
   IconButton,
 } from '@mui/material'
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles'
 import get from 'lodash/get'
 import { Close as CloseIcon } from '@mui/icons-material'
 import Image from 'react-storefront/Image'
 import Link from 'react-storefront/link/Link'
 import { Hbox } from 'react-storefront/Box'
 
-const PREFIX = 'AddToCartConfirmation';
+const PREFIX = 'AddToCartConfirmation'
 
 const classes = {
   root: `${PREFIX}-root`,
@@ -25,14 +25,10 @@ const classes = {
   viewCart: `${PREFIX}-viewCart`,
   actions: `${PREFIX}-actions`,
   continue: `${PREFIX}-continue`,
-  closeButton: `${PREFIX}-closeButton`
-};
+  closeButton: `${PREFIX}-closeButton`,
+}
 
-const StyledDialog = styled(Dialog)((
-  {
-    theme
-  }
-) => ({
+const StyledDialog = styled(Dialog)(({ theme }) => ({
   [`& .${classes.root}`]: {},
 
   [`& .${classes.image}`]: {
@@ -74,8 +70,8 @@ const StyledDialog = styled(Dialog)((
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-  }
-}));
+  },
+}))
 
 export default function AddToCartConfirmation({
   open,
@@ -86,8 +82,6 @@ export default function AddToCartConfirmation({
   quantity,
   product,
 }) {
-
-
   return (
     <StyledDialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="xs">
       <DialogTitle>
@@ -132,5 +126,5 @@ export default function AddToCartConfirmation({
         </a>
       </DialogActions>
     </StyledDialog>
-  );
+  )
 }

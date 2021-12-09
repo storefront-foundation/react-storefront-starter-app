@@ -18,6 +18,8 @@ import useAppStore from 'react-storefront/hooks/useAppStore'
 import 'typeface-roboto'
 import Router from 'next/router'
 import '../components/rum'
+import PropTypes from 'prop-types'
+import { styled } from '@mui/material/styles'
 
 installAmpOverrides()
 
@@ -27,7 +29,7 @@ const classes = {
   main: `${PREFIX}-main`,
 }
 
-const Main = styled('main')(({ theme }) => ({
+const Main = styled('main')(() => ({
   [`&.${classes.main}`]: {
     paddingTop: 3,
   },
@@ -63,6 +65,11 @@ export default function MyApp({ Component, pageProps }) {
       </PWA>
     </ThemeProvider>
   )
+}
+
+MyApp.propTypes = {
+  Component: PropTypes.any,
+  pageProps: PropTypes.object,
 }
 
 MyApp.getInitialProps = async function({ Component, ctx }) {

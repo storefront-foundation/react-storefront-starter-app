@@ -1,41 +1,35 @@
 import React from 'react'
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles'
 import { Container, Typography } from '@mui/material'
 import useLazyState from 'react-storefront/hooks/useLazyState'
 import CmsSlot from 'react-storefront/CmsSlot'
 import LoadMask from 'react-storefront/LoadMask'
 import Head from 'next/head'
-import createLazyProps from 'react-storefront/props/createLazyProps'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import { TrackPageView } from 'react-storefront-analytics'
 
-const PREFIX = 'index';
+const PREFIX = 'index'
 
 const classes = {
-  main: `${PREFIX}-main`
-};
+  main: `${PREFIX}-main`,
+}
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')((
-  {
-    theme
-  }
-) => ({
+const Root = styled('div')(({ theme }) => ({
   [`& .${classes.main}`]: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
     textAlign: 'center',
     margin: theme.spacing(10, 0, 0, 0),
-  }
-}));
+  },
+}))
 
 export default function Index(lazyProps) {
-
   const [state] = useLazyState(lazyProps)
 
   return (
-    (<Root>
+    <Root>
       {state.loading ? null : (
         <Head>
           <title>{state.pageData.title}</title>
@@ -56,10 +50,12 @@ export default function Index(lazyProps) {
           </>
         )}
       </Container>
-    </Root>)
-  );
+    </Root>
+  )
 }
 
-Index.getInitialProps = createLazyProps(fetchFromAPI)
 
 export const config = { amp: 'hybrid' }
+export async function getServerSideProps(options) {
+  return fetchFromAPI(options)
+}

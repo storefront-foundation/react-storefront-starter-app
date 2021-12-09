@@ -11,6 +11,7 @@ import Link from 'react-storefront/link/Link'
 import SessionContext from 'react-storefront/session/SessionContext'
 import useCartTotal from 'react-storefront/hooks/useCartTotal'
 import LazyHydrate from 'react-storefront/LazyHydrate'
+import PropTypes from 'prop-types'
 
 const PREFIX = 'Header'
 
@@ -111,4 +112,8 @@ export default function Header({ menu }) {
       </LazyHydrate>
     </Root>
   )
+}
+
+Header.propTypes = {
+  menu: PropTypes.object,
 }

@@ -21,7 +21,6 @@ import DataBindingProvider from 'react-storefront-amp/bind/DataBindingProvider'
 import Fill from 'react-storefront/Fill'
 import { TrackPageView } from 'react-storefront-analytics'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
-import createLazyProps from 'react-storefront/props/createLazyProps'
 import LandingCmsSlots from '../../components/LandingCmsSlots'
 
 const PREFIX = 'Subcategory'
@@ -62,30 +61,6 @@ const Subcategory = lazyProps => {
 
   const classes = { ...defaultClasses }
 
-  if (pageData.isLanding) {
-    return (
-      <Root>
-        <Breadcrumbs items={!loading && pageData.breadcrumbs} />
-        <Grid item xs={12}>
-          {!loading ? (
-            <Typography
-              component="h1"
-              variant="h4"
-              gutterBottom
-              align="center"
-              className={classes.landingTitleSpacing}
-            >
-              {pageData.name}
-            </Typography>
-          ) : (
-            <Skeleton height={32} style={{ marginBottom: theme.spacing(1) }} />
-          )}
-        </Grid>
-        {!loading && <LandingCmsSlots cmsBlocks={pageData.cmsBlocks} />}
-      </Root>
-    )
-  }
-
   // Here is an example of how you can customize the URL scheme for filtering and sorting - /s/1?color=red,blue=sort=pop
   // Note that if you change this, you also need to change pages/api/[...categorySlug].js to correctly handle the query parameters
   // you send it.
@@ -125,6 +100,30 @@ const Subcategory = lazyProps => {
 
     return query
   }, [])
+
+  if (pageData.isLanding) {
+    return (
+      <Root>
+        <Breadcrumbs items={!loading && pageData.breadcrumbs} />
+        <Grid item xs={12}>
+          {!loading ? (
+            <Typography
+              component="h1"
+              variant="h4"
+              gutterBottom
+              align="center"
+              className={classes.landingTitleSpacing}
+            >
+              {pageData.name}
+            </Typography>
+          ) : (
+            <Skeleton height={32} style={{ marginBottom: theme.spacing(1) }} />
+          )}
+        </Grid>
+        {!loading && <LandingCmsSlots cmsBlocks={pageData.cmsBlocks} />}
+      </Root>
+    )
+  }
 
   return (
     <DataBindingProvider store={store} updateStore={updateStore}>
@@ -232,7 +231,9 @@ const Subcategory = lazyProps => {
   )
 }
 
-Subcategory.getInitialProps = createLazyProps(fetchFromAPI)
+export const getServerSideProps = opts => {
+  return fetchFromAPI(opts)
+}
 
 export const config = { amp: 'hybrid' }
 export default Subcategory

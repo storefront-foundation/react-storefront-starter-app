@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography'
 import Row from 'react-storefront/Row'
 import clsx from 'clsx'
 import CartItem from '../components/cart/CartItem'
-import { createLazyProps, fetchFromAPI } from 'react-storefront/props'
+import { fetchFromAPI } from 'react-storefront/props'
 import { Grid, Hidden, Divider, Container, Button } from '@mui/material'
 import { price } from 'react-storefront/utils/format'
 import Spacer from 'react-storefront/Spacer'
@@ -151,4 +151,4 @@ export default function Cart() {
   )
 }
 
-Cart.getInitialProps = createLazyProps(fetchFromAPI)
+export const getServerSideProps = fetchFromAPI

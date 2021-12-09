@@ -378,7 +378,9 @@ const Product = React.memo(lazyProps => {
   )
 })
 
-Product.getInitialProps = createLazyProps(fetchFromAPI)
+export async function getServerSideProps(opts) {
+  return fetchFromAPI(opts)
+}
 
 export const config = { amp: 'hybrid' }
 export default Product

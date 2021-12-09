@@ -19,7 +19,9 @@
     "layer0:link": "rm -rf node_modules/@layer0/core node_modules/@layer0/next && yalc add @layer0/next @layer0/core @layer0/cli @layer0/prefetch",
     "rsf:update": "npm i --save react-storefront@latest react-storefront-amp@latest react-storefront-analytics@latest",
     "layer0:update": "npm i --save @layer0/core@latest @layer0/next@latest @layer0/cli@latest @layer0/prefetch@latest",
-    "reinstall": "rm -rf node_modules && npm i --prefer-offline"
+    "reinstall": "rm -rf node_modules && npm i --prefer-offline",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "husky": {
     "hooks": {
@@ -70,7 +72,12 @@
     "husky": "^4.0.0",
     "lint-staged": "^10.0.9",
     "prettier": "^1.19.1",
-    "webpack": "^4.0.0"
+    "webpack": "^4.0.0",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0"
   },
   "lint-staged": {
     "*.js": [
