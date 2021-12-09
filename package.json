@@ -81,7 +81,8 @@
   },
   "lint-staged": {
     "*.js": [
-      "npm run prettier"
+      "npm run prettier",
+      "eslint"
     ]
   }
 }
