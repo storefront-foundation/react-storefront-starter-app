@@ -1,3 +1,5 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 import {
   Button,
   Dialog,
@@ -22,4 +24,11 @@ export default function RemoveDialog({ open, setOpen, name, action }) {
       </DialogActions>
     </Dialog>
   )
+}
+
+RemoveDialog.propTypes = {
+  open: PropTypes.bool,
+  setOpen: PropTypes.func,
+  name: PropTypes.string,
+  action: PropTypes.string,
 }

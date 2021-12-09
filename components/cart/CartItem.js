@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { Paper, IconButton, Typography } from '@mui/material'
 import { Close as CloseIcon } from '@mui/icons-material'
@@ -8,6 +8,7 @@ import QuantitySelector from 'react-storefront/QuantitySelector'
 import { Hbox } from 'react-storefront/Box'
 import Image from 'react-storefront/Image'
 import RemoveDialog from './RemoveDialog'
+import PropTypes from 'prop-types'
 import get from 'lodash/get'
 
 const PREFIX = 'CartItem'
@@ -91,4 +92,10 @@ export default function CartItem({ product, updateQuantity, remove }) {
       />
     </Root>
   )
+}
+
+CartItem.propTypes = {
+  product: PropTypes.object,
+  updateQuantity: PropTypes.func,
+  remove: PropTypes.func,
 }

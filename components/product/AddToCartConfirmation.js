@@ -1,3 +1,5 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 import {
   Button,
   Dialog,
@@ -127,4 +129,14 @@ export default function AddToCartConfirmation({
       </DialogActions>
     </StyledDialog>
   )
+}
+
+AddToCartConfirmation.propTypes = {
+  open: PropTypes.bool,
+  setOpen: PropTypes.func,
+  price: PropTypes.number,
+  color: PropTypes.object,
+  size: PropTypes.object,
+  quantity: PropTypes.number,
+  product: PropTypes.object,
 }

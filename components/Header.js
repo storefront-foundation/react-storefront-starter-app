@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from 'react'
+import React, { useState, useCallback } from 'react'
 import { styled } from '@mui/material/styles'
 import AppBar from 'react-storefront/AppBar'
 import CartButton from 'react-storefront/CartButton'
@@ -8,7 +8,6 @@ import { Container } from '@mui/material'
 import Menu from 'react-storefront/menu/Menu'
 import MenuButton from 'react-storefront/menu/MenuButton'
 import Link from 'react-storefront/link/Link'
-import SessionContext from 'react-storefront/session/SessionContext'
 import useCartTotal from 'react-storefront/hooks/useCartTotal'
 import LazyHydrate from 'react-storefront/LazyHydrate'
 import PropTypes from 'prop-types'
@@ -68,7 +67,6 @@ export default function Header({ menu }) {
     setMenuOpen(menuOpen => !menuOpen)
     setHydrateMenu(true)
   }, [])
-  const { session } = useContext(SessionContext)
   const cartTotal = useCartTotal()
 
   return (

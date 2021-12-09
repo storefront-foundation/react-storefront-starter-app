@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import CmsSlot from 'react-storefront/CmsSlot'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((/* theme */) => ({
   cmsBlock: {
@@ -121,6 +122,10 @@ const LandingCmsSlots = ({ cmsBlocks }) => {
       ))}
     </>
   )
+}
+
+LandingCmsSlots.propTypes = {
+  cmsBlocks: PropTypes.array,
 }
 
 export default LandingCmsSlots

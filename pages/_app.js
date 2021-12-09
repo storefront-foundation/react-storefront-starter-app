@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react'
 import { styled } from '@mui/material/styles'
-import Head from 'next/head'
-import React from 'react'
 import theme from '../components/theme'
 import Header from '../components/Header'
 import { CssBaseline } from '@mui/material'
-import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
+import { ThemeProvider } from '@mui/material/styles'
 import PWA from 'react-storefront/PWA'
 import NavBar from '../components/NavBar'
 import reportError from '../components/reportError'
@@ -19,7 +17,6 @@ import 'typeface-roboto'
 import Router from 'next/router'
 import '../components/rum'
 import PropTypes from 'prop-types'
-import { styled } from '@mui/material/styles'
 
 installAmpOverrides()
 
@@ -40,7 +37,7 @@ export default function MyApp({ Component, pageProps }) {
 
   // Setting global clientDidNavigate which is used by RSF LazyHydrate
   useEffect(() => {
-    Router.events.on('routeChangeStart', url => {
+    Router.events.on('routeChangeStart', () => {
       window.clientDidNavigate = true
     })
   }, [])
@@ -50,16 +47,14 @@ export default function MyApp({ Component, pageProps }) {
       <PWA errorReporter={reportError}>
         <AmpProvider>
           <SessionProvider url="/api/session">
-            <MuiThemeProvider theme={theme}>
-              <Analytics>
-                <CssBaseline />
-                <Header menu={appData && appData.menu} />
-                <NavBar tabs={appData && appData.tabs} />
-                <Main className={classes.main}>
-                  <Component {...pageProps} />
-                </Main>
-              </Analytics>
-            </MuiThemeProvider>
+            <Analytics>
+              <CssBaseline />
+              <Header menu={appData && appData.menu} />
+              <NavBar tabs={appData && appData.tabs} />
+              <Main className={classes.main}>
+                <Component {...pageProps} />
+              </Main>
+            </Analytics>
           </SessionProvider>
         </AmpProvider>
       </PWA>

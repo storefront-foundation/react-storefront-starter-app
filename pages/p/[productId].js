@@ -27,7 +27,8 @@ import ProductOptionSelector from 'react-storefront-amp/option/AmpProductOptionS
 import { TrackPageView } from 'react-storefront-analytics'
 import { useAmp } from 'next/amp'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
-import createLazyProps from 'react-storefront/props/createLazyProps'
+import { fetchLatest, StaleResponseError } from 'react-storefront/utils'
+import qs from 'querystring'
 import getAPIURL from 'react-storefront/api/getAPIURL'
 import LazyHydrate from 'react-storefront/LazyHydrate'
 

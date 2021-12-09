@@ -54,7 +54,6 @@ export default function Index(lazyProps) {
   )
 }
 
-
 export const config = { amp: 'hybrid' }
 export async function getServerSideProps(options) {
   return fetchFromAPI(options)
