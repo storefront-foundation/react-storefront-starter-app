@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { styled } from '@mui/material/styles'
 import useLazyState from 'react-storefront/hooks/useLazyState'
 import Head from 'next/head'
 import createLazyProps from 'react-storefront/props/createLazyProps'
@@ -9,26 +9,33 @@ import get from 'lodash/get'
 import LoginForm from '../components/LoginForm'
 import { TrackPageView } from 'react-storefront-analytics'
 
-const useStyles = makeStyles(theme => ({
-  main: {
+const PREFIX = 'account'
+
+const classes = {
+  main: `${PREFIX}-main`,
+  heading: `${PREFIX}-heading`,
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.main}`]: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
     textAlign: 'center',
     margin: theme.spacing(5, 0, 0, 0),
   },
-  heading: {
+
+  [`& .${classes.heading}`]: {
     textAlign: 'center',
     marginTop: 50,
   },
 }))
 
 export default function Index(lazyProps) {
-  const classes = useStyles()
   const [state] = useLazyState(lazyProps)
 
   return (
-    <>
+    <Root>
       {state.loading ? null : (
         <Head>
           <title>{get(state, 'pageData.title')}</title>
@@ -43,7 +50,7 @@ export default function Index(lazyProps) {
           <LoginForm />
         </div>
       </Container>
-    </>
+    </Root>
   )
 }
 

@@ -7,14 +7,18 @@ import SearchButton from 'react-storefront-amp/search/AmpSearchButton'
 import SearchSuggestions from 'react-storefront-amp/search/AmpSearchSuggestions'
 import SearchProvider from 'react-storefront/search/SearchProvider'
 import LazyHydrate from 'react-storefront/LazyHydrate'
-import { makeStyles } from '@material-ui/styles'
+import { styled } from '@mui/material/styles'
 
-const useStyles = makeStyles(theme => ({
-  button: {
+const PREFIX = 'SEARCH-MOBILE'
+
+const classes = {
+  button: `${PREFIX}-button`,
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.button}`]: {
     display: 'none',
-  },
-  [theme.breakpoints.down('xs')]: {
-    button: {
+    [theme.breakpoints.up('xs')]: {
       display: 'block',
     },
   },
@@ -26,13 +30,12 @@ function SearchMobile() {
   const [hydrated, setHydrated] = useState(false)
   const toggleDrawer = () => setDrawerOpen(!drawerOpen)
   const closeDrawer = () => setDrawerOpen(false)
-  const classes = useStyles()
   const hydrate = useCallback(() => {
     setHydrated(true)
   }, [])
 
   return (
-    <>
+    <Root>
       <SearchButton className={classes.button} onClick={toggleDrawer} onTouchStart={hydrate} />
       <LazyHydrate id="search-mobile" hydrated={hydrated}>
         <SearchDrawer open={drawerOpen} onClose={closeDrawer}>
@@ -46,7 +49,7 @@ function SearchMobile() {
           </SearchForm>
         </SearchDrawer>
       </LazyHydrate>
-    </>
+    </Root>
   )
 }
 

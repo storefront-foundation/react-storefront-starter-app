@@ -43,15 +43,15 @@
     "lodash.debounce": "^4.0.8",
     "lorem-ipsum": "^2.0.3",
     "module-alias": "^2.2.1",
+    "next": "^12.0.7",
     "path-to-regexp": "^6.2.0",
     "preact": "^10.4.4",
     "preact-render-to-string": "^5.1.8",
     "preact-ssr-prepass": "^1.0.1",
-    "next": "^12.0.7",
     "qs": "^6.9.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-storefront": "^8.17.4",
+    "react-storefront": "file:.yalc/react-storefront",
     "react-storefront-amp": "^1.2.9",
     "react-storefront-analytics": "^1.1.2",
     "typeface-roboto": "0.0.75"
@@ -69,15 +69,15 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-imports": "^2.0.0",
     "dotenv": "^8.2.0",
-    "husky": "^4.0.0",
-    "lint-staged": "^10.0.9",
-    "prettier": "^1.19.1",
-    "webpack": "^4.0.0",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
-    "eslint-plugin-react-hooks": "^4.3.0"
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^4.0.0",
+    "lint-staged": "^10.0.9",
+    "prettier": "^1.19.1",
+    "webpack": "^4.0.0"
   },
   "lint-staged": {
     "*.js": [
