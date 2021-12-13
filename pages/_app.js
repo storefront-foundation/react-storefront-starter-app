@@ -17,6 +17,10 @@ import 'typeface-roboto'
 import Router from 'next/router'
 import '../components/rum'
 import PropTypes from 'prop-types'
+import createEmotionCache from '../components/createEmotionCache'
+import { CacheProvider } from '@emotion/react'
+
+const clientSideEmotionCache = createEmotionCache()
 
 installAmpOverrides()
 
@@ -31,7 +35,7 @@ const Main = styled('main')(() => ({
     paddingTop: 3,
   },
 }))
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache }) {
   useJssStyles()
   const [appData] = useAppStore(pageProps || {})
 
@@ -43,28 +47,31 @@ export default function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-    <ThemeProvider theme={theme}>
-      <PWA errorReporter={reportError}>
-        <AmpProvider>
-          <SessionProvider url="/api/session">
-            <Analytics>
-              <CssBaseline />
-              <Header menu={appData && appData.menu} />
-              <NavBar tabs={appData && appData.tabs} />
-              <Main className={classes.main}>
-                <Component {...pageProps} />
-              </Main>
-            </Analytics>
-          </SessionProvider>
-        </AmpProvider>
-      </PWA>
-    </ThemeProvider>
+    <CacheProvider value={emotionCache}>
+      <ThemeProvider theme={theme}>
+        <PWA errorReporter={reportError}>
+          <AmpProvider>
+            <SessionProvider url="/api/session">
+              <Analytics>
+                <CssBaseline />
+                <Header menu={appData && appData.menu} />
+                <NavBar tabs={appData && appData.tabs} />
+                <Main className={classes.main}>
+                  <Component {...pageProps} />
+                </Main>
+              </Analytics>
+            </SessionProvider>
+          </AmpProvider>
+        </PWA>
+      </ThemeProvider>
+    </CacheProvider>
   )
 }
 
 MyApp.propTypes = {
   Component: PropTypes.any,
   pageProps: PropTypes.object,
+  emotionCache: PropTypes.object,
 }
 
 MyApp.getInitialProps = async function({ Component, ctx }) {

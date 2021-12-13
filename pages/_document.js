@@ -1,10 +1,11 @@
 import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import { ServerStyleSheets } from '@mui/styles'
 import theme from '../components/theme'
 import renderAmp from 'react-storefront-amp/renderAmp'
 import minifyStyles from 'react-storefront/utils/minifyStyles'
 import { LazyStyles } from 'react-storefront/LazyHydrate'
+import createEmotionCache from '../components/createEmotionCache'
+import createEmotionServer from '@emotion/server/create-instance'
 
 class MyDocument extends Document {
   render() {
@@ -50,20 +51,33 @@ class MyDocument extends Document {
     // 4. page.render
 
     // Render app and page and get the context of the page with collected side effects.
-    const sheets = new ServerStyleSheets()
+    // const sheets = new ServerStyleSheets()
+
     const originalRenderPage = ctx.renderPage
+    const cache = createEmotionCache()
+    const { extractCriticalToChunks } = createEmotionServer(cache)
 
     ctx.res.setHeader('service-worker-allowed', '/')
 
     ctx.renderPage = async () => {
       const document = originalRenderPage({
-        enhanceApp: App => props => sheets.collect(<App {...props} />),
+        enhanceApp: App => props => <App emotionCache={cache} {...props} />,
       })
 
-      return isAmp ? await renderAmp(document, sheets, ctx.req.url) : document
+      return isAmp ? await renderAmp(document, /*sheets*/ null, ctx.req.url) : document
     }
 
     const initialProps = await Document.getInitialProps(ctx)
+
+    const emotionStyles = extractCriticalToChunks(initialProps.html)
+    const emotionStyleTags = emotionStyles.styles.map(style => (
+      <style
+        data-emotion={`${style.key} ${style.ids.join(' ')}`}
+        key={style.key}
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: style.css }}
+      />
+    ))
 
     function getStyles() {
       if (isAmp) {
@@ -78,12 +92,8 @@ class MyDocument extends Document {
           </>
         )
       } else {
-        return (
-          <>
-            {initialProps.styles}
-            <style dangerouslySetInnerHTML={{ __html: minifyStyles(sheets.toString()) }} />
-          </>
-        )
+        const result = [...React.Children.toArray(initialProps.styles), ...emotionStyleTags]
+        return minifyStyles(result)
       }
     }
 
