@@ -26,7 +26,7 @@ import QuantitySelector from 'react-storefront-amp/AmpQuantitySelector'
 import ProductOptionSelector from 'react-storefront-amp/option/AmpProductOptionSelector'
 import { TrackPageView } from 'react-storefront-analytics'
 import { useAmp } from 'next/amp'
-import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
+import fetchServerSideProps from 'react-storefront/props/fetchServerSideProps'
 import { fetchLatest, StaleResponseError } from 'react-storefront/utils'
 import qs from 'querystring'
 import getAPIURL from 'react-storefront/api/getAPIURL'
@@ -379,9 +379,7 @@ const Product = React.memo(lazyProps => {
   )
 })
 
-export async function getServerSideProps(opts) {
-  return fetchFromAPI(opts)
-}
+export const getServerSideProps = fetchServerSideProps
 
 export const config = { amp: 'hybrid' }
 export default Product

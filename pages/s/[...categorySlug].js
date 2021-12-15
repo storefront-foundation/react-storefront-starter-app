@@ -20,7 +20,7 @@ import SortButton from 'react-storefront-amp/plp/AmpSortButton'
 import DataBindingProvider from 'react-storefront-amp/bind/DataBindingProvider'
 import Fill from 'react-storefront/Fill'
 import { TrackPageView } from 'react-storefront-analytics'
-import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
+import fetchServerSideProps from 'react-storefront/props/fetchServerSideProps'
 import LandingCmsSlots from '../../components/LandingCmsSlots'
 
 const PREFIX = 'Subcategory'
@@ -231,9 +231,7 @@ const Subcategory = lazyProps => {
   )
 }
 
-export const getServerSideProps = opts => {
-  return fetchFromAPI(opts)
-}
+export const getServerSideProps = fetchServerSideProps
 
 export const config = { amp: 'hybrid' }
 export default Subcategory

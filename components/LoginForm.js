@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Container, TextField, Button } from '@material-ui/core'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import { Container, TextField, Button, CircularProgress } from '@mui/material'
 import SessionContext from 'react-storefront/session/SessionContext'
 import get from 'lodash/get'
 import PropTypes from 'prop-types'

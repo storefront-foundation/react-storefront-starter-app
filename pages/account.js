@@ -1,10 +1,8 @@
 import React from 'react'
-import { Container, Typography } from '@material-ui/core'
+import { Container, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import useLazyState from 'react-storefront/hooks/useLazyState'
 import Head from 'next/head'
-import createLazyProps from 'react-storefront/props/createLazyProps'
-import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
+import fetchServerSideProps from 'react-storefront/props/fetchServerSideProps'
 import get from 'lodash/get'
 import LoginForm from '../components/LoginForm'
 import { TrackPageView } from 'react-storefront-analytics'
@@ -32,15 +30,11 @@ const Root = styled('div')(({ theme }) => ({
 }))
 
 export default function Index(lazyProps) {
-  const [state] = useLazyState(lazyProps)
-
   return (
     <Root>
-      {state.loading ? null : (
-        <Head>
-          <title>{get(state, 'pageData.title')}</title>
-        </Head>
-      )}
+      <Head>
+        <title>{get(lazyProps, 'pageData.title')}</title>
+      </Head>
       <Container maxWidth="lg">
         <Typography variant="h4" className={classes.heading}>
           Account
@@ -54,6 +48,6 @@ export default function Index(lazyProps) {
   )
 }
 
-Index.getInitialProps = createLazyProps(fetchFromAPI)
+export const getServerSideProps = fetchServerSideProps
 
 export const config = { amp: 'hybrid' }
