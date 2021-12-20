@@ -27,7 +27,7 @@ import ProductOptionSelector from 'react-storefront-amp/option/AmpProductOptionS
 import { TrackPageView } from 'react-storefront-analytics'
 import { useAmp } from 'next/amp'
 import fetchServerSideProps from 'react-storefront/props/fetchServerSideProps'
-import { fetchLatest, StaleResponseError } from 'react-storefront/utils'
+import { fetchLatest, StaleResponseError } from 'react-storefront/utils/fetchLatest'
 import qs from 'querystring'
 import getAPIURL from 'react-storefront/api/getAPIURL'
 import LazyHydrate from 'react-storefront/LazyHydrate'
@@ -348,7 +348,7 @@ const Product = React.memo(lazyProps => {
                         color={color}
                         size={size}
                         quantity={quantity}
-                        price={product.priceText}
+                        price={product.price}
                       />
                     </Grid>
                   </Grid>
