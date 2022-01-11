@@ -1,10 +1,9 @@
 import Subcategory from './s/[...categorySlug]'
-import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
-import createLazyProps from 'react-storefront/props/createLazyProps'
+import fetchServerSideProps from 'react-storefront/props/fetchServerSideProps'
 
-Subcategory.getInitialProps = createLazyProps(opts => {
-  opts.asPath = `/search?${opts.asPath.split('?')[1]}`
-  return fetchFromAPI(opts)
-})
+export const getServerSideProps = opts => {
+  opts.resolvedUrl = `/search?${opts.resolvedUrl.split('?')[1]}`
+  return fetchServerSideProps(opts)
+}
 
 export default Subcategory

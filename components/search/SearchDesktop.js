@@ -4,15 +4,19 @@ import SearchField from 'react-storefront/search/SearchField'
 import SearchSuggestions from 'react-storefront/search/SearchSuggestions'
 import SearchProvider from 'react-storefront/search/SearchProvider'
 import SearchPopover from 'react-storefront/search/SearchPopover'
-import { makeStyles } from '@material-ui/styles'
+import { styled } from '@mui/material/styles'
 import LazyHydrate from 'react-storefront/LazyHydrate'
 
-const useStyles = makeStyles(theme => ({
-  root: {
+const PREFIX = 'SEARCH-DESKTOP'
+
+const classes = {
+  root: `${PREFIX}-root`,
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`&.${classes.root}`]: {
     display: 'none',
-  },
-  [theme.breakpoints.up('sm')]: {
-    root: {
+    [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
   },
@@ -23,7 +27,6 @@ function SearchDesktop() {
   const activeRef = useRef(false)
   const [query, setQuery] = useState('')
   const [popoverOpen, setPopoverOpen] = useState(false)
-  const classes = useStyles()
 
   useEffect(() => {
     if (!activeRef.current) {
@@ -32,7 +35,7 @@ function SearchDesktop() {
   }, [popoverOpen])
 
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       <LazyHydrate id="search-desktop" on="touch">
         <SearchForm>
           <SearchField
@@ -55,7 +58,7 @@ function SearchDesktop() {
           </SearchProvider>
         </SearchForm>
       </LazyHydrate>
-    </div>
+    </Root>
   )
 }
 

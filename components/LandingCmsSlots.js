@@ -1,9 +1,17 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { styled } from '@mui/material/styles'
 import CmsSlot from 'react-storefront/CmsSlot'
+import PropTypes from 'prop-types'
 
-const useStyles = makeStyles((/* theme */) => ({
-  cmsBlock: {
+const PREFIX = 'LandingCmsSlots'
+
+const classes = {
+  cmsBlock: `${PREFIX}-cmsBlock`,
+}
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((/* theme */) => ({
+  [`& .${classes.cmsBlock}`]: {
     '& img': {
       maxWidth: '100vw',
     },
@@ -110,17 +118,19 @@ const useStyles = makeStyles((/* theme */) => ({
 }))
 
 const LandingCmsSlots = ({ cmsBlocks }) => {
-  const classes = useStyles()
-
   return (
-    <>
+    <Root>
       {cmsBlocks.map(cmsBlock => (
         <CmsSlot key={cmsBlock.identifier} className={classes.cmsBlock}>
           {cmsBlock.content}
         </CmsSlot>
       ))}
-    </>
+    </Root>
   )
+}
+
+LandingCmsSlots.propTypes = {
+  cmsBlocks: PropTypes.array,
 }
 
 export default LandingCmsSlots

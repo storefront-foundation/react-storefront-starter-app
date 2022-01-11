@@ -1,21 +1,27 @@
 import React, { useState, useContext } from 'react'
-import { Container, TextField, Button } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import { Container, TextField, Button, CircularProgress } from '@mui/material'
 import SessionContext from 'react-storefront/session/SessionContext'
 import get from 'lodash/get'
+import PropTypes from 'prop-types'
+import { styled } from '@mui/material/styles'
 
-const useStyles = makeStyles(theme => ({
-  root: {
+const PREFIX = 'LOGIN-FORM'
+const classes = {
+  root: `${PREFIX}-root`,
+  spacingBlock: `${PREFIX}-spacingBlock`,
+  loader: `${PREFIX}-loader`,
+}
+
+const StyledContainer = styled(Container)(({ theme }) => ({
+  [`&.${classes.root}`]: {
     border: `1px solid ${theme.palette.divider}`,
     minHeight: 100,
     padding: 10,
-    position: 'relative',
   },
-  spacingBlock: {
+  [`& .${classes.spacingBlock}`]: {
     margin: 10,
   },
-  loader: {
+  [`& .${classes.loader}`]: {
     position: 'absolute',
     left: 0,
     right: 0,
@@ -30,7 +36,6 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Loader = React.memo(({ active }) => {
-  const classes = useStyles()
   if (!active) {
     return null
   }
@@ -41,9 +46,11 @@ const Loader = React.memo(({ active }) => {
   )
 })
 
-export default function LoginForm() {
-  const classes = useStyles()
+Loader.propTypes = {
+  active: PropTypes.bool,
+}
 
+export default function LoginForm() {
   const { actions, session } = useContext(SessionContext)
   const { signedIn } = session
 
@@ -101,95 +108,93 @@ export default function LoginForm() {
   }
 
   return (
-    <>
-      <Container className={classes.root}>
-        <Loader active={loading} />
-        {!signedIn ? (
-          <>
+    <StyledContainer className={classes.root}>
+      <Loader active={loading} />
+      {!signedIn ? (
+        <>
+          <div className={classes.spacingBlock}>
+            <h3>SIGN IN</h3>
+          </div>
+          <div className={classes.spacingBlock}>
+            <TextField
+              type="email"
+              value={signInEmail}
+              label="Email"
+              onChange={event => setSignInEmail(event.target.value)}
+            />
+          </div>
+          <div className={classes.spacingBlock}>
+            <TextField
+              type="password"
+              value={signInPassword}
+              label="Password"
+              onChange={event => setSignInPassword(event.target.value)}
+            />
+          </div>
+          <div className={classes.spacingBlock}>
+            <Button variant="outlined" onClick={signIn}>
+              Sign In
+            </Button>
+          </div>
+          {signInError && (
             <div className={classes.spacingBlock}>
-              <h3>SIGN IN</h3>
+              <b style={{ color: '#f00' }}>{signInError}</b>
             </div>
+          )}
+          <div className={classes.spacingBlock}>
+            <p>or</p>
+            <h3>SIGN UP</h3>
+          </div>
+          <div className={classes.spacingBlock}>
+            <TextField
+              value={signUpFirstName}
+              label="First Name"
+              onChange={event => setSignUpFirstName(event.target.value)}
+            />
+          </div>
+          <div className={classes.spacingBlock}>
+            <TextField
+              value={signUpLastName}
+              label="Last Name"
+              onChange={event => setSignUpLastName(event.target.value)}
+            />
+          </div>
+          <div className={classes.spacingBlock}>
+            <TextField
+              type="email"
+              value={signUpEmail}
+              label="Email"
+              onChange={event => setSignUpEmail(event.target.value)}
+            />
+          </div>
+          <div className={classes.spacingBlock}>
+            <TextField
+              type="password"
+              value={signUpPassword}
+              label="Password"
+              onChange={event => setSignUpPassword(event.target.value)}
+            />
+          </div>
+          <div className={classes.spacingBlock}>
+            <Button variant="outlined" onClick={signUp}>
+              Sign Up
+            </Button>
+          </div>
+          {signUpError && (
             <div className={classes.spacingBlock}>
-              <TextField
-                type="email"
-                value={signInEmail}
-                label="Email"
-                onChange={event => setSignInEmail(event.target.value)}
-              />
+              <b style={{ color: '#f00' }}>{signUpError}</b>
             </div>
-            <div className={classes.spacingBlock}>
-              <TextField
-                type="password"
-                value={signInPassword}
-                label="Password"
-                onChange={event => setSignInPassword(event.target.value)}
-              />
-            </div>
-            <div className={classes.spacingBlock}>
-              <Button variant="outlined" onClick={signIn}>
-                Sign In
-              </Button>
-            </div>
-            {signInError && (
-              <div className={classes.spacingBlock}>
-                <b style={{ color: '#f00' }}>{signInError}</b>
-              </div>
-            )}
-            <div className={classes.spacingBlock}>
-              <p>or</p>
-              <h3>SIGN UP</h3>
-            </div>
-            <div className={classes.spacingBlock}>
-              <TextField
-                value={signUpFirstName}
-                label="First Name"
-                onChange={event => setSignUpFirstName(event.target.value)}
-              />
-            </div>
-            <div className={classes.spacingBlock}>
-              <TextField
-                value={signUpLastName}
-                label="Last Name"
-                onChange={event => setSignUpLastName(event.target.value)}
-              />
-            </div>
-            <div className={classes.spacingBlock}>
-              <TextField
-                type="email"
-                value={signUpEmail}
-                label="Email"
-                onChange={event => setSignUpEmail(event.target.value)}
-              />
-            </div>
-            <div className={classes.spacingBlock}>
-              <TextField
-                type="password"
-                value={signUpPassword}
-                label="Password"
-                onChange={event => setSignUpPassword(event.target.value)}
-              />
-            </div>
-            <div className={classes.spacingBlock}>
-              <Button variant="outlined" onClick={signUp}>
-                Sign Up
-              </Button>
-            </div>
-            {signUpError && (
-              <div className={classes.spacingBlock}>
-                <b style={{ color: '#f00' }}>{signUpError}</b>
-              </div>
-            )}
-          </>
-        ) : (
-          <>
-            <div className={classes.spacingBlock}>
-              <Button variant="outlined" onClick={signOut}>
-                Sign Out
-              </Button>
-            </div>
-          </>
-        )}
-      </Container>
-    </>
+          )}
+        </>
+      ) : (
+        <>
+          <div className={classes.spacingBlock}>
+            <Button variant="outlined" onClick={signOut}>
+              Sign Out
+            </Button>
+          </div>
+        </>
+      )}
+    </StyledContainer>
   )
 }

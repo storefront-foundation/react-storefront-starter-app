@@ -1,16 +1,20 @@
 import React from 'react'
-import { Container, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import useLazyState from 'react-storefront/hooks/useLazyState'
+import { styled } from '@mui/material/styles'
+import { Container, Typography } from '@mui/material'
 import CmsSlot from 'react-storefront/CmsSlot'
-import LoadMask from 'react-storefront/LoadMask'
 import Head from 'next/head'
-import createLazyProps from 'react-storefront/props/createLazyProps'
-import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
+import fetchServerSideProps from 'react-storefront/props/fetchServerSideProps'
 import { TrackPageView } from 'react-storefront-analytics'
 
-const useStyles = makeStyles(theme => ({
-  main: {
+const PREFIX = 'index'
+
+const classes = {
+  main: `${PREFIX}-main`,
+}
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.main}`]: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
@@ -20,35 +24,23 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function Index(lazyProps) {
-  const classes = useStyles()
-  const [state] = useLazyState(lazyProps)
-
   return (
-    <>
-      {state.loading ? null : (
-        <Head>
-          <title>{state.pageData.title}</title>
-        </Head>
-      )}
+    <Root>
+      <Head>
+        <title>{lazyProps.pageData.title}</title>
+      </Head>
       <Container maxWidth="lg">
-        {state.loading ? (
-          <LoadMask fullscreen />
-        ) : (
-          <>
-            <TrackPageView />
-            <div className={classes.main}>
-              <Typography variant="h3" component="h1" gutterBottom color="primary">
-                {state.pageData.slots.heading}
-              </Typography>
-              <CmsSlot>{state.pageData.slots.description}</CmsSlot>
-            </div>
-          </>
-        )}
+        <TrackPageView />
+        <div className={classes.main}>
+          <Typography variant="h3" component="h1" gutterBottom color="primary">
+            {lazyProps.pageData.slots.heading}
+          </Typography>
+          <CmsSlot>{lazyProps.pageData.slots.description}</CmsSlot>
+        </div>
       </Container>
-    </>
+    </Root>
   )
 }
 
-Index.getInitialProps = createLazyProps(fetchFromAPI)
-
 export const config = { amp: 'hybrid' }
+export const getServerSideProps = fetchServerSideProps

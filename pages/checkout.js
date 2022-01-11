@@ -1,9 +1,14 @@
 import React from 'react'
-import { Container, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { styled } from '@mui/material/styles'
+import { Container, Typography } from '@mui/material'
+const PREFIX = 'checkout'
 
-const useStyles = makeStyles(theme => ({
-  main: {
+const classes = {
+  main: `${PREFIX}-main`,
+}
+
+const StyledContainer = styled(Container)(({ theme }) => ({
+  [`& .${classes.main}`]: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
@@ -13,15 +18,13 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function Checkout() {
-  const classes = useStyles()
-
   return (
-    <Container maxWidth="lg">
+    <StyledContainer maxWidth="lg">
       <div className={classes.main}>
         <Typography variant="h4" component="h1" gutterBottom color="primary">
           Coming soon!
         </Typography>
       </div>
-    </Container>
+    </StyledContainer>
   )
 }

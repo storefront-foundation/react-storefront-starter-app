@@ -1,17 +1,28 @@
 import React, { memo } from 'react'
+import { styled } from '@mui/material/styles'
 import NavTab from 'react-storefront/nav/NavTab'
 import NavTabs from 'react-storefront/nav/NavTabs'
 import Link from 'react-storefront/link/Link'
-import { Container, Paper } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Container, Paper } from '@mui/material'
+import { PropTypes } from 'prop-types'
+const PREFIX = 'NavBar'
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    [theme.breakpoints.down('xs')]: {
+const classes = {
+  root: `${PREFIX}-root`,
+  container: `${PREFIX}-container`,
+  link: `${PREFIX}-link`,
+}
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  [`& .${classes.container}`]: {
+    [theme.breakpoints.down('sm')]: {
       padding: 0,
     },
   },
-  link: {
+}))
+
+const StyledLink = styled('div')(({ theme }) => ({
+  [`& .${classes.link}`]: {
     display: 'block',
     marginTop: theme.spacing(2),
     '&:first-child': {
@@ -21,32 +32,40 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function NavBar({ tabs }) {
-  const classes = useStyles()
-
   return (
-    <Paper square elevation={2}>
+    <StyledPaper square elevation={2} className={classes.root}>
       <Container maxWidth="lg" className={classes.container}>
         <NavTabs>
           {tabs &&
-            tabs.map(tab => (
-              <NavTab key={tab.as} href={tab.href} as={tab.as} label={tab.text} prefetch="visible">
+            tabs.map((tab, i) => (
+              <NavTab
+                key={tab.as}
+                href={tab.href}
+                as={tab.as}
+                label={tab.text}
+                prefetch="visible"
+                tabIndex={i}
+              >
                 {tab.items && (
-                  <div style={{ padding: 20 }}>
+                  <StyledLink style={{ padding: 20 }}>
                     {tab.items.map(item => (
                       <Link href={item.href} key={item.as} as={item.as} className={classes.link}>
                         {item.text}
                       </Link>
                     ))}
-                  </div>
+                  </StyledLink>
                 )}
               </NavTab>
             ))}
         </NavTabs>
       </Container>
-    </Paper>
+    </StyledPaper>
   )
 }
 
+NavBar.propTypes = {
+  tabs: PropTypes.array,
+}
 NavBar.defaultProps = {
   tabs: [],
 }

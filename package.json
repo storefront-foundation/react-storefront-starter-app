@@ -19,7 +19,9 @@
     "layer0:link": "rm -rf node_modules/@layer0/core node_modules/@layer0/next && yalc add @layer0/next @layer0/core @layer0/cli @layer0/prefetch",
     "rsf:update": "npm i --save react-storefront@latest react-storefront-amp@latest react-storefront-analytics@latest",
     "layer0:update": "npm i --save @layer0/core@latest @layer0/next@latest @layer0/cli@latest @layer0/prefetch@latest",
-    "reinstall": "rm -rf node_modules && npm i --prefer-offline"
+    "reinstall": "rm -rf node_modules && npm i --prefer-offline",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "husky": {
     "hooks": {
@@ -27,25 +29,28 @@
     }
   },
   "dependencies": {
-    "@material-ui/core": "4.11.2",
-    "@material-ui/icons": "4.11.2",
-    "@material-ui/lab": "4.0.0-alpha.57",
-    "@material-ui/styles": "4.11.2",
+    "@emotion/react": "^11.7.0",
+    "@emotion/server": "^11.4.0",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.2.0",
+    "@mui/lab": "^5.0.0-alpha.58",
+    "@mui/material": "^5.2.2",
     "@svgr/webpack": "^4.3.3",
     "clsx": "^1.0.4",
     "cross-env": "^5.2.0",
+    "express": "^4.17.1",
     "isomorphic-unfetch": "^3.0.0",
     "lodash.debounce": "^4.0.8",
     "lorem-ipsum": "^2.0.3",
     "module-alias": "^2.2.1",
-    "next": "^10.0.3",
+    "next": "^12.0.7",
     "path-to-regexp": "^6.2.0",
     "preact": "^10.4.4",
     "preact-render-to-string": "^5.1.8",
     "preact-ssr-prepass": "^1.0.1",
     "qs": "^6.9.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-storefront": "^8.17.4",
     "react-storefront-amp": "^1.2.9",
     "react-storefront-analytics": "^1.1.2",
@@ -64,6 +69,11 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-imports": "^2.0.0",
     "dotenv": "^8.2.0",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "husky": "^4.0.0",
     "lint-staged": "^10.0.9",
     "prettier": "^1.19.1",
@@ -71,7 +81,8 @@
   },
   "lint-staged": {
     "*.js": [
-      "npm run prettier"
+      "npm run prettier",
+      "eslint"
     ]
   }
 }
