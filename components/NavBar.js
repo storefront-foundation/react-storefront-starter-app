@@ -8,6 +8,7 @@ import { PropTypes } from 'prop-types'
 const PREFIX = 'NavBar'
 
 const classes = {
+  root: `${PREFIX}-root`,
   container: `${PREFIX}-container`,
   link: `${PREFIX}-link`,
 }
@@ -18,7 +19,9 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
       padding: 0,
     },
   },
+}))
 
+const StyledLink = styled('div')(({ theme }) => ({
   [`& .${classes.link}`]: {
     display: 'block',
     marginTop: theme.spacing(2),
@@ -30,20 +33,27 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 
 function NavBar({ tabs }) {
   return (
-    <StyledPaper square elevation={2}>
+    <StyledPaper square elevation={2} className={classes.root}>
       <Container maxWidth="lg" className={classes.container}>
         <NavTabs>
           {tabs &&
-            tabs.map(tab => (
-              <NavTab key={tab.as} href={tab.href} as={tab.as} label={tab.text} prefetch="visible">
+            tabs.map((tab, i) => (
+              <NavTab
+                key={tab.as}
+                href={tab.href}
+                as={tab.as}
+                label={tab.text}
+                prefetch="visible"
+                tabIndex={i}
+              >
                 {tab.items && (
-                  <div style={{ padding: 20 }}>
+                  <StyledLink style={{ padding: 20 }}>
                     {tab.items.map(item => (
                       <Link href={item.href} key={item.as} as={item.as} className={classes.link}>
                         {item.text}
                       </Link>
                     ))}
-                  </div>
+                  </StyledLink>
                 )}
               </NavTab>
             ))}
