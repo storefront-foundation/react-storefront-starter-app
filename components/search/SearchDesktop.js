@@ -7,7 +7,7 @@ import SearchPopover from 'react-storefront/search/SearchPopover'
 import { makeStyles } from '@material-ui/styles'
 import LazyHydrate from 'react-storefront/LazyHydrate'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'none',
   },
@@ -37,19 +37,14 @@ function SearchDesktop() {
         <SearchForm>
           <SearchField
             ref={inputRef}
-            onChange={value => setQuery(value)}
+            onChange={(value) => setQuery(value)}
             value={query}
             onFocus={() => setPopoverOpen(true)}
             submitButtonVariant="none"
             showClearButton={false}
           />
           <SearchProvider query={query} active={activeRef.current}>
-            <SearchPopover
-              open={popoverOpen}
-              setQuery={setQuery}
-              anchor={inputRef}
-              onClose={() => setPopoverOpen(false)}
-            >
+            <SearchPopover open={popoverOpen} setQuery={setQuery} anchor={inputRef} onClose={() => setPopoverOpen(false)}>
               <SearchSuggestions />
             </SearchPopover>
           </SearchProvider>

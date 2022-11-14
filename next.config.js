@@ -1,10 +1,10 @@
 require('dotenv').config()
 const webpack = require('webpack')
 const withReactStorefront = require('react-storefront/plugins/withReactStorefront')
-const { PREFETCH_QUERY_PARAM } = require('@layer0/core/constants')
-const { withLayer0 } = require('@layer0/next/config')
+const { PREFETCH_QUERY_PARAM } = require('@edgio/core/constants')
+const { withEdgio } = require('@edgio/next/config')
 
-module.exports = withLayer0(
+module.exports = withEdgio(
   withReactStorefront({
     target: 'serverless',
     prefetchQueryParam: PREFETCH_QUERY_PARAM,

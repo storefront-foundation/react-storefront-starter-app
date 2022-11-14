@@ -15,7 +15,7 @@ import get from 'lodash/get'
 import useCartTotal from 'react-storefront/hooks/useCartTotal'
 import LoadMask from 'react-storefront/LoadMask'
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     paddingBottom: '64px',
   },
@@ -63,7 +63,7 @@ export default function Cart() {
     })
   }
 
-  const handleRemove = product => {
+  const handleRemove = (product) => {
     actions.removeCartItem({
       item: product,
     })
@@ -83,14 +83,7 @@ export default function Cart() {
           <Grid container spacing={4}>
             <Grid item xs={12} sm={8}>
               {items.length ? (
-                items.map((product, i) => (
-                  <CartItem
-                    key={product.id}
-                    updateQuantity={handleUpdateQuantity}
-                    remove={handleRemove}
-                    product={product}
-                  />
-                ))
+                items.map((product, i) => <CartItem key={product.id} updateQuantity={handleUpdateQuantity} remove={handleRemove} product={product} />)
               ) : (
                 <Typography variant="body1">There are no items in your cart.</Typography>
               )}
@@ -120,11 +113,7 @@ export default function Cart() {
                   </Hidden>
                   {items.length === 0 ? null : (
                     <Link href="/checkout">
-                      <Button
-                        color="primary"
-                        variant="contained"
-                        className={clsx(classes.checkoutButton, classes.docked)}
-                      >
+                      <Button color="primary" variant="contained" className={clsx(classes.checkoutButton, classes.docked)}>
                         Checkout
                       </Button>
                     </Link>

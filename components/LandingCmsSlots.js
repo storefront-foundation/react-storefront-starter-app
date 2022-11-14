@@ -114,7 +114,7 @@ const LandingCmsSlots = ({ cmsBlocks }) => {
 
   return (
     <>
-      {cmsBlocks.map(cmsBlock => (
+      {cmsBlocks.map((cmsBlock) => (
         <CmsSlot key={cmsBlock.identifier} className={classes.cmsBlock}>
           {cmsBlock.content}
         </CmsSlot>

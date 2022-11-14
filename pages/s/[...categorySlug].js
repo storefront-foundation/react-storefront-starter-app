@@ -23,7 +23,7 @@ import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import createLazyProps from 'react-storefront/props/createLazyProps'
 import LandingCmsSlots from '../../components/LandingCmsSlots'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   sideBar: {
     margin: theme.spacing(0, 4, 0, 0),
     width: 275,
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Subcategory = lazyProps => {
+const Subcategory = (lazyProps) => {
   const [store, updateStore] = useSearchResultsStore(lazyProps)
   const classes = useStyles()
   const theme = useTheme()
@@ -53,13 +53,7 @@ const Subcategory = lazyProps => {
         <Breadcrumbs items={!loading && pageData.breadcrumbs} />
         <Grid item xs={12}>
           {!loading ? (
-            <Typography
-              component="h1"
-              variant="h4"
-              gutterBottom
-              align="center"
-              className={classes.landingTitleSpacing}
-            >
+            <Typography component="h1" variant="h4" gutterBottom align="center" className={classes.landingTitleSpacing}>
               {pageData.name}
             </Typography>
           ) : (
@@ -74,7 +68,7 @@ const Subcategory = lazyProps => {
   // Here is an example of how you can customize the URL scheme for filtering and sorting - /s/1?color=red,blue=sort=pop
   // Note that if you change this, you also need to change pages/api/[...categorySlug].js to correctly handle the query parameters
   // you send it.
-  const queryForState = useCallback(state => {
+  const queryForState = useCallback((state) => {
     const { filters, page, sort } = state
     const query = {}
 
@@ -152,12 +146,7 @@ const Subcategory = lazyProps => {
               <Grid item xs={6}></Grid>
               <Grid item xs={12} style={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {loading ? (
-                  <Skeleton
-                    width={90}
-                    height={14}
-                    style={{ marginBottom: 4 }}
-                    className={classes.total}
-                  />
+                  <Skeleton width={90} height={14} style={{ marginBottom: 4 }} className={classes.total} />
                 ) : (
                   <Typography variant="caption" className={classes.total}>
                     <span>
@@ -179,10 +168,7 @@ const Subcategory = lazyProps => {
                       const tiles = []
                       for (let i = 0; i < 10; i++) {
                         tiles.push(
-                          <div
-                            key={i}
-                            style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2) }}
-                          >
+                          <div key={i} style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2) }}>
                             <Fill height="100%" style={{ marginBottom: theme.spacing(1) }}>
                               <Skeleton variant="rect" />
                             </Fill>

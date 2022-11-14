@@ -26,7 +26,7 @@ class MyDocument extends Document {
   }
 }
 
-MyDocument.getInitialProps = async ctx => {
+MyDocument.getInitialProps = async (ctx) => {
   const isAmp = ctx.req.url.includes('amp=1')
 
   // Resolution order
@@ -59,7 +59,7 @@ MyDocument.getInitialProps = async ctx => {
 
   ctx.renderPage = async () => {
     const document = originalRenderPage({
-      enhanceApp: App => props => sheets.collect(<App {...props} />),
+      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
     })
 
     return isAmp ? await renderAmp(document, sheets, ctx.req.url) : document
@@ -69,7 +69,7 @@ MyDocument.getInitialProps = async ctx => {
 
   function getStyles() {
     if (isAmp) {
-      const index = initialProps.head.findIndex(item => item.key === 'amp-custom')
+      const index = initialProps.head.findIndex((item) => item.key === 'amp-custom')
       const css = initialProps.head[index].props['amp-custom']
       // Remove unneeded style tag
       initialProps.head.splice(index, 1)

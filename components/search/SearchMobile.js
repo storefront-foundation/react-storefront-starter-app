@@ -9,7 +9,7 @@ import SearchProvider from 'react-storefront/search/SearchProvider'
 import LazyHydrate from 'react-storefront/LazyHydrate'
 import { makeStyles } from '@material-ui/styles'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   button: {
     display: 'none',
   },
@@ -38,7 +38,7 @@ function SearchMobile() {
         <SearchDrawer open={drawerOpen} onClose={closeDrawer}>
           <SearchForm>
             <SearchHeader>
-              <SearchField onChange={value => setQuery(value)} value={query} />
+              <SearchField onChange={(value) => setQuery(value)} value={query} />
             </SearchHeader>
             <SearchProvider query={query} active={drawerOpen}>
               <SearchSuggestions />

@@ -1,4 +1,4 @@
-name: Deploy branch to Layer0
+name: Deploy branch to Edgio
 
 on:
   push:
@@ -6,12 +6,12 @@ on:
     types: [published]
 
 jobs:
-  deploy-to-layer0:
+  deploy-to-edgio:
     # cancels the deployment for the automatic merge push created when tagging a release
     if: contains(github.ref, 'refs/tags') == false || github.event_name == 'release'
     runs-on: ubuntu-latest
     steps:
-      - name: Check for Layer0 deploy token secret
+      - name: Check for Edgio deploy token secret
         if: env.layer0_deploy_token == ''
         run: |
           echo You must define the "layer0_deploy_token" secret in GitHub project settings
@@ -38,7 +38,7 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - run: npm ci
-      - name: Deploy to Layer0
+      - name: Deploy to Edgio
         run: npm run deploy -- ${{'--branch=$BRANCH_NAME' || ''}} --token=$layer0_deploy_token ${{github.event_name == 'push' && env.BRANCH_NAME == 'master' && '--environment=staging' || ''}} ${{github.event_name == 'release' && '--environment=production' || ''}}
         env:
           layer0_deploy_token: ${{secrets.layer0_deploy_token}}

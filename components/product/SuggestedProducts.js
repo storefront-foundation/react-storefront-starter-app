@@ -15,7 +15,7 @@ import ProductItem from './ProductItem'
 import { Typography } from '@material-ui/core'
 import LoadMask from 'react-storefront/LoadMask'
 
-export const styles = theme => ({
+export const styles = (theme) => ({
   products: {
     minHeight: 250,
     position: 'relative',
@@ -46,8 +46,8 @@ export default function SuggestedProducts({ product }) {
   // Fetch suggested products when the product page is mounted
   useEffect(() => {
     fetch(`/api/p/${encodeURIComponent(product.id)}/suggestions`)
-      .then(res => res.json())
-      .then(result => setSuggestedProducts(result))
+      .then((res) => res.json())
+      .then((result) => setSuggestedProducts(result))
   }, [])
 
   return (
@@ -60,13 +60,7 @@ export default function SuggestedProducts({ product }) {
         <div className={classes.wrap}>
           {suggestedProducts &&
             suggestedProducts.map((product, i) => (
-              <ProductItem
-                product={product}
-                index={i}
-                key={i}
-                colorSelector={false}
-                className={classes.product}
-              />
+              <ProductItem product={product} index={i} key={i} colorSelector={false} className={classes.product} />
             ))}
         </div>
       </div>

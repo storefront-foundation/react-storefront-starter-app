@@ -9,7 +9,7 @@ import createLazyProps from 'react-storefront/props/createLazyProps'
 import fetchFromAPI from 'react-storefront/props/fetchFromAPI'
 import { TrackPageView } from 'react-storefront-analytics'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   main: {
     display: 'flex',
     alignItems: 'center',
