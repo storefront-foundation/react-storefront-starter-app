@@ -1,4 +1,4 @@
-import { Metrics } from '@layer0/rum'
+import { Metrics } from '@edgio/rum'
 
 if (typeof window !== 'undefined') {
   new Metrics().collect()

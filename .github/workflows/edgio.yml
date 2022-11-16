@@ -1,4 +1,4 @@
-name: Deploy to Layer0
+name: Deploy to Edgio
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - commercial
 
 jobs:
-  deploy-to-layer0:
+  deploy-to-edgio:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 14
       - run: npm ci
-      - run: npm run deploy -- --branch=commercial --token=$LAYER0_DEPLOY_TOKEN --environment=production
+      - run: npm run deploy -- --branch=commercial --token=$EDGIO_DEPLOY_TOKEN --environment=production
         env:
-          LAYER0_DEPLOY_TOKEN: ${{secrets.XDN_DEPLOY_TOKEN}}
+          EDGIO_DEPLOY_TOKEN: ${{secrets.XDN_DEPLOY_TOKEN}}
           FIREBASE_CONFIG: $${{secrets.FIREBASE_CONFIG}}
