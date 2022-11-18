@@ -17,7 +17,7 @@ module.exports = async function prerender() {
   if (existsSync(buildIdPath)) {
     // Derive the API requests from the HTML page URLs
     const buildId = readFileSync(buildIdPath, 'utf8')
-    const apiPaths = requests.map(req => ({
+    const apiPaths = requests.map((req) => ({
       path: `/api${req.path.replace(/\/$/, '')}?__v__=${buildId}`,
     }))
     requests.push(...apiPaths)

@@ -12,7 +12,7 @@ import SessionContext from 'react-storefront/session/SessionContext'
 import useCartTotal from 'react-storefront/hooks/useCartTotal'
 import LazyHydrate from 'react-storefront/LazyHydrate'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   title: {},
   logo: {
     position: 'absolute',
@@ -51,7 +51,7 @@ export default function Header({ menu }) {
   const [hydrateMenu, setHydrateMenu] = useState(false)
   const handleMenuClose = useCallback(() => setMenuOpen(false), [])
   const handleMenuButtonClick = useCallback(() => {
-    setMenuOpen(menuOpen => !menuOpen)
+    setMenuOpen((menuOpen) => !menuOpen)
     setHydrateMenu(true)
   }, [])
   const { session } = useContext(SessionContext)
@@ -80,15 +80,10 @@ export default function Header({ menu }) {
           // renderItem={item => <div>{item.text} (custom)</div>}
           // renderItemContent={item => <div>{item.text} (custom content)</div>}
           // renderBack={item => <div>{item.text} back</div>}
-          renderHeader={item => {
+          renderHeader={(item) => {
             if (!item.root) return null
             return (
-              <Link
-                as="/account"
-                href="/account"
-                onClick={() => setMenuOpen(false)}
-                className={classes.accountLink}
-              >
+              <Link as="/account" href="/account" onClick={() => setMenuOpen(false)} className={classes.accountLink}>
                 My Account
               </Link>
             )

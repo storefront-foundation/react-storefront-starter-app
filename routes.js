@@ -1,7 +1,8 @@
-const { Router } = require('@layer0/core/router')
-const { nextRoutes } = require('@layer0/next')
+const { nextRoutes } = require('@edgio/next')
+const { Router } = require('@edgio/core/router')
+
 const { API, SSR, cacheResponse } = require('./cache')
-const prerenderRequests = require('./layer0/prerenderRequests')
+const prerenderRequests = require('./edgio/prerenderRequests')
 
 module.exports = new Router()
   .prerender(prerenderRequests)

@@ -1,4 +1,4 @@
-const { CustomCacheKey } = require('@layer0/core/router')
+const { CustomCacheKey } = require('@edgio/core/router')
 
 /**
  * 24 hours
@@ -16,15 +16,7 @@ const FAR_FUTURE_TTL = 60 * 60 * 24 * 365 * 10
  * prevents cache fragmentation due to unexpected query parameters added in links
  * from 3rd parties.
  */
-const key = new CustomCacheKey().excludeAllQueryParametersExcept(
-  'q',
-  'sort',
-  'filters',
-  'color',
-  'size',
-  'amp',
-  'page'
-)
+const key = new CustomCacheKey().excludeAllQueryParametersExcept('q', 'sort', 'filters', 'color', 'size', 'amp', 'page')
 
 module.exports = {
   FAR_FUTURE_TTL,
@@ -76,8 +68,11 @@ module.exports = {
 
   /**
    * Creates a route handler that caches based on the specified config
-   * @param {Object} config A config for @layer0/core's cache function
+   * @param {Object} config A config for @edgio/core's cache function
    * @return {Function} a route handler
    */
-  cacheResponse: config => ({ cache }) => cache(config),
+  cacheResponse:
+    (config) =>
+    ({ cache }) =>
+      cache(config),
 }

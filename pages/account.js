@@ -9,7 +9,7 @@ import get from 'lodash/get'
 import LoginForm from '../components/LoginForm'
 import { TrackPageView } from 'react-storefront-analytics'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   main: {
     display: 'flex',
     alignItems: 'center',

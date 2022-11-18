@@ -5,7 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import SessionContext from 'react-storefront/session/SessionContext'
 import get from 'lodash/get'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     border: `1px solid ${theme.palette.divider}`,
     minHeight: 100,
@@ -110,20 +110,10 @@ export default function LoginForm() {
               <h3>SIGN IN</h3>
             </div>
             <div className={classes.spacingBlock}>
-              <TextField
-                type="email"
-                value={signInEmail}
-                label="Email"
-                onChange={event => setSignInEmail(event.target.value)}
-              />
+              <TextField type="email" value={signInEmail} label="Email" onChange={(event) => setSignInEmail(event.target.value)} />
             </div>
             <div className={classes.spacingBlock}>
-              <TextField
-                type="password"
-                value={signInPassword}
-                label="Password"
-                onChange={event => setSignInPassword(event.target.value)}
-              />
+              <TextField type="password" value={signInPassword} label="Password" onChange={(event) => setSignInPassword(event.target.value)} />
             </div>
             <div className={classes.spacingBlock}>
               <Button variant="outlined" onClick={signIn}>
@@ -140,34 +130,16 @@ export default function LoginForm() {
               <h3>SIGN UP</h3>
             </div>
             <div className={classes.spacingBlock}>
-              <TextField
-                value={signUpFirstName}
-                label="First Name"
-                onChange={event => setSignUpFirstName(event.target.value)}
-              />
+              <TextField value={signUpFirstName} label="First Name" onChange={(event) => setSignUpFirstName(event.target.value)} />
             </div>
             <div className={classes.spacingBlock}>
-              <TextField
-                value={signUpLastName}
-                label="Last Name"
-                onChange={event => setSignUpLastName(event.target.value)}
-              />
+              <TextField value={signUpLastName} label="Last Name" onChange={(event) => setSignUpLastName(event.target.value)} />
             </div>
             <div className={classes.spacingBlock}>
-              <TextField
-                type="email"
-                value={signUpEmail}
-                label="Email"
-                onChange={event => setSignUpEmail(event.target.value)}
-              />
+              <TextField type="email" value={signUpEmail} label="Email" onChange={(event) => setSignUpEmail(event.target.value)} />
             </div>
             <div className={classes.spacingBlock}>
-              <TextField
-                type="password"
-                value={signUpPassword}
-                label="Password"
-                onChange={event => setSignUpPassword(event.target.value)}
-              />
+              <TextField type="password" value={signUpPassword} label="Password" onChange={(event) => setSignUpPassword(event.target.value)} />
             </div>
             <div className={classes.spacingBlock}>
               <Button variant="outlined" onClick={signUp}>

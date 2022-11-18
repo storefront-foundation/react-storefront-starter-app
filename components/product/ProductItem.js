@@ -11,7 +11,7 @@ import clsx from 'clsx'
 import ProductOptionSelector from 'react-storefront-amp/option/AmpProductOptionSelector'
 import DataBindingProvider from 'react-storefront-amp/bind/DataBindingProvider'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: `${theme.spacing(2)}px 0`,
   },
@@ -46,13 +46,7 @@ function ProductItem({ product, index, classes, className, colorSelector }) {
         <Vbox alignItems="stretch">
           <ForwardThumbnail>
             <Track event={{ onClick: 'productClicked' }} product={product}>
-              <Link
-                as={product.url}
-                href="/p/[productId]"
-                className={classes.link}
-                prefetch="visible"
-                pageData={{ product, color: store.color }}
-              >
+              <Link as={product.url} href="/p/[productId]" className={classes.link} prefetch="visible" pageData={{ product, color: store.color }}>
                 <a>
                   <AmpImage
                     className={classes.thumbnail}

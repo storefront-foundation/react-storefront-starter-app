@@ -32,7 +32,7 @@ import createLazyProps from 'react-storefront/props/createLazyProps'
 import getAPIURL from 'react-storefront/api/getAPIURL'
 import LazyHydrate from 'react-storefront/LazyHydrate'
 
-const styles = theme => ({
+const styles = (theme) => ({
   carousel: {
     [theme.breakpoints.down('xs')]: {
       margin: theme.spacing(0, -2),
@@ -76,7 +76,7 @@ const styles = theme => ({
 
 const useStyles = makeStyles(styles)
 
-const Product = React.memo(lazyProps => {
+const Product = React.memo((lazyProps) => {
   const theme = useTheme()
   const [confirmationOpen, setConfirmationOpen] = useState(false)
   const [addToCartInProgress, setAddToCartInProgress] = useState(false)
@@ -98,7 +98,7 @@ const Product = React.memo(lazyProps => {
   const { thumbnail } = useContext(PWAContext)
 
   // Adds an item to the cart
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault() // prevent the page location from changing
     setAddToCartInProgress(true) // disable the add to cart button until the request is finished
     setErrorBoxMessage(null)
@@ -162,22 +162,13 @@ const Product = React.memo(lazyProps => {
     >
       {useAmp() && (
         <Head>
-          <script
-            async
-            custom-element="amp-form"
-            src="https://cdn.ampproject.org/v0/amp-form-0.1.js"
-          />
+          <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js" />
         </Head>
       )}
       {!loading && <TrackPageView />}
       <Breadcrumbs items={!loading && state.pageData.breadcrumbs} />
       <Container maxWidth="lg" style={{ paddingTop: theme.spacing(2) }}>
-        <form
-          encType="application/x-www-form-urlencoded"
-          onSubmit={handleSubmit}
-          method="post"
-          action-xhr="/api/cart/add"
-        >
+        <form encType="application/x-www-form-urlencoded" onSubmit={handleSubmit} method="post" action-xhr="/api/cart/add">
           <Grid container spacing={4}>
             <HiddenInput name="id" bind="product.id" />
             <HiddenInput name="sku" bind="product.sku" />
@@ -254,10 +245,7 @@ const Product = React.memo(lazyProps => {
                                 <Text bind="size.text" />
                               </Typography>
                             </Hbox>
-                            <ProductOptionSelector
-                              strikeThroughDisabled
-                              bind={{ value: 'size', options: 'product.sizes' }}
-                            />
+                            <ProductOptionSelector strikeThroughDisabled bind={{ value: 'size', options: 'product.sizes' }} />
                           </>
                         )}
                       </>

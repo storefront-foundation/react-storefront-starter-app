@@ -10,7 +10,7 @@ import Image from 'react-storefront/Image'
 import RemoveDialog from './RemoveDialog'
 import get from 'lodash/get'
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     flex: 1,
     padding: theme.spacing(2, 5, 2, 2),
@@ -61,10 +61,7 @@ export default function CartItem({ product, updateQuantity, remove }) {
             )}
             <Row>
               <Typography>Quantity:</Typography>
-              <QuantitySelector
-                value={product.quantity}
-                onChange={quantity => updateQuantity(product, quantity)}
-              />
+              <QuantitySelector value={product.quantity} onChange={(quantity) => updateQuantity(product, quantity)} />
             </Row>
           </div>
         </Hbox>
@@ -72,12 +69,7 @@ export default function CartItem({ product, updateQuantity, remove }) {
           <CloseIcon />
         </IconButton>
       </Paper>
-      <RemoveDialog
-        open={open}
-        setOpen={setOpen}
-        name={product.name}
-        action={() => remove(product)}
-      />
+      <RemoveDialog open={open} setOpen={setOpen} name={product.name} action={() => remove(product)} />
     </>
   )
 }

@@ -18,7 +18,7 @@ import '../components/rum'
 
 installAmpOverrides()
 
-const styles = theme => ({
+const styles = (theme) => ({
   main: {
     paddingTop: 3,
   },
@@ -33,7 +33,7 @@ export default function MyApp({ Component, pageProps }) {
 
   // Setting global clientDidNavigate which is used by RSF LazyHydrate
   useEffect(() => {
-    Router.events.on('routeChangeStart', url => {
+    Router.events.on('routeChangeStart', (url) => {
       window.clientDidNavigate = true
     })
   }, [])
@@ -58,7 +58,7 @@ export default function MyApp({ Component, pageProps }) {
   )
 }
 
-MyApp.getInitialProps = async function({ Component, ctx }) {
+MyApp.getInitialProps = async function ({ Component, ctx }) {
   let pageProps = {}
 
   if (Component.getInitialProps) {
