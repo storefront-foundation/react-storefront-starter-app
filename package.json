@@ -36,7 +36,7 @@
     "preact": "10.1.0",
     "preact-render-to-string": "^5.1.2",
     "preact-ssr-prepass": "^1.0.0",
-    "qs": "^6.9.0",
+    "qs": "^6.9.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-storefront": "^8.17.4",
