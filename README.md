@@ -6,7 +6,7 @@ Starter Next.js app for React Storefront 7+
 
 ```
 npm i
-npm run dev
+npm run start
 ```
 
 # Production
